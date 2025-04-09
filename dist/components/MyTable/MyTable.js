@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./MyTable.module.css";
-import { useTranslation } from "../../context/TranslationContext";
 export const MyTableIsNumeric = value => {
   if (value === null || value === undefined || value === "") return false;
   return !isNaN(value) && !isNaN(parseFloat(value));
@@ -31,9 +30,6 @@ function MyTable({
   onRowClick = null,
   onPageChange = null
 }) {
-  const {
-    t
-  } = useTranslation();
   const tableid = `key${Date.now() + Math.random().toString(36).substr(2, 9)}`;
   const [curEmptyText, setCurEmptyText] = useState(emptyText);
   const [curTotalCount, setCurTotalCount] = useState(data ? data.length : totalCount);
@@ -106,7 +102,8 @@ function MyTable({
   }, [data, searchTerm, sortConfig, currentPage, pageSize]);
   useEffect(() => {
     if (emptyText == "") {
-      setCurEmptyText(t("Henüz bir kayıt mevcut değil!"));
+      // setCurEmptyText(t("Henüz bir kayıt mevcut değil!"));
+      setCurEmptyText("No records found!");
     }
     return () => {};
   }, [tableid]);
@@ -271,8 +268,10 @@ function MyTable({
   }, searchable && /*#__PURE__*/React.createElement("div", {
     className: styles.searchContainer
   }, /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    placeholder: t("Ara"),
+    type: "text"
+    // placeholder={t("Ara")}
+    ,
+    placeholder: "Search",
     value: searchTerm,
     className: styles.searchInput,
     onChange: e => setSearchTerm(e.target.value)
@@ -303,7 +302,9 @@ function MyTable({
     className: styles.td
   }, searchTerm != "" && /*#__PURE__*/React.createElement("span", {
     dangerouslySetInnerHTML: {
-      __html: `${t("Aradığınız kriterlere uygun kayıt bulunamadı!")}<br/><b>(${searchTerm})</b>`
+      __html: `${
+      // t("Aradığınız kriterlere uygun kayıt bulunamadı!")
+      "No records found for the criteria you searched for!"}<br/><b>(${searchTerm})</b>`
     }
   }) || curEmptyText))))), totalPages > 0 && renderPagination());
 }

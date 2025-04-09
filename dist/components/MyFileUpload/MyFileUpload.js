@@ -3,11 +3,11 @@ import { PiCamera, PiFileArrowUpLight } from "react-icons/pi";
 import Resizer from "react-image-file-resizer";
 import Camera, { FACING_MODES, IMAGE_TYPES } from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
-import { useTranslation } from "../../context/TranslationContext";
 import MyWaiting from "../MyWaiting/MyWaiting";
 import { MyAlert, MyAlertType } from "../MyAlert/MyAlert";
 import styles from "./MyFileUpload.module.css";
 import MyModal from "../MyModal/MyModal";
+import { MdOutlineAttachFile } from "react-icons/md";
 export const AcceptType = {
   ALL: "all",
   FILE: "file",
@@ -25,9 +25,6 @@ export default function MyFileUpload({
   maxSizeMB = 50,
   onData
 }) {
-  const {
-    t
-  } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [accepttypes, setAccepttypes] = useState(AcceptType.ALL);
   const [acceptlabel, setAcceptlabel] = useState(AcceptType.ALL);
@@ -43,27 +40,27 @@ export default function MyFileUpload({
     switch (accept) {
       case AcceptType.ALL:
         setAccepttypes(type_files + "," + type_image + "," + type_media);
-        setAcceptlabel("PNG, JPG, PDF, RAR, ZIP, MP3, MP4, AVI, WAV veya Word-Excel Dosyaları");
+        setAcceptlabel("PNG, JPG, PDF, RAR, ZIP, MP3, MP4, AVI, WAV, Word-Excel");
         break;
       case AcceptType.IMAGE:
         setAccepttypes(type_image);
-        setAcceptlabel(t("PNG veya JPG Dosyaları"));
+        setAcceptlabel("PNG, JPG ");
         break;
       case AcceptType.MEDIA:
         setAccepttypes(type_media);
-        setAcceptlabel(t("MP3, MP4, AVI veya WAV Dosyaları"));
+        setAcceptlabel("MP3, MP4, AVI, WAV");
         break;
       case AcceptType.FILE:
         setAccepttypes(type_files + "," + type_image);
-        setAcceptlabel(t("PDF, RAR, ZIP, PNG, JPG veya Word-Excel Dosyaları"));
+        setAcceptlabel("PDF, RAR, ZIP, PNG, JPG, Word-Excel ");
         break;
       case AcceptType.PDF:
         setAccepttypes(".pdf");
-        setAcceptlabel(t("PDF Dosyaları"));
+        setAcceptlabel("PDF");
         break;
       case AcceptType.IMAGEPDF:
         setAccepttypes(type_image + ",.pdf");
-        setAcceptlabel(t("PNG, JPG veya PDF Dosyaları"));
+        setAcceptlabel("PNG, JPG, PDF");
         break;
     }
     navigator.mediaDevices.enumerateDevices().then(deviceInfos => {
@@ -79,7 +76,7 @@ export default function MyFileUpload({
       let message = _error.map((e, i) => {
         return i + 1 + ".) <b><i>" + e.filename + "</i></b><br/>---- " + e.message + "<br/>";
       });
-      MyAlert(t("Aşağıdaki dosyalar eklenemedi!") + "<br/><br/><div style='display: block;font-size:13px;width: 100%;text-align: left;'>" + message + "</div>", MyAlertType.WARNING);
+      MyAlert("<br/><br/><div style='display: block;font-size:13px;width: 100%;text-align: left;'>" + message + "</div>", MyAlertType.WARNING);
     }
     if (onData && (Array.isArray(resdata) && resdata.length > 0 || !Array.isArray(resdata) && resdata)) onData(resdata);
     setLoading(false);
@@ -99,12 +96,14 @@ export default function MyFileUpload({
         if (filesize > maxSizeMB) {
           _error.push({
             filename: file.name,
-            message: t("Boyutu Max. Dosya Boyutundan büyük olamaz!") + ` <b>${maxSizeMB}MB</b>`
+            // message: "Boyutu Max. Dosya Boyutundan büyük olamaz!" + ` <b>${maxSizeMB}MB</b>`,
+            message: "Size cannot be larger than Max. File Size!" + ` <b>${maxSizeMB}MB</b>`
           });
         } else {
           _error.push({
             filename: file.name,
-            message: t("Dosya türü desteklenmiyor!") + ` <b>${file_ext}</b>`
+            // message: t("Dosya türü desteklenmiyor!") + ` <b>${file_ext}</b>`,
+            message: "File type not supported!" + ` <b>${file_ext}</b>`
           });
         }
         if (files.length == i + 1 && response_files.length == 0) {
@@ -223,7 +222,7 @@ export default function MyFileUpload({
     className: styles.Icon
   }), /*#__PURE__*/React.createElement("h2", {
     className: styles.myFileUploadContainerItemIconText
-  }, acceptlabel, /*#__PURE__*/React.createElement("br", null), " ", t("En fazla"), " ", maxSizeMB, " MB")), /*#__PURE__*/React.createElement("div", {
+  }, acceptlabel, /*#__PURE__*/React.createElement("br", null), " ", maxSizeMB, " MB")), /*#__PURE__*/React.createElement("div", {
     className: styles.myFileUploadContainerItemFile
   }, /*#__PURE__*/React.createElement("input", {
     type: "file",
@@ -235,7 +234,7 @@ export default function MyFileUpload({
   }), /*#__PURE__*/React.createElement("div", {
     className: styles.myFileUploadButton,
     onClick: () => fileInputRef.current.click()
-  }, t("Dosya Seç")))), camera && /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(MdOutlineAttachFile, null)))), camera && /*#__PURE__*/React.createElement("div", {
     className: styles.myFileUploadContainerItem
   }, /*#__PURE__*/React.createElement("div", {
     className: styles.myFileUploadContainerItemIcon
@@ -243,13 +242,13 @@ export default function MyFileUpload({
     className: styles.Icon
   }), /*#__PURE__*/React.createElement("div", {
     className: styles.myFileUploadContainerItemIconText
-  }, /*#__PURE__*/React.createElement("span", null, t("Kameradan fotoğraf çekebilirsin.")))), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", null, "You can take a photo from the camera."))), /*#__PURE__*/React.createElement("div", {
     className: styles.myFileUploadContainerItemFile
   }, /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: styles.myFileUploadButton,
     onClick: () => setCameraopen(true)
-  }, t("Fotoğraf Çek")))))), /*#__PURE__*/React.createElement(MyModal, {
+  }, /*#__PURE__*/React.createElement(PiCamera, null)))))), /*#__PURE__*/React.createElement(MyModal, {
     show: cameraopen,
     onClose: () => setCameraopen(false),
     title: t("Fotoğraf Çek"),

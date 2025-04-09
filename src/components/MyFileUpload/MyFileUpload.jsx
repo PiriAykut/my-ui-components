@@ -3,11 +3,11 @@ import { PiCamera, PiFileArrowUpLight } from "react-icons/pi";
 import Resizer from "react-image-file-resizer";
 import Camera, { FACING_MODES, IMAGE_TYPES } from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
-import { useTranslation } from "../../context/TranslationContext";
 import MyWaiting from "../MyWaiting/MyWaiting";
 import { MyAlert, MyAlertType } from "../MyAlert/MyAlert";
 import styles from "./MyFileUpload.module.css"
 import MyModal from "../MyModal/MyModal";
+import { MdOutlineAttachFile } from "react-icons/md";
 
 export const AcceptType = {
     ALL: "all",
@@ -28,7 +28,6 @@ export default function MyFileUpload({
     maxSizeMB = 50,
     onData,
 }) {
-    const { t } = useTranslation();
 
     const [loading, setLoading] = useState(false);
     const [accepttypes, setAccepttypes] = useState(AcceptType.ALL);
@@ -50,31 +49,28 @@ export default function MyFileUpload({
                 setAccepttypes(
                     type_files + "," + type_image + "," + type_media
                 );
-                setAcceptlabel(
-                    "PNG, JPG, PDF, RAR, ZIP, MP3, MP4, AVI, WAV veya Word-Excel Dosyaları"
-                );
+                setAcceptlabel("PNG, JPG, PDF, RAR, ZIP, MP3, MP4, AVI, WAV, Word-Excel");
                 break;
             case AcceptType.IMAGE:
                 setAccepttypes(type_image);
-                setAcceptlabel(t("PNG veya JPG Dosyaları"));
+                setAcceptlabel("PNG, JPG ");
                 break;
             case AcceptType.MEDIA:
                 setAccepttypes(type_media);
-                setAcceptlabel(t("MP3, MP4, AVI veya WAV Dosyaları"));
+                setAcceptlabel("MP3, MP4, AVI, WAV");
                 break;
             case AcceptType.FILE:
                 setAccepttypes(type_files + "," + type_image);
-                setAcceptlabel(
-                    t("PDF, RAR, ZIP, PNG, JPG veya Word-Excel Dosyaları")
+                setAcceptlabel("PDF, RAR, ZIP, PNG, JPG, Word-Excel "
                 );
                 break;
             case AcceptType.PDF:
                 setAccepttypes(".pdf");
-                setAcceptlabel(t("PDF Dosyaları"));
+                setAcceptlabel("PDF");
                 break;
             case AcceptType.IMAGEPDF:
                 setAccepttypes(type_image + ",.pdf");
-                setAcceptlabel(t("PNG, JPG veya PDF Dosyaları"));
+                setAcceptlabel("PNG, JPG, PDF");
                 break;
         }
 
@@ -104,7 +100,6 @@ export default function MyFileUpload({
             });
 
             MyAlert(
-                t("Aşağıdaki dosyalar eklenemedi!") +
                 "<br/><br/><div style='display: block;font-size:13px;width: 100%;text-align: left;'>" +
                 message +
                 "</div>",
@@ -140,12 +135,14 @@ export default function MyFileUpload({
                 if (filesize > maxSizeMB) {
                     _error.push({
                         filename: file.name,
-                        message: t("Boyutu Max. Dosya Boyutundan büyük olamaz!") + ` <b>${maxSizeMB}MB</b>`,
+                        // message: "Boyutu Max. Dosya Boyutundan büyük olamaz!" + ` <b>${maxSizeMB}MB</b>`,
+                        message: "Size cannot be larger than Max. File Size!" + ` <b>${maxSizeMB}MB</b>`,
                     });
                 } else {
                     _error.push({
                         filename: file.name,
-                        message: t("Dosya türü desteklenmiyor!") + ` <b>${file_ext}</b>`,
+                        // message: t("Dosya türü desteklenmiyor!") + ` <b>${file_ext}</b>`,
+                        message: "File type not supported!" + ` <b>${file_ext}</b>`,
                     });
                 }
 
@@ -294,7 +291,7 @@ export default function MyFileUpload({
                             <PiFileArrowUpLight className={styles.Icon} />
                             <h2 className={styles.myFileUploadContainerItemIconText}>
                                 {acceptlabel}
-                                <br /> {t("En fazla")} {maxSizeMB} MB
+                                <br /> {maxSizeMB} MB
                             </h2>
                         </div>
                         <div className={styles.myFileUploadContainerItemFile}>
@@ -310,7 +307,7 @@ export default function MyFileUpload({
                                 className={styles.myFileUploadButton}
                                 onClick={() => fileInputRef.current.click()}
                             >
-                                {t("Dosya Seç")}
+                                <MdOutlineAttachFile />
                             </div>
                         </div>
                     </div>
@@ -320,7 +317,8 @@ export default function MyFileUpload({
                                 <PiCamera className={styles.Icon} />
                                 <div className={styles.myFileUploadContainerItemIconText}>
                                     <span>
-                                        {t("Kameradan fotoğraf çekebilirsin.")}
+                                        {/* {t("Kameradan fotoğraf çekebilirsin.")} */}
+                                        You can take a photo from the camera.
                                     </span>
                                 </div>
                             </div>
@@ -330,7 +328,7 @@ export default function MyFileUpload({
                                     className={styles.myFileUploadButton}
                                     onClick={() => setCameraopen(true)}
                                 >
-                                    {t("Fotoğraf Çek")}
+                                    <PiCamera />
                                 </button>
                             </div>
                         </div>

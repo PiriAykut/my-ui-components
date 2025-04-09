@@ -1,8 +1,8 @@
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./MyInput.module.css";
-import { PiCaretDownBold, PiEye, PiEyeSlash } from "react-icons/pi";
-import { useTranslation } from "../../context/TranslationContext";
+import { PiCaretDownBold, PiEye, PiEyeSlash, PiImage } from "react-icons/pi";
+import { MdOutlineAttachFile } from "react-icons/md";
 export const MyInputType = Object.freeze({
   TEXT: 'text',
   PASSWORD: 'password',
@@ -66,9 +66,6 @@ function MyInput({
   onMouseLeave = null,
   onRemoveImage = null
 }) {
-  const {
-    t
-  } = useTranslation();
   const myInputId = `key${Date.now() + Math.random().toString(36).substr(2, 9)}`;
   const fileInputRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
@@ -625,7 +622,7 @@ function MyInput({
         style: style,
         value: filtertext,
         onChange: e => setFiltertext(e.target.value),
-        placeholder: placeholdersearchtext && placeholdersearchtext != "" ? placeholdersearchtext : (placeholder ? placeholder : myTitleLite) + " " + t("Ara"),
+        placeholder: placeholdersearchtext && placeholdersearchtext != "" ? placeholdersearchtext : (placeholder ? placeholder : myTitleLite) + " ...",
         onBlur: onMyBlur,
         onFocus: onMyFocus,
         onKeyDown: onMyKeyDown,
@@ -720,7 +717,7 @@ function MyInput({
         type: "button",
         onClick: () => fileInputRef.current.click(),
         className: styles.filebutton
-      }, type === MyInputType.IMAGE ? t("Görsel Seç") : t("Dosya Seç")), /*#__PURE__*/React.createElement("input", _extends({
+      }, type === MyInputType.IMAGE ? /*#__PURE__*/React.createElement(PiImage, null) : /*#__PURE__*/React.createElement(MdOutlineAttachFile, null)), /*#__PURE__*/React.createElement("input", _extends({
         type: "file",
         ref: fileInputRef,
         onChange: e => onMyChange(e),

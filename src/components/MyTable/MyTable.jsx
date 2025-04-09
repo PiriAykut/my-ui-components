@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./MyTable.module.css";
-import { useTranslation } from "../../context/TranslationContext";
 
 export const MyTableIsNumeric = (value) => {
     if (value === null || value === undefined || value === "") return false;
@@ -36,7 +35,6 @@ function MyTable({
     onRowClick = null,
     onPageChange = null,
 }) {
-    const { t } = useTranslation();
 
     const tableid = `key${Date.now() + Math.random().toString(36).substr(2, 9)}`;
 
@@ -135,7 +133,8 @@ function MyTable({
 
     useEffect(() => {
         if (emptyText == "") {
-            setCurEmptyText(t("Henüz bir kayıt mevcut değil!"));
+            // setCurEmptyText(t("Henüz bir kayıt mevcut değil!"));
+            setCurEmptyText("No records found!");
         }
 
         return () => { };
@@ -359,7 +358,8 @@ function MyTable({
                 <div className={styles.searchContainer}>
                     <input
                         type="text"
-                        placeholder={t("Ara")}
+                        // placeholder={t("Ara")}
+                        placeholder="Search"
                         value={searchTerm}
                         className={styles.searchInput}
                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -436,9 +436,10 @@ function MyTable({
                                         {(searchTerm != "" && (
                                             <span
                                                 dangerouslySetInnerHTML={{
-                                                    __html: `${t(
-                                                        "Aradığınız kriterlere uygun kayıt bulunamadı!"
-                                                    )}<br/><b>(${searchTerm})</b>`,
+                                                    __html: `${
+                                                    // t("Aradığınız kriterlere uygun kayıt bulunamadı!")
+                                                    "No records found for the criteria you searched for!"
+                                                    }<br/><b>(${searchTerm})</b>`,
                                                 }}
                                             ></span>
                                         )) ||

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./MyInput.module.css"
-import { PiCaretDownBold, PiEye, PiEyeSlash } from "react-icons/pi";
-import { useTranslation } from "../../context/TranslationContext";
+import { PiCaretDownBold, PiEye, PiEyeSlash, PiImage } from "react-icons/pi";
+import { MdOutlineAttachFile } from "react-icons/md";
 
 export const MyInputType = Object.freeze({
     TEXT: 'text',
@@ -72,7 +72,6 @@ function MyInput({
     onMouseLeave = null,
     onRemoveImage = null
 }) {
-    const { t } = useTranslation();
 
     const myInputId = `key${Date.now() + Math.random().toString(36).substr(2, 9)}`;
 
@@ -746,7 +745,7 @@ function MyInput({
                         style={style}
                         value={filtertext}
                         onChange={(e) => setFiltertext(e.target.value)}
-                        placeholder={placeholdersearchtext && placeholdersearchtext != "" ? placeholdersearchtext : (placeholder ? placeholder : myTitleLite) + " " + t("Ara")}
+                        placeholder={placeholdersearchtext && placeholdersearchtext != "" ? placeholdersearchtext : (placeholder ? placeholder : myTitleLite) + " ..."}
                         onBlur={onMyBlur}
                         onFocus={onMyFocus}
                         onKeyDown={onMyKeyDown}
@@ -841,7 +840,7 @@ function MyInput({
                         onClick={() => fileInputRef.current.click()}
                         className={styles.filebutton}
                     >
-                        {type === MyInputType.IMAGE ? t("Görsel Seç") : t("Dosya Seç")}
+                        {type === MyInputType.IMAGE ? <PiImage /> : <MdOutlineAttachFile />}
                     </button>
 
                     <input
