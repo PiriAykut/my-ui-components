@@ -9,10 +9,10 @@ var _reactConfirmAlert = require("react-confirm-alert");
 require("react-confirm-alert/src/react-confirm-alert.css");
 require("./MyAlert.css");
 var _jsxRuntime = require("react/jsx-runtime");
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 // import Swal from "sweetalert2";
 
-var MyAlertType = exports.MyAlertType = {
+const MyAlertType = exports.MyAlertType = {
   WARNING: 'warning',
   ERROR: 'error',
   SUCCESS: 'success',
@@ -21,20 +21,15 @@ var MyAlertType = exports.MyAlertType = {
 };
 Object.freeze(MyAlertType); // Enum sabitlerini değiştirmeyi engeller
 
-var MyAlert = exports.MyAlert = function MyAlert(message) {
-  var _message$props;
-  var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : MyAlertType.INFO;
-  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
-    _ref$title = _ref.title,
-    title = _ref$title === void 0 ? '' : _ref$title,
-    _ref$buttontext = _ref.buttontext,
-    buttontext = _ref$buttontext === void 0 ? {
-      confirm: 'Tamam',
-      cancel: 'İptal'
-    } : _ref$buttontext,
-    _ref$callback = _ref.callback,
-    callback = _ref$callback === void 0 ? null : _ref$callback;
-  var _showCancelButton = false;
+const MyAlert = (message, type = MyAlertType.INFO, {
+  title = '',
+  buttontext = {
+    confirm: 'Tamam',
+    cancel: 'İptal'
+  },
+  callback = null
+} = {}) => {
+  let _showCancelButton = false;
   switch (type) {
     case MyAlertType.WARNING:
       title = title ? title : 'Uyarı';
@@ -57,9 +52,9 @@ var MyAlert = exports.MyAlert = function MyAlert(message) {
       }
       break;
   }
-  var _buttons = [{
+  let _buttons = [{
     label: buttontext.confirm,
-    onClick: function onClick() {
+    onClick: () => {
       if (callback) callback({
         isConfirmed: true,
         isDenied: false
@@ -69,7 +64,7 @@ var MyAlert = exports.MyAlert = function MyAlert(message) {
   if (_showCancelButton) {
     _buttons.push({
       label: buttontext.cancel,
-      onClick: function onClick() {
+      onClick: () => {
         if (callback) callback({
           isConfirmed: false,
           isDenied: true
@@ -81,17 +76,17 @@ var MyAlert = exports.MyAlert = function MyAlert(message) {
     title: title,
     message: /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
       dangerouslySetInnerHTML: {
-        __html: typeof message === 'string' ? message : ((_message$props = message.props) === null || _message$props === void 0 ? void 0 : _message$props.children) || message.toString()
+        __html: typeof message === 'string' ? message : message.props?.children || message.toString()
       }
     }),
     buttons: _buttons,
-    onClickOutside: function onClickOutside() {
+    onClickOutside: () => {
       if (callback) callback({
         isConfirmed: false,
         isDenied: true
       });
     },
-    onKeypressEscape: function onKeypressEscape() {
+    onKeypressEscape: () => {
       if (callback) callback({
         isConfirmed: false,
         isDenied: true
@@ -119,3 +114,4 @@ var MyAlert = exports.MyAlert = function MyAlert(message) {
   //   // }
   // });
 };
+exports.MyAlert = MyAlert;

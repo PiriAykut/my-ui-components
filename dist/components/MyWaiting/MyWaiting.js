@@ -3,18 +3,17 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = MyWaiting;
+exports.default = MyWaiting;
 var _react = _interopRequireDefault(require("react"));
 var _reactLoaderSpinner = require("react-loader-spinner");
 require("./MyWaiting.css");
 var _jsxRuntime = require("react/jsx-runtime");
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 // Modal için CSS dosyası
-function MyWaiting(_ref) {
-  var _ref$show = _ref.show,
-    show = _ref$show === void 0 ? false : _ref$show,
-    _ref$message = _ref.message,
-    message = _ref$message === void 0 ? null : _ref$message;
+function MyWaiting({
+  show = false,
+  message = null
+}) {
   if (!show) {
     return null;
   }
