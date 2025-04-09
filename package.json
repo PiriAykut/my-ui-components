@@ -2,6 +2,18 @@
   "name": "px-react-ui-components",
   "version": "1.0.1",
   "main": "dist/index.js",
+  "module": "dist/index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "babel src --out-dir dist --copy-files"
   },
