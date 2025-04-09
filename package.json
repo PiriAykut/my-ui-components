@@ -8,11 +8,12 @@
     ".": "./dist/index.js"
   },
   "files": [
-    "dist",
+     "dist",
+     "dist/components",
     "README.md"
   ],
   "scripts": {
-    "build": "babel src --out-dir dist --copy-files --extensions \".js,.jsx\"",
+    "build": "babel src --out-dir dist --copy-files",
     "prepare": "npm run build"
   },
   "keywords": [
