@@ -1,18 +1,18 @@
-export { default as MyInput } from './components/MyInput';
-export { default as MyAlert } from './components/MyAlert';
-export { default as MyContainer } from './components/MyContainer';
-export { default as MyEditor } from './components/MyEditor';
-export { default as MyFileUpload } from './components/MyFileUpload';
-export { default as MyImageCropper } from './components/MyImageCropper';
-export { default as MyMaps } from './components/MyMaps';
-export { default as MyMenu } from './components/MyMenu';
-export { default as MyModal } from './components/MyModal';
-export { default as MyNotFound } from './components/MyNotFound';
-export { default as MyScrollableCard } from './components/MyScrollableCard';
-export { default as MyTable } from './components/MyTable';
-export { default as MyTabs } from './components/MyTabs';
-export { default as MyWaiting } from './components/MyWaiting';
-export { default as MyZoomImage } from './components/MyZoomImage';
+export { default as MyInput } from './components/MyInput/MyInput';
+export { default as MyAlert } from './components/MyAlert/MyAlert';
+export { default as MyContainer } from './components/MyContainer/MyContainer';
+export { default as MyEditor } from './components/MyEditor/MyEditor';
+export { default as MyFileUpload } from './components/MyFileUpload/MyFileUpload';
+export { default as MyImageCropper } from './components/MyImageCropper/MyImageCropper';
+export { default as MyMaps } from './components/MyMaps/YandexMaps';
+export { default as MyMenu } from './components/MyMenu/MenuItem';
+export { default as MyModal } from './components/MyModal/MyModal';
+export { default as MyNotFound } from './components/MyNotFound/MyNotFound';
+export { default as MyScrollableCard } from './components/MyScrollableCard/MyScrollableCard';
+export { default as MyTable } from './components/MyTable/MyTable';
+export { default as MyTabs } from './components/MyTabs/MyTabs';
+export { default as MyWaiting } from './components/MyWaiting/MyWaiting';
+export { default as MyZoomImage } from './components/MyZoomImage/MyZoomImage';
 
 // Export types
 export const MyInputType = {

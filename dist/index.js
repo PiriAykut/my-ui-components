@@ -43,13 +43,13 @@ exports.MyInputType = void 0;
 Object.defineProperty(exports, "MyMaps", {
   enumerable: true,
   get: function () {
-    return _MyMaps.default;
+    return _YandexMaps.default;
   }
 });
 Object.defineProperty(exports, "MyMenu", {
   enumerable: true,
   get: function () {
-    return _MyMenu.default;
+    return _MenuItem.default;
   }
 });
 Object.defineProperty(exports, "MyModal", {
@@ -94,21 +94,21 @@ Object.defineProperty(exports, "MyZoomImage", {
     return _MyZoomImage.default;
   }
 });
-var _MyInput = _interopRequireDefault(require("./components/MyInput"));
-var _MyAlert = _interopRequireDefault(require("./components/MyAlert"));
-var _MyContainer = _interopRequireDefault(require("./components/MyContainer"));
-var _MyEditor = _interopRequireDefault(require("./components/MyEditor"));
-var _MyFileUpload = _interopRequireDefault(require("./components/MyFileUpload"));
-var _MyImageCropper = _interopRequireDefault(require("./components/MyImageCropper"));
-var _MyMaps = _interopRequireDefault(require("./components/MyMaps"));
-var _MyMenu = _interopRequireDefault(require("./components/MyMenu"));
-var _MyModal = _interopRequireDefault(require("./components/MyModal"));
-var _MyNotFound = _interopRequireDefault(require("./components/MyNotFound"));
-var _MyScrollableCard = _interopRequireDefault(require("./components/MyScrollableCard"));
-var _MyTable = _interopRequireDefault(require("./components/MyTable"));
-var _MyTabs = _interopRequireDefault(require("./components/MyTabs"));
-var _MyWaiting = _interopRequireDefault(require("./components/MyWaiting"));
-var _MyZoomImage = _interopRequireDefault(require("./components/MyZoomImage"));
+var _MyInput = _interopRequireDefault(require("./components/MyInput/MyInput"));
+var _MyAlert = _interopRequireDefault(require("./components/MyAlert/MyAlert"));
+var _MyContainer = _interopRequireDefault(require("./components/MyContainer/MyContainer"));
+var _MyEditor = _interopRequireDefault(require("./components/MyEditor/MyEditor"));
+var _MyFileUpload = _interopRequireDefault(require("./components/MyFileUpload/MyFileUpload"));
+var _MyImageCropper = _interopRequireDefault(require("./components/MyImageCropper/MyImageCropper"));
+var _YandexMaps = _interopRequireDefault(require("./components/MyMaps/YandexMaps"));
+var _MenuItem = _interopRequireDefault(require("./components/MyMenu/MenuItem"));
+var _MyModal = _interopRequireDefault(require("./components/MyModal/MyModal"));
+var _MyNotFound = _interopRequireDefault(require("./components/MyNotFound/MyNotFound"));
+var _MyScrollableCard = _interopRequireDefault(require("./components/MyScrollableCard/MyScrollableCard"));
+var _MyTable = _interopRequireDefault(require("./components/MyTable/MyTable"));
+var _MyTabs = _interopRequireDefault(require("./components/MyTabs/MyTabs"));
+var _MyWaiting = _interopRequireDefault(require("./components/MyWaiting/MyWaiting"));
+var _MyZoomImage = _interopRequireDefault(require("./components/MyZoomImage/MyZoomImage"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 // Export types
 const MyInputType = exports.MyInputType = {
