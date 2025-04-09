@@ -47,6 +47,18 @@ This library requires the following peer dependencies to be installed in your pr
 
 The library includes the following components:
 
+- `MyAlert` :
+- `MyEditor` :
+- `MyFileUpload` :
+- `MyImageCropper` :
+- `MyMaps` :
+- `MyMenu` :
+- `MyModal` :
+- `MyNotFound` :
+- `MyScrollableCard` :
+- `MyTable` :
+- `MyWaiting` :
+- `MyZoomImage` :
 - `MyInput`: A versatile input component supporting multiple types:
   - TEXT
   - PASSWORD
