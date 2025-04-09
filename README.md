@@ -17,7 +17,7 @@ A modern, customizable React UI components library designed to simplify web deve
 
 ```bash
 # Install the main package
-npm install my-react-ui-components
+npm install px-react-ui-components
 
 # Install required peer dependencies
 npm install react@^18.3.1 react-dom@^18.3.1 katex@^0.16.21 quill@^2.0.3 quill-image-resize-module-react@^3.0.0 quill-table-ui@^1.0.7 react-confirm-alert@^3.0.6 react-icons@^5.5.0 react-image-crop@^11.0.7 react-loader-spinner@^6.1.6 react-zoom-pan-pinch@^3.7.0
@@ -85,7 +85,7 @@ The library includes the following components:
 Import components as needed:
 
 ```jsx
-import { MyInput, MyContainer, MyTabs, MyTabPane, MyInputType } from 'my-react-ui-components';
+import { MyInput, MyContainer, MyTabs, MyTabPane, MyInputType } from 'px-react-ui-components';
 
 // Example usage
 function App() {
