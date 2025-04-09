@@ -1,0 +1,420 @@
+.container {
+    display: block;
+    /* width: 100%; */
+    width: auto;
+    font-size: 15px;
+}
+
+.container small {
+    padding-left: 5px;
+    font-size: 11px;
+}
+
+.inputblock {
+    display: block;
+    position: relative;
+    /* width: 100%; */
+    width: auto;
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    padding-right: 8px;
+    padding-left: 15px;
+    border-radius: 8px;
+}
+
+.inputblockdisabled{
+    background-color: #f8fafd;
+    border-color: #e5e7eb;
+}
+
+.disabledInput {
+    width: 100%;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    overflow: auto;
+    scrollbar-width: thin;
+}
+
+.caretdown {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+}
+
+.fileinput,
+.css13cymwtControl,
+.inputblock select,
+.inputblock textarea,
+.inputblock input {
+    display: block;
+    width: 100%;
+    min-height: 41px;
+    background: rgba(243, 242, 247, 0.1);
+    border: none;
+    padding: 10px 0px;
+    color: #0a0b0f;
+    font-weight: normal;
+    font-size: 14px;
+    outline: none;
+    z-index: 9;
+}
+
+.inputblock:focus-within {
+    background-color: #ecf8ff;
+}
+
+.inputblock select {
+    padding: 10px 0px 11px 0;
+}
+
+.fileinput::placeholder,
+.css13cymwtControl::placeholder,
+.inputblock select::placeholder,
+.inputblock textarea::placeholder,
+.inputblock input::placeholder {
+    color: #73889d;
+    opacity: 0.8;
+}
+
+.fileinput:-internal-autofill-selected,
+.css13cymwtControl:-internal-autofill-selected,
+.inputblock select:-internal-autofill-selected,
+.inputblock textarea:-internal-autofill-selected,
+.inputblock input:-internal-autofill-selected {
+    background-color: rgba(243, 242, 247, 0.1) !important;
+}
+
+.inputblock input[type="color"] {
+    height: 45px;
+    padding: 5px 0;
+}
+
+.inputblock textarea {
+    line-height: unset;
+}
+
+.placeholder {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #75899e;
+    opacity: 0.8;
+    z-index: 0;
+    pointer-events: none;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.inputblock input.filterInput {
+    position: absolute;
+    display: none;
+    left: 10px;
+    top: 0px;
+    width: calc(100% - 75px) !important;
+    padding-left: 5px !important;
+    z-index: 2 !important;
+    background-color: #f3f2f7 !important;
+}
+
+.inputblockicon input.filterInput {
+    left: 40px;
+}
+
+.filterInputSelected {
+    display: block;
+    width: 100%;
+    height: 41px;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.filterInputSelectedSelected {
+    position: relative;
+    padding-left: 30px;
+}
+
+.filterInputSelectedContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+}
+
+.filterInputSelectedContainerSelected {
+    position: relative;
+}
+
+.filterInputSelectedX {
+    position: absolute;
+    right: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    cursor: pointer;
+    font-family: monospace;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    background: #e4e4e4;
+    text-align: center;
+    padding: 0px;
+    line-height: 15px;
+    color: #000000;
+}
+
+.filterInputSelectedX:hover {
+    background: #f0cdcd;
+    color: #a34444;
+}
+
+.filterInputList {
+    display: none;
+    position: absolute;
+    left: 5px;
+    top: 41px;
+    max-height: 300px;
+    width: calc(100% - 10px);
+    z-index: 99;
+    background-color: #fff;
+    padding: 0;
+    border-radius: 8px;
+    overflow: auto;
+    scrollbar-width: thin;
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5);
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.filterInputList.opened {
+    display: block;
+}
+
+.filterInputList li {
+    cursor: default;
+    padding: 6px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.filterInputList .subtextli {
+    padding: 4px 15px;
+}
+.filterInputList li .subtext {
+    font-size: 11px;
+    font-style: italic;
+    color: #73889d;
+    opacity: 0.8;
+    font-weight: 300;
+}
+
+.filterInputList li:hover {
+    background-color: #1c61c9;
+    color: #fff;
+}
+
+.filterInputList li:hover .subtext,
+.filterInputList li:hover i,
+.filterInputList li:hover span,
+.filterInputList li:hover small {
+    color: #fff !important;
+}
+
+.inputblockicon {
+    padding-left: 40px;
+}
+
+.inputblockicon .eye,
+.inputblockicon .icon {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    width: 30px;
+    transform: translateY(-50%);
+    color: #73889d;
+    padding: 0px;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputblockicon .icontextarea {
+    top: 13px;
+    transform: unset;
+}
+
+.inputblockicon .icon {
+    z-index: 0;
+    pointer-events: none;
+}
+
+.inputblockicon .eye {
+    left: unset;
+    right: 10px;
+    background: unset;
+    border: none;
+}
+
+.inputblockicon .eye:hover {
+    color: #a3a7ac;
+}
+
+.inputblockicon .placeholder {
+    left: 45px;
+}
+
+.error .inputblock{
+    border-color: #ff0000 !important;
+}
+
+.fileinput {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    width: 100%;
+    padding: 0px;
+}
+
+.fileImagePreview {
+    position: absolute;
+    height: 35px;
+    width: 35px;
+    object-fit: cover;
+    border-radius: 5px;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 2px;
+    background: #f3f3f3;
+}
+
+.fileImagePreview:hover {
+    height: 180px;
+    width: 180px;
+    z-index: 9999;
+    padding: 8px;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.35);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.35);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.35);
+}
+
+.filename {
+    display: block;
+    position: relative;
+    width: calc(100% - 110px);
+    color: #b9bbbd;
+    padding: 0 0 0 5px;
+}
+
+.filename small {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: 100%;
+    font-weight: normal;
+    background: #cdcdcd;
+    padding: 5px;
+    border-radius: 8px;
+    line-height: 1;
+}
+
+.filename.selected {
+    color: #000;
+}
+
+.filebutton {
+    margin-left: auto;
+    /* position: absolute;
+    right: -2px;
+    top: 5px; */
+    min-width: 80px;
+    /* height: calc(100% - 10px); */
+    padding: 8px;
+    border: none;
+    background: #d0d6de;
+    color: #464255;
+    border-radius: 8px;
+    flex-shrink: 0;
+
+}
+
+.filebutton:hover {
+    background: #c7ced6;
+}
+
+.filebuttonremove {
+    width: 20px;
+    height: 20px;
+    background: #c7ced6;
+    color: #fff;
+    border: none;
+    padding: 0px;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: auto;
+    flex-shrink: 0;
+
+    /* position: absolute; */
+    /* right: 10px;
+    top: 50%;
+    transform: translateY(-50%); */
+}
+
+.description {
+    display: block;
+    width: 100%;
+    font-size: 10px;
+    padding-top: 2px;
+    color: #737a83;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        font-size: 14px;
+    }
+
+    .inputblock {
+        padding-right: 6px;
+    }
+
+    .filebutton {
+        min-width: 70px;
+        padding: 6px;
+    }
+
+    .inputblockicon .icon,
+    .inputblockicon .eye {
+        font-size: 22px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        font-size: 11px;
+    }
+
+    .inputblock {
+        padding-right: 4px;
+    }
+
+    .filebutton {
+        min-width: 60px;
+        padding: 4px;
+    }
+
+    .inputblockicon .icon,
+    .inputblockicon .eye {
+        font-size: 20px;
+    }
+}

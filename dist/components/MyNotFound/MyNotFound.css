@@ -1,0 +1,22 @@
+.my-nodata{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  font-size: 17px;
+  color:  #444;
+}
+
+.my-nodata .icon{
+  font-size: 42px;
+  color:  #adadad;
+  margin-bottom: 10px;
+}
+
+.my-nodata span{
+  display: block;
+  width: 100%;
+  text-align: center;
+}

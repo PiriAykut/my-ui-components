@@ -1,0 +1,44 @@
+{
+  "name": "my-react-ui-components",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist --copy-files"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "ui-components",
+    "library",
+    "design system",
+    "styled-components",
+    "tailwindcss",
+    "input",
+    "select",
+    "datepicker",
+    "container",
+    "tabs"
+  ],
+  "author": "Piri AYKUT | piriaykut@gmail.com",
+  "license": "MIT",
+  "description": "React UI components library",
+  "devDependencies": {
+    "@babel/cli": "^7.27.0",
+    "@babel/core": "^7.26.10",
+    "@babel/preset-react": "^7.26.3"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "katex": "^0.16.21",
+    "quill": "^2.0.3",
+    "quill-image-resize-module-react": "^3.0.0",
+    "quill-table-ui": "^1.0.7",
+    "react-confirm-alert": "^3.0.6",
+    "react-icons": "^5.5.0",
+    "react-image-crop": "^11.0.7",
+    "react-loader-spinner": "^6.1.6",
+    "react-zoom-pan-pinch": "^3.7.0"
+  }
+}

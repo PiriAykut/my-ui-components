@@ -1,0 +1,105 @@
+.my-TabsContainer {
+    display: flex;
+    width: 100%;
+    gap: 0px;
+    flex-direction: column;
+}
+
+.my-TabsTabList {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    list-style: none;
+    padding: 0 0 0 7px;
+    margin: 0px;
+}
+
+.my-TabsTabList li {
+    display: flex;
+    flex-direction: row;
+    padding: 8px 17px;
+    min-width: 100px;
+    text-align: center;
+    background: #f5f5f5;
+    margin-right: 1px;
+    font-size: 13px;
+    border-radius: 8px 8px 0 0;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    border: 1px solid #dfe3e6;
+    border-bottom: none;
+}
+
+.my-TabsTabList li .icon {
+    font-size: 17px;
+    color: #8a9ba4;
+}
+
+.my-TabsTabList li .badge {
+    font-size: 9px;
+    color: #39464d;
+    background-color: #0000001f;
+    border-radius: 5px;
+    padding: 1px 5px 1px 5px;
+    margin-left: 5px;
+    margin-right: -8px;
+}
+
+.my-TabsTabList li .title {
+    font-size: 13px;
+    color: #000;
+
+}
+
+
+.my-TabsTabList li .description {
+    font-size: 11px;
+    color: #8a9ba4;
+}
+
+.my-TabsTabList li.active {
+    background: #b3d2e6;
+}
+.my-TabsTabList li.active .badge {
+    background-color: #2e465685;
+    color: #fff;
+}
+.my-TabsTabList li.active .title {
+    font-weight: 600;
+}
+.my-TabsTabList li.active .icon {
+    color: #000;
+}
+.my-TabsTabList li.active .description {
+    color: #435d6e;
+}
+
+.my-TabsTabList li:hover {
+    cursor: pointer;
+    background: #eeeeee;
+}
+.my-TabsTabList li.active:hover {
+    background: #c1ddf3;
+}
+
+.my-TabsTabBody {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d9dee1;
+    border-radius: 8px;
+    border-top-width: 2px;
+    border-top-color: #b3d2e6;
+}
+.my-TabsTabBody .my-TabsTabContainer {
+    display: none;
+    width: 100%;
+}
+.my-TabsTabBody .my-TabsTabContainer.active {
+    display: inline-block;
+    width: 100%;
+}

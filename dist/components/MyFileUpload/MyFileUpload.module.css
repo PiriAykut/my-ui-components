@@ -1,0 +1,86 @@
+.myFileUploadContainer {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.myFileUploadContainer .myFileUploadContainerItem {
+    width: 100%;
+    padding: 5px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    border: 1px dashed #ccc;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.myFileUploadContainer
+    .myFileUploadContainerItem
+    .myFileUploadContainerItemIcon {
+    display: flex;
+    width: 100%;
+
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+}
+
+.myFileUploadContainer
+    .myFileUploadContainerItem
+    .myFileUploadContainerItemIcon
+    .Icon {
+    font-size: 35px;
+    color: #17305b;
+}
+
+.myFileUploadContainer
+    .myFileUploadContainerItem
+    .myFileUploadContainerItemIcon
+    .myFileUploadContainerItemIconText {
+    width: 100%;
+
+    text-align: center;
+    font-weight: normal;
+    color: #636363;
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.myFileUploadContainer
+    .myFileUploadContainerItem
+    .myFileUploadContainerItemFile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.myFileUploadContainer
+    .myFileUploadContainerItem
+    .myFileUploadContainerItemFile
+    .myFileUploadButton {
+    display: flex;
+    width: 200px;
+    height: 35px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-shrink: 0;
+    background-color: #334f7f;
+    color: #fff;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 13px;
+}
+.myFileUploadContainer
+    .myFileUploadContainerItem
+    .myFileUploadContainerItemFile
+    .myFileUploadButton:hover {
+    background-color: #2a436a;
+}

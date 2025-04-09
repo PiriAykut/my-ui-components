@@ -1,0 +1,102 @@
+.menuItem{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 16px 10px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #0000001c;
+  font-weight: 300;
+  font-size: 14px;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+.menuItem.selected{
+  background-color: #fff1c939 !important;
+}
+.menuItem:last-child{
+  border-bottom: none;
+}
+.menuItem:hover{
+  background-color: #00000039;
+}
+.menuItem .menuItemIcon{
+  font-size: 20px;
+}
+.menuItem .menuItemText{
+  display: block;
+  position: relative;
+  width: 100%;
+  padding-right: 35px;
+}
+.menuItem .menuItemText .menuItemBadge{
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  padding: 0px 8px;
+  transform: translateY(-50%);
+  background-color: #0000003d;
+  color: #fff;
+  border-radius: 10px;
+  padding-top: 1px;
+  font-size: 12px;
+  min-width: 25px;
+  font-weight: normal;
+  text-align: center;
+}
+
+.menuItem.menuItemShortMenu{
+  position: relative;
+  padding: 10px 10px;
+  justify-content: center;
+}
+.menuItem.menuItemShortMenu .menuItemIcon{
+  font-size: 24px;
+}
+
+.menuItem.menuItemShortMenu .menuItemText{
+  display: none;
+}
+
+.menuItem.menuItemShortMenu .menuItemIconSubMenu{
+  font-size: 13px;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menuItem.menuItemShortMenu:hover .menuItemText{
+  display: block;
+  position: absolute;
+  width: auto;
+  left: calc(100% + 5px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+  background-color: #000000;
+  color: #fff !important;
+  border-radius: 10px;
+  z-index: 1000;
+  white-space: nowrap;
+}
+.menuItem.menuItemShortMenu:hover .menuItemText.menuItemTextBadge{
+  padding-right: 50px;
+}
+.menuItem.menuItemShortMenu:hover .menuItemText.menuItemTextBadge .menuItemBadge{
+  right: 8px;
+  background-color: #ffffff46;
+}
+.menuItemOwner .menuItemOpen{
+  background-color: #283b5c;
+}
+
+.menuItemOwner .menuItemChildren{
+  display: none;
+  background-color: #30425f;
+
+}
+.menuItemOwner .menuItemChildrenOpen{
+  display: block;
+}

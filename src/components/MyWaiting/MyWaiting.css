@@ -1,0 +1,28 @@
+.my-waiting-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #282c39de;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999999;
+}
+
+.my-waiting-content{
+  display: block;
+  color : #fff;
+}
+
+.my-waiting-content > div{
+  justify-content: center;
+}
+
+
+.my-waiting-message{
+  display: block;
+  padding: 15px 0;
+  text-align: center;
+}

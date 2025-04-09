@@ -1,0 +1,83 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 25px 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    /* Overlay için overflow özelliği */
+    overflow-y: auto;
+    z-index: 99;
+}
+.modal-overlay.top {
+    align-items: baseline;
+}
+
+.modal-overlay .modal {
+    /* Modal için maksimum yükseklik ve scroll */
+
+    /* Modalın üst ve alt kısmında boşluk bırakmak için */
+    /* margin: 20px 0; */
+    height: max-content;
+    background-color: #ebeef3;
+    padding: 15px;
+    border-radius: 10px;
+    min-width: 200px;
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-overlay .modal .modal-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-overlay .modal .modal-header h4 {
+    margin-top: 0px;
+    padding-left: 8px;
+}
+
+.modal-overlay .modal .modal-header .close-button {
+    background: none;
+    border: none;
+    height: 25px;
+    font-size: 32px;
+    color: #cdcdcd;
+    background: none;
+    padding: 0px;
+    cursor: pointer;
+    margin: -10px 10px 0 0;
+}
+
+.modal-overlay .modal .modal-header .close-button:hover {
+    background: none;
+    color: #9c9c9c;
+}
+
+.modal-overlay .modal .modal-content {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    /* max-height: calc(100vh - 80px); */
+    /* overflow-y: auto; */
+}
+
+.MyModalTagBody {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: #fff;
+    border-radius: 15px;
+}
+
+.MyModalTagFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 5px;
+}
