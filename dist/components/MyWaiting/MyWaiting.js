@@ -1,27 +1,39 @@
-import React from "react";
-import { Oval } from "react-loader-spinner";
-import './MyWaiting.css'; // Modal için CSS dosyası
+"use strict";
 
-export default function MyWaiting({
-  show = false,
-  message = null
-}) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = MyWaiting;
+var _react = _interopRequireDefault(require("react"));
+var _reactLoaderSpinner = require("react-loader-spinner");
+require("./MyWaiting.css");
+var _jsxRuntime = require("react/jsx-runtime");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+// Modal için CSS dosyası
+function MyWaiting(_ref) {
+  var _ref$show = _ref.show,
+    show = _ref$show === void 0 ? false : _ref$show,
+    _ref$message = _ref.message,
+    message = _ref$message === void 0 ? null : _ref$message;
   if (!show) {
     return null;
   }
-  return /*#__PURE__*/React.createElement("div", {
-    className: "my-waiting-backdrop"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "my-waiting-content"
-  }, /*#__PURE__*/React.createElement(Oval, {
-    visible: true,
-    height: "60",
-    width: "60",
-    color: "#fff",
-    secondaryColor: "#cdcdcd",
-    ariaLabel: "oval-loading",
-    strokeWidth: 5
-  }), message && /*#__PURE__*/React.createElement("span", {
-    className: "my-waiting-message"
-  }, message)));
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+    className: "my-waiting-backdrop",
+    children: /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      className: "my-waiting-content",
+      children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_reactLoaderSpinner.Oval, {
+        visible: true,
+        height: "60",
+        width: "60",
+        color: "#fff",
+        secondaryColor: "#cdcdcd",
+        ariaLabel: "oval-loading",
+        strokeWidth: 5
+      }), message && /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+        className: "my-waiting-message",
+        children: message
+      })]
+    })
+  });
 }

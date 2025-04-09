@@ -13,3 +13,23 @@ export { default as MyTable } from './components/MyTable';
 export { default as MyTabs } from './components/MyTabs';
 export { default as MyWaiting } from './components/MyWaiting';
 export { default as MyZoomImage } from './components/MyZoomImage';
+
+// Export types
+export const MyInputType = {
+  TEXT: 'text',
+  PASSWORD: 'password',
+  SELECT: 'select',
+  SELECTFILTER: 'selectfilter',
+  FILE: 'file',
+  IMAGE: 'image',
+  TEXTAREA: 'textarea',
+  COLOR: 'color',
+  READONLY: 'readonly',
+  DATE: 'date',
+  DATETIME: 'datetime',
+  TIME: 'time',
+  MONEY: 'money',
+  NUMBER: 'number',
+  MAIL: 'mail',
+  PHONE: 'phone'
+};

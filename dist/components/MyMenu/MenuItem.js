@@ -1,55 +1,101 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import styles from "./MyMenu.module.css";
-import { PiCaretDown, PiCaretUp } from 'react-icons/pi';
-import { GoDotFill } from 'react-icons/go';
-function MenuItem({
-  children = null,
-  to = "",
-  text = "",
-  className = null,
-  badge = null,
-  icon = null,
-  title = "",
-  defaultOpen = false,
-  defaultRoute = "",
-  isShortMenu = false
-}) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactRouterDom = require("react-router-dom");
+var _MyMenuModule = _interopRequireDefault(require("./MyMenu.module.css"));
+var _pi = require("react-icons/pi");
+var _go = require("react-icons/go");
+var _jsxRuntime = require("react/jsx-runtime");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != _typeof(e) && "function" != typeof e) return { "default": e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n["default"] = e, t && t.set(e, n), n; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function MenuItem(_ref) {
+  var _ref$children = _ref.children,
+    children = _ref$children === void 0 ? null : _ref$children,
+    _ref$to = _ref.to,
+    to = _ref$to === void 0 ? "" : _ref$to,
+    _ref$text = _ref.text,
+    text = _ref$text === void 0 ? "" : _ref$text,
+    _ref$className = _ref.className,
+    className = _ref$className === void 0 ? null : _ref$className,
+    _ref$badge = _ref.badge,
+    badge = _ref$badge === void 0 ? null : _ref$badge,
+    _ref$icon = _ref.icon,
+    icon = _ref$icon === void 0 ? null : _ref$icon,
+    _ref$title = _ref.title,
+    title = _ref$title === void 0 ? "" : _ref$title,
+    _ref$defaultOpen = _ref.defaultOpen,
+    defaultOpen = _ref$defaultOpen === void 0 ? false : _ref$defaultOpen,
+    _ref$defaultRoute = _ref.defaultRoute,
+    defaultRoute = _ref$defaultRoute === void 0 ? "" : _ref$defaultRoute,
+    _ref$isShortMenu = _ref.isShortMenu,
+    isShortMenu = _ref$isShortMenu === void 0 ? false : _ref$isShortMenu;
   // let selected = window.location.pathname == to || (window.location.pathname == defaultRoute);
 
-  const [open, setOpen] = useState(defaultOpen);
-  const [selected, setSelected] = useState(false);
-  useEffect(() => {
+  var _useState = (0, _react.useState)(defaultOpen),
+    _useState2 = _slicedToArray(_useState, 2),
+    open = _useState2[0],
+    setOpen = _useState2[1];
+  var _useState3 = (0, _react.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    selected = _useState4[0],
+    setSelected = _useState4[1];
+  (0, _react.useEffect)(function () {
     setSelected(children ? false : window.location.pathname == to || window.location.pathname == defaultRoute || window.location.pathname.includes(to));
   }, [window.location.pathname]);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, children && /*#__PURE__*/React.createElement("div", {
-    className: styles.menuItemOwner
-  }, /*#__PURE__*/React.createElement("div", {
-    className: styles.menuItem + " " + (className != null ? className : "") + " " + (selected ? styles.selected : '') + " " + (open ? styles.menuItemOpen : '') + " " + (isShortMenu ? styles.menuItemShortMenu : ''),
-    title: title == "" ? text : title,
-    onClick: () => setOpen(!open)
-  }, icon && /*#__PURE__*/React.createElement("div", {
-    className: styles.menuItemIcon
-  }, icon), /*#__PURE__*/React.createElement("span", {
-    className: styles.menuItemText + " " + (badge != null ? styles.menuItemTextBadge : '')
-  }, text, badge != null && typeof badge !== 'object' ? /*#__PURE__*/React.createElement("span", {
-    className: styles.menuItemBadge
-  }, badge.toString()) : badge), open && /*#__PURE__*/React.createElement(PiCaretUp, {
-    className: `font-bold text-2xl ${styles.menuItemIconSubMenu} ${open ? styles.menuItemIconSubMenuOpen : ''}`
-  }) || /*#__PURE__*/React.createElement(PiCaretDown, {
-    className: `font-bold text-2xl ${styles.menuItemIconSubMenu} ${open ? styles.menuItemIconSubMenuOpen : ''}`
-  })), /*#__PURE__*/React.createElement("div", {
-    className: styles.menuItemChildren + " " + (open ? styles.menuItemChildrenOpen : '')
-  }, children)) || /*#__PURE__*/React.createElement(Link, {
-    to: to,
-    className: styles.menuItem + " " + (className != null ? className : "") + " " + (selected ? styles.selected : '') + " " + (isShortMenu ? styles.menuItemShortMenu : ''),
-    title: title == "" ? text : title
-  }, icon && /*#__PURE__*/React.createElement("div", {
-    className: styles.menuItemIcon
-  }, icon) || /*#__PURE__*/React.createElement(GoDotFill, null), /*#__PURE__*/React.createElement("span", {
-    className: styles.menuItemText + " " + (badge != null ? styles.menuItemTextBadge : '')
-  }, text, badge != null && typeof badge !== 'object' ? /*#__PURE__*/React.createElement("span", {
-    className: styles.menuItemBadge
-  }, badge.toString()) : badge)));
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_jsxRuntime.Fragment, {
+    children: children && /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      className: _MyMenuModule["default"].menuItemOwner,
+      children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+        className: _MyMenuModule["default"].menuItem + " " + (className != null ? className : "") + " " + (selected ? _MyMenuModule["default"].selected : '') + " " + (open ? _MyMenuModule["default"].menuItemOpen : '') + " " + (isShortMenu ? _MyMenuModule["default"].menuItemShortMenu : ''),
+        title: title == "" ? text : title,
+        onClick: function onClick() {
+          return setOpen(!open);
+        },
+        children: [icon && /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+          className: _MyMenuModule["default"].menuItemIcon,
+          children: icon
+        }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("span", {
+          className: _MyMenuModule["default"].menuItemText + " " + (badge != null ? _MyMenuModule["default"].menuItemTextBadge : ''),
+          children: [text, badge != null && _typeof(badge) !== 'object' ? /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+            className: _MyMenuModule["default"].menuItemBadge,
+            children: badge.toString()
+          }) : badge]
+        }), open && /*#__PURE__*/(0, _jsxRuntime.jsx)(_pi.PiCaretUp, {
+          className: "font-bold text-2xl ".concat(_MyMenuModule["default"].menuItemIconSubMenu, " ").concat(open ? _MyMenuModule["default"].menuItemIconSubMenuOpen : '')
+        }) || /*#__PURE__*/(0, _jsxRuntime.jsx)(_pi.PiCaretDown, {
+          className: "font-bold text-2xl ".concat(_MyMenuModule["default"].menuItemIconSubMenu, " ").concat(open ? _MyMenuModule["default"].menuItemIconSubMenuOpen : '')
+        })]
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        className: _MyMenuModule["default"].menuItemChildren + " " + (open ? _MyMenuModule["default"].menuItemChildrenOpen : ''),
+        children: children
+      })]
+    }) || /*#__PURE__*/(0, _jsxRuntime.jsxs)(_reactRouterDom.Link, {
+      to: to,
+      className: _MyMenuModule["default"].menuItem + " " + (className != null ? className : "") + " " + (selected ? _MyMenuModule["default"].selected : '') + " " + (isShortMenu ? _MyMenuModule["default"].menuItemShortMenu : ''),
+      title: title == "" ? text : title,
+      children: [icon && /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        className: _MyMenuModule["default"].menuItemIcon,
+        children: icon
+      }) || /*#__PURE__*/(0, _jsxRuntime.jsx)(_go.GoDotFill, {}), /*#__PURE__*/(0, _jsxRuntime.jsxs)("span", {
+        className: _MyMenuModule["default"].menuItemText + " " + (badge != null ? _MyMenuModule["default"].menuItemTextBadge : ''),
+        children: [text, badge != null && _typeof(badge) !== 'object' ? /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+          className: _MyMenuModule["default"].menuItemBadge,
+          children: badge.toString()
+        }) : badge]
+      })]
+    })
+  });
 }
-export default MenuItem;
+var _default = exports["default"] = MenuItem;
