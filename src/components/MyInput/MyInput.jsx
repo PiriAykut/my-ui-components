@@ -21,6 +21,7 @@ export const MyInputType = Object.freeze({
     PHONE: 'phone'
 });
 
+
 export const MyInputIsNumeric = (value) => {
     if (value === null || value === undefined || value === '') return false;
     return !isNaN(value) && !isNaN(parseFloat(value));
