@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import styles from "./MyInput.module.css"
-import { PiCaretDownBold, PiEye, PiEyeSlash, PiImage } from "react-icons/pi";
-import { MdOutlineAttachFile } from "react-icons/md";
+import { PiCaretDownBold, PiEye, PiEyeSlash } from "react-icons/pi";
 
 export const MyInputType = Object.freeze({
     TEXT: 'text',
@@ -87,6 +86,8 @@ function MyInput({
     const [filtertext, setFiltertext] = useState("");
 
     const [isError, setIsError] = useState(false);
+    const [isTyping, setIsTyping] = useState(false);
+    const typingTimeoutRef = useRef(null);
 
     const toBase64 = (file) =>
         new Promise((resolve, reject) => {
@@ -225,69 +226,61 @@ function MyInput({
         if (onRemoveImage != null) onRemoveImage();
     }
 
-    const onMyChange = async (e) => {
-        switch (type) {
-            case MyInputType.FILE:
-            case MyInputType.IMAGE:
-                let files = [];
+    const handleChange = useCallback((e) => {
+        const newValue = e.target.value;
 
-                if (e.target.files.length > 0) {
-                    let totalSize = 0;
+        // Eğer değer değişmediyse güncelleme yapma
+        if (newValue === myValue) return;
 
-                    for (let i = 0; i < e.target.files.length; i++) {
-                        const file = e.target.files[i];
+        // Typing durumunu güncelle
+        setIsTyping(true);
 
-                        totalSize += parseInt(file.size);
-
-                        files.push({
-                            // file: file,
-                            base64: await toBase64(file),
-                            filename: file.name,
-                            size: file.size,
-                            sizeText: calculateFileSize(file.size)
-                        });
-                    }//for
-
-                    totalSize = calculateFileSize(totalSize);
-
-                    setMyFileName(`<span>${files.length == 1 ? files[0].filename : files.length + " Dosya Seçildi"}</span>
-                        <small>(${totalSize})</small>`);
-                } else {
-                    setMyFileName("");
-                }
-
-                setMyValue(files);
-
-                break;
-            case MyInputType.NUMBER:
-                let number = e.target.value.replace(/[^0-9.]/g, '');
-
-                // Birden fazla nokta varsa ilkini koru
-                const numberParts = number.split('.');
-                if (numberParts.length > 2) {
-                    number = numberParts[0] + '.' + numberParts[1];
-                }
-
-                setMyValue(number);
-                break;
-            case MyInputType.MONEY:
-                let money = moneyFormat(e.target.value);
-                setMyValue(money);
-                break;
-            case MyInputType.DATE:
-            case MyInputType.DATETIME:
-            case MyInputType.TIME:
-                const selectedDate = e.target.value;
-                setMyValue(selectedDate);
-                break;
-            default:
-                if (uppercase) setMyValue(e.target.value.toLocaleUpperCase("TR"));
-                else if (lowercase) setMyValue(e.target.value.toLocaleLowerCase("TR"));
-                else if (firstUppercase) setMyValue(e.target.value.split(' ').map(word => word.charAt(0).toLocaleUpperCase("TR") + word.slice(1).toLocaleLowerCase("TR")).join(' '));
-                else setMyValue(e.target.value);
-                break;
+        // Önceki timeout'u temizle
+        if (typingTimeoutRef.current) {
+            clearTimeout(typingTimeoutRef.current);
         }
-    }
+
+        // Yeni timeout ayarla
+        typingTimeoutRef.current = setTimeout(() => {
+            setIsTyping(false);
+            if (onChange) {
+                onChange({ value: newValue, target: { value: newValue } });
+            }
+        }, 300); // 300ms gecikme
+
+        // State'i güncelle
+        setMyValue(newValue);
+    }, [myValue, onChange]);
+
+    const onMyChange = async (e) => {
+        if (type === MyInputType.FILE || type === MyInputType.IMAGE) {
+            let files = [];
+            if (e.target.files.length > 0) {
+                let totalSize = 0;
+                for (let i = 0; i < e.target.files.length; i++) {
+                    const file = e.target.files[i];
+                    totalSize += parseInt(file.size);
+                    files.push({
+                        base64: await toBase64(file),
+                        filename: file.name,
+                        size: file.size,
+                        sizeText: calculateFileSize(file.size)
+                    });
+                }
+                totalSize = calculateFileSize(totalSize);
+                setMyFileName(`<span>${files.length == 1 ? files[0].filename : files.length + " Dosya Seçildi"}</span>
+                    <small>(${totalSize})</small>`);
+            } else {
+                setMyFileName("");
+            }
+            setMyValue(files);
+            if (onChange) {
+                onChange({ value: files, target: { value: files } });
+            }
+        } else {
+            handleChange(e);
+        }
+    };
 
     const mySelectFilterListClick = (item) => {
         const selectElement = document.getElementById("mySelectFilterHiddenSelect" + myInputId);
@@ -370,19 +363,18 @@ function MyInput({
     useEffect(() => {
         if (loaded) {
             let vl = value;
-
             if (value == undefined) vl = null;
             if (vl == null && (type == MyInputType.TEXT || type == MyInputType.MAIL || type == MyInputType.TEXTAREA || type == MyInputType.PASSWORD)) vl = "";
-            // if (vl != myValue) setMyValue(vl);
+            if (vl != myValue) setMyValue(vl);
             if (vl == null) setMyFileName(null);
         }
-    }, [value]);
+    }, [value, loaded, type]);
 
     useEffect(() => {
-        if (myValue != value && onChange != null) {
-            onChange({ value: myValue, target: { value: myValue } });
+        if (!isTyping && value !== myValue) {
+            setMyValue(value);
         }
-    }, [myValue])
+    }, [value, isTyping]);
 
     useEffect(() => {
         if (title) {
@@ -420,13 +412,21 @@ function MyInput({
         }
     }, [])
 
+    useEffect(() => {
+        return () => {
+            if (typingTimeoutRef.current) {
+                clearTimeout(typingTimeoutRef.current);
+            }
+        };
+    }, []);
+
     const renderInput = () => {
         if (disabled || type === MyInputType.READONLY) {
             return (
                 <span
                     className={styles.disabledInput}
                     dangerouslySetInnerHTML={dangerouslySetInnerHTML ? dangerouslySetInnerHTML : { __html: getMyValueText() }}
-                    style={(rows > 0 ? { ...(style ? style : {}), height: rows * 30 + 'px', alignItems: "flex-start" } : style)}
+                    style={rows > 0 ? { ...(style ? style : {}), height: rows * 30 + 'px', alignItems: "flex-start" } : style}
                 />
             );
         }
@@ -438,8 +438,8 @@ function MyInput({
                         ref={ref}
                         id={id}
                         type="text"
-                        value={myValue}
-                        onChange={onMyChange}
+                        value={myValue || ''}
+                        onChange={handleChange}
                         placeholder={placeholder || myTitleLite}
                         autoComplete="off"
                         style={style}
@@ -517,7 +517,7 @@ function MyInput({
                         id={id}
                         type="text"
                         value={moneyFormat(myValue)}
-                        onChange={onMyChange}
+                        onChange={handleChange}
                         placeholder={placeholder || myTitleLite}
                         autoComplete="off"
                         style={style}
@@ -541,7 +541,7 @@ function MyInput({
                         id={id}
                         type="number"
                         value={myValue}
-                        onChange={onMyChange}
+                        onChange={handleChange}
                         placeholder={placeholder || myTitleLite}
                         autoComplete="off"
                         style={style}
@@ -565,7 +565,7 @@ function MyInput({
                         type="date"
                         id={"myDate" + myInputId}
                         value={myValue || ''}
-                        onChange={onMyChange}
+                        onChange={handleChange}
                         placeholder={placeholder || myTitleLite}
                         min={minDate}
                         max={maxDate}
@@ -590,7 +590,7 @@ function MyInput({
                         type="datetime-local"
                         id={"myDateTime" + myInputId}
                         value={myValue || ''}
-                        onChange={onMyChange}
+                        onChange={handleChange}
                         placeholder={placeholder || myTitleLite}
                         min={minDate}
                         max={maxDate}
@@ -615,7 +615,7 @@ function MyInput({
                         type="time"
                         id={"myTime" + myInputId}
                         value={myValue || ''}
-                        onChange={onMyChange}
+                        onChange={handleChange}
                         placeholder={placeholder || myTitleLite}
                         style={style}
                         onBlur={onMyBlur}
@@ -638,7 +638,7 @@ function MyInput({
                         id={id}
                         type={myEyeView ? "text" : "password"}
                         value={myValue}
-                        onChange={onMyChange}
+                        onChange={handleChange}
                         placeholder={placeholder || myTitleLite}
                         autoComplete="new-password"
                         style={style}
@@ -666,7 +666,7 @@ function MyInput({
                         id={id}
                         type="color"
                         value={myValue}
-                        onChange={onMyChange}
+                        onChange={handleChange}
                         placeholder={placeholder || myTitleLite}
                         style={style}
                         onBlur={onMyBlur}
@@ -686,7 +686,7 @@ function MyInput({
                 <textarea
                     ref={ref}
                     id={id}
-                    onChange={onMyChange}
+                    onChange={handleChange}
                     rows={rows}
                     placeholder={placeholder || myTitleLite}
                     value={myValue}
@@ -709,7 +709,7 @@ function MyInput({
                     <select
                         ref={ref}
                         id={id}
-                        onChange={(e) => onMyChange(e)}
+                        onChange={handleChange}
                         value={myValue && !isNaN(myValue) ? (MyInputIsNumeric(myValue) ? parseInt(myValue) : myValue) : ""}
                         style={style}
                         onBlur={onMyBlur}
@@ -745,7 +745,7 @@ function MyInput({
                         style={style}
                         value={filtertext}
                         onChange={(e) => setFiltertext(e.target.value)}
-                        placeholder={placeholdersearchtext && placeholdersearchtext != "" ? placeholdersearchtext : (placeholder ? placeholder : myTitleLite) + " ..."}
+                        placeholder={placeholdersearchtext && placeholdersearchtext != "" ? placeholdersearchtext : (placeholder ? placeholder : myTitleLite) + " Ara"}
                         onBlur={onMyBlur}
                         onFocus={onMyFocus}
                         onKeyDown={onMyKeyDown}
@@ -764,7 +764,7 @@ function MyInput({
                             dangerouslySetInnerHTML={{ __html: getMyValueText() }}
                         >
                         </span>
-                        {(myValue && <span className={styles.filterInputSelectedX} onClick={() => setMyValue(null)} title={t("Seçimi Kaldır")}>x</span>) || ""}
+                        {(myValue && <span className={styles.filterInputSelectedX} onClick={() => setMyValue(null)} title="Seçimi Kaldır">x</span>) || ""}
                         <PiCaretDownBold className={styles.caretdown} />
                     </div>
 
@@ -786,7 +786,7 @@ function MyInput({
                     <div style={{ display: "none" }}>
                         <select
                             id={"mySelectFilterHiddenSelect" + myInputId}
-                            onChange={(e) => onMyChange(e)}
+                            onChange={handleChange}
                             value={myValue && !isNaN(myValue) ? (MyInputIsNumeric(myValue) ? parseInt(myValue) : myValue) : ""}
                         >
                             {options && options.map((item) => {
@@ -819,7 +819,7 @@ function MyInput({
                     <div
                         className={styles.filename + " " + (myFileName && styles.selected)}
                         dangerouslySetInnerHTML={{
-                            __html: myFileName || (placeholder ? placeholder : t(type === MyInputType.IMAGE ? "Görsel Seçiniz" : "Dosya Seçiniz"))
+                            __html: myFileName || (placeholder ? placeholder : type === MyInputType.IMAGE ? "Görsel Seçiniz" : "Dosya Seçiniz")
                         }}
                     />
 
@@ -830,7 +830,7 @@ function MyInput({
                                 (getFileImageControl(myValue) && !(myValue.includes("nologo") || myValue.includes("noimage")))
                             )
                         ) {
-                            return <button type="button" onClick={onRemoveImageClick} className={styles.filebuttonremove} title={t("Kaldır")}>x</button>;
+                            return <button type="button" onClick={onRemoveImageClick} className={styles.filebuttonremove} title="Kaldır">x</button>;
                         }
                         return null;
                     })()}
@@ -840,13 +840,13 @@ function MyInput({
                         onClick={() => fileInputRef.current.click()}
                         className={styles.filebutton}
                     >
-                        {type === MyInputType.IMAGE ? <PiImage /> : <MdOutlineAttachFile />}
+                        {type === MyInputType.IMAGE ? "Görsel Seç" : "Dosya Seç"}
                     </button>
 
                     <input
                         type="file"
                         ref={fileInputRef}
-                        onChange={(e) => onMyChange(e)}
+                        onChange={handleChange}
                         placeholder={placeholder || myTitleLite}
                         style={{ display: "none" }}
                         {... (multiple ? { multiple: true } : {})}
