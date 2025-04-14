@@ -31,7 +31,7 @@ function MyInput({
     id = null,
     ref = null,
     title = "",
-    placeholder = "",
+    placeholder = null,
     placeholdersearchtext = "",
     description = null,
     type = MyInputType.TEXT,
@@ -441,7 +441,7 @@ function MyInput({
                         type="text"
                         value={myValue || ''}
                         onChange={handleChange}
-                        placeholder={placeholder || myTitleLite}
+                        placeholder={placeholder}
                         autoComplete="off"
                         style={style}
                         maxLength={maxlength}
@@ -466,7 +466,7 @@ function MyInput({
                         type="text"
                         value={myValue?.toLowerCase()}
                         onChange={(e) => onMyChange({ ...e, target: { ...e.target, value: e.target.value.toLowerCase().replace(/\s/g, '') } })}
-                        placeholder={placeholder || myTitleLite}
+                        placeholder={placeholder}
                         autoComplete="off"
                         style={style}
                         onBlur={onMyBlur}
@@ -495,7 +495,7 @@ function MyInput({
                             onMyChange({ ...e, target: { ...e.target, value } });
                         }}
 
-                        placeholder={placeholder || myTitleLite}
+                        placeholder={placeholder}
                         autoComplete="off"
                         style={style}
                         onBlur={onMyBlur}
@@ -519,7 +519,7 @@ function MyInput({
                         type="text"
                         value={moneyFormat(myValue)}
                         onChange={handleChange}
-                        placeholder={placeholder || myTitleLite}
+                        placeholder={placeholder}
                         autoComplete="off"
                         style={style}
                         onBlur={onMyBlur}
@@ -543,7 +543,7 @@ function MyInput({
                         type="number"
                         value={myValue}
                         onChange={handleChange}
-                        placeholder={placeholder || myTitleLite}
+                        placeholder={placeholder}
                         autoComplete="off"
                         style={style}
                         onBlur={onMyBlur}
@@ -567,7 +567,7 @@ function MyInput({
                         id={"myDate" + myInputId}
                         value={myValue || ''}
                         onChange={handleChange}
-                        placeholder={placeholder || myTitleLite}
+                        placeholder={placeholder}
                         min={minDate}
                         max={maxDate}
                         style={style}
@@ -592,7 +592,7 @@ function MyInput({
                         id={"myDateTime" + myInputId}
                         value={myValue || ''}
                         onChange={handleChange}
-                        placeholder={placeholder || myTitleLite}
+                        placeholder={placeholder}
                         min={minDate}
                         max={maxDate}
                         style={style}
@@ -617,7 +617,7 @@ function MyInput({
                         id={"myTime" + myInputId}
                         value={myValue || ''}
                         onChange={handleChange}
-                        placeholder={placeholder || myTitleLite}
+                        placeholder={placeholder}
                         style={style}
                         onBlur={onMyBlur}
                         onFocus={onMyFocus}
@@ -640,7 +640,7 @@ function MyInput({
                         type={myEyeView ? "text" : "password"}
                         value={myValue}
                         onChange={handleChange}
-                        placeholder={placeholder || myTitleLite}
+                        placeholder={placeholder}
                         autoComplete="new-password"
                         style={style}
                         maxLength={maxlength}
@@ -668,7 +668,7 @@ function MyInput({
                         type="color"
                         value={myValue}
                         onChange={handleChange}
-                        placeholder={placeholder || myTitleLite}
+                        placeholder={placeholder}
                         style={style}
                         onBlur={onMyBlur}
                         onFocus={onMyFocus}
@@ -689,7 +689,7 @@ function MyInput({
                     id={id}
                     onChange={handleChange}
                     rows={rows}
-                    placeholder={placeholder || myTitleLite}
+                    placeholder={placeholder}
                     value={myValue}
                     style={style}
                     maxLength={maxlength}
@@ -848,7 +848,7 @@ function MyInput({
                         type="file"
                         ref={fileInputRef}
                         onChange={handleChange}
-                        placeholder={placeholder || myTitleLite}
+                        placeholder={placeholder}
                         style={{ display: "none" }}
                         {... (multiple ? { multiple: true } : {})}
                         accept={type === MyInputType.IMAGE ? '.jpg,.jpeg,.png' : accept}
