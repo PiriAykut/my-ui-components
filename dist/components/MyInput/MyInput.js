@@ -781,7 +781,7 @@ function MyInput({
         }), /*#__PURE__*/(0, _jsxRuntime.jsx)("input", {
           type: "file",
           ref: fileInputRef,
-          onChange: handleChange,
+          onChange: e => onMyChange(e),
           placeholder: placeholder,
           style: {
             display: "none"
