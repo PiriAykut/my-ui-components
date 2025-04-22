@@ -847,7 +847,7 @@ function MyInput({
                     <input
                         type="file"
                         ref={fileInputRef}
-                        onChange={handleChange}
+                        onChange={(e) => onMyChange(e)}
                         placeholder={placeholder}
                         style={{ display: "none" }}
                         {... (multiple ? { multiple: true } : {})}
