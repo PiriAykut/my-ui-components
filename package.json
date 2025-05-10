@@ -1,10 +1,6 @@
 {
   "name": "px-react-ui-components",
-<<<<<<< HEAD
-  "version": "1.0.9",
-=======
   "version": "1.0.13",
->>>>>>> 0cf07f9ea87a87666ebb72a8166dfce8912c9a77
   "main": "dist/index.js",
   "module": "dist/index.js",
   "type": "commonjs",
