@@ -125,7 +125,7 @@ function MyEditor({ value, onChange, style = { height: "300px" } }) {
     }
 
     timeoutRef.current = setTimeout(() => {
-      if (onChange) onChange({ value: html });
+      if (onChange) onChange({ value: html, target: { value: html } });
     }, 500);
   };
 

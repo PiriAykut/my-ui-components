@@ -6,13 +6,12 @@ export const MyTableIsNumeric = (value) => {
     return !isNaN(value) && !isNaN(parseFloat(value));
 };
 
-export const CountBlock = ({ count }) => {
-    const { t } = useTranslation();
+export const CountBlock = ({ count, t }) => {
 
     return (
         <div className={styles.rowsCount}>
             <span>{count}</span>
-            <small>{t("kayıt listelendi")}</small>
+            {t && <small>{t("kayıt listelendi")}</small>}
         </div>
     );
 };
@@ -34,6 +33,8 @@ function MyTable({
     selectedRow = null,
     onRowClick = null,
     onPageChange = null,
+
+    t = null,
 }) {
 
     const tableid = `key${Date.now() + Math.random().toString(36).substr(2, 9)}`;
@@ -69,7 +70,6 @@ function MyTable({
 
     // Veri işleme ve sıralama
     useEffect(() => {
-
 
         let processedData = Array.isArray(data) ? [...data] : [];
 
@@ -135,6 +135,10 @@ function MyTable({
         if (emptyText == "") {
             // setCurEmptyText(t("Henüz bir kayıt mevcut değil!"));
             setCurEmptyText("No records found!");
+        }
+
+        if (t) {
+
         }
 
         return () => { };
@@ -370,6 +374,7 @@ function MyTable({
                             (childBody && childBody.props.children.length) ||
                             0
                         }
+                        t={t}
                     />
                 </div>
             )) ||
