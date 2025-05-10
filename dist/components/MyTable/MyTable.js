@@ -8,24 +8,21 @@ var _react = _interopRequireWildcard(require("react"));
 var _MyTableModule = _interopRequireDefault(require("./MyTable.module.css"));
 var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 const MyTableIsNumeric = value => {
   if (value === null || value === undefined || value === "") return false;
   return !isNaN(value) && !isNaN(parseFloat(value));
 };
 exports.MyTableIsNumeric = MyTableIsNumeric;
 const CountBlock = ({
-  count
+  count,
+  t
 }) => {
-  const {
-    t
-  } = useTranslation();
   return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
     className: _MyTableModule.default.rowsCount,
     children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
       children: count
-    }), /*#__PURE__*/(0, _jsxRuntime.jsx)("small", {
+    }), t && /*#__PURE__*/(0, _jsxRuntime.jsx)("small", {
       children: t("kayıt listelendi")
     })]
   });
@@ -45,7 +42,8 @@ function MyTable({
   pageSize = 0,
   selectedRow = null,
   onRowClick = null,
-  onPageChange = null
+  onPageChange = null,
+  t = null
 }) {
   const tableid = `key${Date.now() + Math.random().toString(36).substr(2, 9)}`;
   const [curEmptyText, setCurEmptyText] = (0, _react.useState)(emptyText);
@@ -122,6 +120,7 @@ function MyTable({
       // setCurEmptyText(t("Henüz bir kayıt mevcut değil!"));
       setCurEmptyText("No records found!");
     }
+    if (t) {}
     return () => {};
   }, [tableid]);
 
@@ -298,7 +297,8 @@ function MyTable({
         className: _MyTableModule.default.searchInput,
         onChange: e => setSearchTerm(e.target.value)
       }), /*#__PURE__*/(0, _jsxRuntime.jsx)(CountBlock, {
-        count: curTotalCount && curTotalCount || childBody && childBody.props.children.length || 0
+        count: curTotalCount && curTotalCount || childBody && childBody.props.children.length || 0,
+        t: t
       })]
     }) || showCount && /*#__PURE__*/(0, _jsxRuntime.jsx)(CountBlock, {
       count: curTotalCount && curTotalCount || childBody && childBody.props.children.length || 0
