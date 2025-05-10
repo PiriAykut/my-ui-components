@@ -22,8 +22,8 @@ const CountBlock = ({
     className: _MyTableModule.default.rowsCount,
     children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
       children: count
-    }), t && /*#__PURE__*/(0, _jsxRuntime.jsx)("small", {
-      children: t("kayıt listelendi")
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)("small", {
+      children: t ? t("kayıt listelendi") : "Records Listed"
     })]
   });
 };
@@ -117,8 +117,7 @@ function MyTable({
   }, [data, searchTerm, sortConfig, currentPage, pageSize]);
   (0, _react.useEffect)(() => {
     if (emptyText == "") {
-      // setCurEmptyText(t("Henüz bir kayıt mevcut değil!"));
-      setCurEmptyText("No records found!");
+      setCurEmptyText(t ? t("Henüz bir kayıt mevcut değil!") : "No records found!");
     }
     if (t) {}
     return () => {};
@@ -292,7 +291,7 @@ function MyTable({
         type: "text"
         // placeholder={t("Ara")}
         ,
-        placeholder: "Search",
+        placeholder: t ? t("Listede Ara") : "Search",
         value: searchTerm,
         className: _MyTableModule.default.searchInput,
         onChange: e => setSearchTerm(e.target.value)
@@ -330,9 +329,7 @@ function MyTable({
               className: _MyTableModule.default.td,
               children: searchTerm != "" && /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
                 dangerouslySetInnerHTML: {
-                  __html: `${
-                  // t("Aradığınız kriterlere uygun kayıt bulunamadı!")
-                  "No records found for the criteria you searched for!"}<br/><b>(${searchTerm})</b>`
+                  __html: `${t ? t("Aradığınız kriterlere uygun kayıt bulunamadı!") : "No records found for the criteria you searched for!"}<br/><b>(${searchTerm})</b>`
                 }
               }) || curEmptyText
             })

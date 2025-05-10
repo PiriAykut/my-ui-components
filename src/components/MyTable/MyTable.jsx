@@ -11,7 +11,7 @@ export const CountBlock = ({ count, t }) => {
     return (
         <div className={styles.rowsCount}>
             <span>{count}</span>
-            {t && <small>{t("kayıt listelendi")}</small>}
+            <small>{t ? t("kayıt listelendi") : "Records Listed"}</small>
         </div>
     );
 };
@@ -133,8 +133,7 @@ function MyTable({
 
     useEffect(() => {
         if (emptyText == "") {
-            // setCurEmptyText(t("Henüz bir kayıt mevcut değil!"));
-            setCurEmptyText("No records found!");
+            setCurEmptyText(t ? t("Henüz bir kayıt mevcut değil!") : "No records found!");
         }
 
         if (t) {
@@ -363,7 +362,7 @@ function MyTable({
                     <input
                         type="text"
                         // placeholder={t("Ara")}
-                        placeholder="Search"
+                        placeholder={t ? t("Listede Ara") : "Search"}
                         value={searchTerm}
                         className={styles.searchInput}
                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -442,8 +441,7 @@ function MyTable({
                                             <span
                                                 dangerouslySetInnerHTML={{
                                                     __html: `${
-                                                    // t("Aradığınız kriterlere uygun kayıt bulunamadı!")
-                                                    "No records found for the criteria you searched for!"
+                                                    t ? t("Aradığınız kriterlere uygun kayıt bulunamadı!") : "No records found for the criteria you searched for!"
                                                     }<br/><b>(${searchTerm})</b>`,
                                                 }}
                                             ></span>
