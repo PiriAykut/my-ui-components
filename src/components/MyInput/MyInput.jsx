@@ -233,6 +233,13 @@ function MyInput({
         // Eğer değer değişmediyse güncelleme yapma
         if (newValue === myValue) return;
 
+        if (type === MyInputType.TEXT || type === MyInputType.TEXTAREA) {
+            myValue = newValue.trim();
+            if (uppercase) myValue = myValue.toLocaleUpperCase("TR");
+            else if (lowercase) myValue = myValue.toLocaleLowerCase("TR");
+            else if (firstUppercase) myValue = myValue.split(' ').map(word => word.charAt(0).toLocaleUpperCase("TR") + word.slice(1).toLocaleLowerCase("TR")).join(' ');
+        }
+
         // Typing durumunu güncelle
         setIsTyping(true);
 

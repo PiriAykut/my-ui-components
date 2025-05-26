@@ -193,7 +193,10 @@ function MyEditor({
     }
     timeoutRef.current = setTimeout(() => {
       if (onChange) onChange({
-        value: html
+        value: html,
+        target: {
+          value: html
+        }
       });
     }, 500);
   };
