@@ -16,17 +16,15 @@ const MyTableIsNumeric = value => {
 };
 exports.MyTableIsNumeric = MyTableIsNumeric;
 const CountBlock = ({
-  count
+  count,
+  t
 }) => {
-  const {
-    t
-  } = useTranslation();
   return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
     className: _MyTableModule.default.rowsCount,
     children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
       children: count
     }), /*#__PURE__*/(0, _jsxRuntime.jsx)("small", {
-      children: t("kayıt listelendi")
+      children: t ? t("kayıt listelendi") : "Records Listed"
     })]
   });
 };
@@ -45,7 +43,8 @@ function MyTable({
   pageSize = 0,
   selectedRow = null,
   onRowClick = null,
-  onPageChange = null
+  onPageChange = null,
+  t = null
 }) {
   const tableid = `key${Date.now() + Math.random().toString(36).substr(2, 9)}`;
   const [curEmptyText, setCurEmptyText] = (0, _react.useState)(emptyText);
@@ -119,9 +118,9 @@ function MyTable({
   }, [data, searchTerm, sortConfig, currentPage, pageSize]);
   (0, _react.useEffect)(() => {
     if (emptyText == "") {
-      // setCurEmptyText(t("Henüz bir kayıt mevcut değil!"));
-      setCurEmptyText("No records found!");
+      setCurEmptyText(t ? t("Henüz bir kayıt mevcut değil!") : "No records found!");
     }
+    if (t) {}
     return () => {};
   }, [tableid]);
 
@@ -293,12 +292,13 @@ function MyTable({
         type: "text"
         // placeholder={t("Ara")}
         ,
-        placeholder: "Search",
+        placeholder: t ? t("Listede Ara") : "Search",
         value: searchTerm,
         className: _MyTableModule.default.searchInput,
         onChange: e => setSearchTerm(e.target.value)
       }), /*#__PURE__*/(0, _jsxRuntime.jsx)(CountBlock, {
-        count: curTotalCount && curTotalCount || childBody && childBody.props.children.length || 0
+        count: curTotalCount && curTotalCount || childBody && childBody.props.children.length || 0,
+        t: t
       })]
     }) || showCount && /*#__PURE__*/(0, _jsxRuntime.jsx)(CountBlock, {
       count: curTotalCount && curTotalCount || childBody && childBody.props.children.length || 0
@@ -330,9 +330,7 @@ function MyTable({
               className: _MyTableModule.default.td,
               children: searchTerm != "" && /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
                 dangerouslySetInnerHTML: {
-                  __html: `${
-                  // t("Aradığınız kriterlere uygun kayıt bulunamadı!")
-                  "No records found for the criteria you searched for!"}<br/><b>(${searchTerm})</b>`
+                  __html: `${t ? t("Aradığınız kriterlere uygun kayıt bulunamadı!") : "No records found for the criteria you searched for!"}<br/><b>(${searchTerm})</b>`
                 }
               }) || curEmptyText
             })

@@ -6,13 +6,12 @@ export const MyTableIsNumeric = (value) => {
     return !isNaN(value) && !isNaN(parseFloat(value));
 };
 
-export const CountBlock = ({ count }) => {
-    const { t } = useTranslation();
+export const CountBlock = ({ count, t }) => {
 
     return (
         <div className={styles.rowsCount}>
             <span>{count}</span>
-            <small>{t("kayıt listelendi")}</small>
+            <small>{t ? t("kayıt listelendi") : "Records Listed"}</small>
         </div>
     );
 };
@@ -34,6 +33,8 @@ function MyTable({
     selectedRow = null,
     onRowClick = null,
     onPageChange = null,
+
+    t = null,
 }) {
 
     const tableid = `key${Date.now() + Math.random().toString(36).substr(2, 9)}`;
@@ -69,7 +70,6 @@ function MyTable({
 
     // Veri işleme ve sıralama
     useEffect(() => {
-
 
         let processedData = Array.isArray(data) ? [...data] : [];
 
@@ -133,8 +133,11 @@ function MyTable({
 
     useEffect(() => {
         if (emptyText == "") {
-            // setCurEmptyText(t("Henüz bir kayıt mevcut değil!"));
-            setCurEmptyText("No records found!");
+            setCurEmptyText(t ? t("Henüz bir kayıt mevcut değil!") : "No records found!");
+        }
+
+        if (t) {
+
         }
 
         return () => { };
@@ -359,7 +362,7 @@ function MyTable({
                     <input
                         type="text"
                         // placeholder={t("Ara")}
-                        placeholder="Search"
+                        placeholder={t ? t("Listede Ara") : "Search"}
                         value={searchTerm}
                         className={styles.searchInput}
                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -370,6 +373,7 @@ function MyTable({
                             (childBody && childBody.props.children.length) ||
                             0
                         }
+                        t={t}
                     />
                 </div>
             )) ||
@@ -437,8 +441,7 @@ function MyTable({
                                             <span
                                                 dangerouslySetInnerHTML={{
                                                     __html: `${
-                                                    // t("Aradığınız kriterlere uygun kayıt bulunamadı!")
-                                                    "No records found for the criteria you searched for!"
+                                                    t ? t("Aradığınız kriterlere uygun kayıt bulunamadı!") : "No records found for the criteria you searched for!"
                                                     }<br/><b>(${searchTerm})</b>`,
                                                 }}
                                             ></span>
