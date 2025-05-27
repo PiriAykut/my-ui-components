@@ -228,16 +228,16 @@ function MyInput({
     }
 
     const handleChange = useCallback((e) => {
-        const newValue = e.target.value;
+        let newValue = e.target.value;
 
         // Eğer değer değişmediyse güncelleme yapma
         if (newValue === myValue) return;
 
         if (type === MyInputType.TEXT || type === MyInputType.TEXTAREA) {
-            myValue = newValue.trim();
-            if (uppercase) myValue = myValue.toLocaleUpperCase("TR");
-            else if (lowercase) myValue = myValue.toLocaleLowerCase("TR");
-            else if (firstUppercase) myValue = myValue.split(' ').map(word => word.charAt(0).toLocaleUpperCase("TR") + word.slice(1).toLocaleLowerCase("TR")).join(' ');
+            newValue = newValue.trim();
+            if (uppercase) newValue = newValue.toLocaleUpperCase("TR");
+            else if (lowercase) newValue = newValue.toLocaleLowerCase("TR");
+            else if (firstUppercase) newValue = newValue.split(' ').map(word => word.charAt(0).toLocaleUpperCase("TR") + word.slice(1).toLocaleLowerCase("TR")).join(' ');
         }
 
         // Typing durumunu güncelle
