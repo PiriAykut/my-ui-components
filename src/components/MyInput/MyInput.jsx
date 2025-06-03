@@ -236,9 +236,13 @@ function MyInput({
         // Eğer değer değişmediyse güncelleme yapma
         if (newValue === myValue) return;
 
-        if (type == MyInputType.NUMBER && newValue) {
-            if (min && newValue < min) newValue = ""
-            else if (max && newValue > max) newValue = ""
+        if (type === MyInputType.NUMBER) {
+            // Sadece 0-9 arası rakamlara izin ver
+            newValue = newValue.replace(/[^0-9]/g, '');
+
+            // min ve max kontrolü
+            if (min && newValue < min) newValue = min.toString();
+            else if (max && newValue > max) newValue = max.toString();
         }
 
         if (type === MyInputType.TEXT || type === MyInputType.TEXTAREA) {
