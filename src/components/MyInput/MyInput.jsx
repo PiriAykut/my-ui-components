@@ -60,6 +60,9 @@ function MyInput({
     lowercase = false,
     firstUppercase = false,
 
+    min = null,
+    max = null,
+
     onChange = null,
     onBlur = null,
     onFocus = null,
@@ -552,6 +555,8 @@ function MyInput({
                         onChange={handleChange}
                         placeholder={placeholder}
                         autoComplete="off"
+                        min={min}
+                        max={max}
                         style={style}
                         onBlur={onMyBlur}
                         onFocus={onMyFocus}
