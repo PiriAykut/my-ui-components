@@ -204,6 +204,9 @@ function MyInput({
 
     // Eğer değer değişmediyse güncelleme yapma
     if (newValue === myValue) return;
+    if (type == MyInputType.NUMBER && newValue) {
+      if (min && newValue < min) newValue = "";else if (max && newValue > max) newValue = "";
+    }
     if (type === MyInputType.TEXT || type === MyInputType.TEXTAREA) {
       newValue = newValue.trim();
       if (uppercase) newValue = newValue.toLocaleUpperCase("TR");else if (lowercase) newValue = newValue.toLocaleLowerCase("TR");else if (firstUppercase) newValue = newValue.split(' ').map(word => word.charAt(0).toLocaleUpperCase("TR") + word.slice(1).toLocaleLowerCase("TR")).join(' ');
