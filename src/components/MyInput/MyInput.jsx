@@ -236,13 +236,13 @@ function MyInput({
         // Eğer değer değişmediyse güncelleme yapma
         if (newValue === myValue) return;
 
-        if (type === MyInputType.NUMBER) {
+        if (type === MyInputType.NUMBER && newValue) {
             // Sadece 0-9 arası rakamlara izin ver
             newValue = newValue.replace(/[^0-9]/g, '');
 
             // min ve max kontrolü
-            if (min && newValue < min) newValue = min.toString();
-            else if (max && newValue > max) newValue = max.toString();
+            if (min && newValue < min) newValue = min;
+            else if (max && newValue > max) newValue = max;
         }
 
         if (type === MyInputType.TEXT || type === MyInputType.TEXTAREA) {
@@ -559,7 +559,7 @@ function MyInput({
                     <input
                         ref={ref}
                         id={id}
-                        type="number"
+                        type="text"
                         value={myValue}
                         onChange={handleChange}
                         placeholder={placeholder}
