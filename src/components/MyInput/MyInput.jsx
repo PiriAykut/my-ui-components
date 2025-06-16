@@ -191,38 +191,65 @@ function MyInput({
             }
         }
 
+        e.target.value = myValue;
+        e.value = myValue;
+
         if (onBlur != null) onBlur(e);
     }
 
     const onMyFocus = (e) => {
+        e.target.value = myValue;
+        e.value = myValue;
+
         if (onFocus != null) onFocus(e);
     }
 
     const onMyKeyDown = (e) => {
+        e.target.value = myValue;
+        e.value = myValue;
+
         if (onKeyDown != null) onKeyDown(e);
     }
 
     const onMyKeyUp = (e) => {
+        e.target.value = myValue;
+        e.value = myValue;
+
         if (onKeyUp != null) onKeyUp(e);
     }
 
     const onMyKeyPress = (e) => {
+        e.target.value = myValue;
+        e.value = myValue;
+
         if (onKeyPress != null) onKeyPress(e);
     }
 
     const onMyMouseDown = (e) => {
+        e.target.value = myValue;
+        e.value = myValue;
+
         if (onMouseDown != null) onMouseDown(e);
     }
 
     const onMyMouseUp = (e) => {
+        e.target.value = myValue;
+        e.value = myValue;
+
         if (onMouseUp != null) onMouseUp(e);
     }
 
     const onMyMouseEnter = (e) => {
+        e.target.value = myValue;
+        e.value = myValue;
+
         if (onMouseEnter != null) onMouseEnter(e);
     }
 
     const onMyMouseLeave = (e) => {
+        e.target.value = myValue;
+        e.value = myValue;
+
         if (onMouseLeave != null) onMouseLeave(e);
     }
 
