@@ -116,7 +116,7 @@
 .thContainer {
   display: block;
   width: 100%;
-  max-height: 100px;
+  max-height: 80px;
   overflow-y: auto;
 }
 
