@@ -170,7 +170,10 @@ function MyTable({
                         ${isSorted ? _MyTableModule.default[`sort-${sortDirection}`] : ""}
                         `,
       style: style,
-      children: column.title
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        className: `${_MyTableModule.default.thContainer}`,
+        children: column.title
+      })
     }, "head" + column.key + btoa(Math.random().toString(36).substr(2, 9)));
   };
 
@@ -194,7 +197,7 @@ function MyTable({
       style: column.tdStyle,
       className: `${_MyTableModule.default.td} ${column.tdClassName && column.tdClassName || ""}`,
       "data-row-index": index,
-      children: typeof content === 'string' ? /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+      children: typeof content === "string" ? /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
         dangerouslySetInnerHTML: {
           __html: content
         }
