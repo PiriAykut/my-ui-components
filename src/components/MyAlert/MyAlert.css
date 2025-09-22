@@ -76,7 +76,7 @@
     display: -o-flex;
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
+    margin-top: 15px !important;
 }
 
 .react-confirm-alert-button-group > button {
@@ -108,6 +108,11 @@
 
 .react-confirm-alert-body {
     width: 500px;
-    max-height: 300px;
+    max-width: 500px !important;
+    max-height: unset !important;
+}
+
+.react-confirm-alert-body > div {
+    max-height: 250px !important;
     overflow: auto;
 }
