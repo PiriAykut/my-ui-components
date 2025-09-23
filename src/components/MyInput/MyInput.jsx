@@ -272,10 +272,6 @@ function MyInput({
             else if (max && newValue > max) newValue = max;
         }
 
-        if (type === MyInputType.MONEY && newValue) {
-            newValue = newValue.replace(/[^0-9.]/g, '');
-        }
-
         if (type === MyInputType.TEXT || type === MyInputType.TEXTAREA) {
             newValue = newValue.trim();
             if (uppercase) newValue = newValue.toLocaleUpperCase("TR");
@@ -295,6 +291,9 @@ function MyInput({
         typingTimeoutRef.current = setTimeout(() => {
             setIsTyping(false);
             if (onChange) {
+                if (type === MyInputType.MONEY && newValue) {
+                    newValue = parseFloat(newValue.replace(/,/g, '')).toFixed(decimalCount);
+                }
                 onChange({ value: newValue, target: { value: newValue } });
             }
         }, 300); // 300ms gecikme

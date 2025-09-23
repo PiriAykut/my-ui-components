@@ -229,9 +229,6 @@ function MyInput({
       // min ve max kontrolü
       if (min && newValue < min) newValue = min;else if (max && newValue > max) newValue = max;
     }
-    if (type === MyInputType.MONEY && newValue) {
-      newValue = newValue.replace(/[^0-9.]/g, '');
-    }
     if (type === MyInputType.TEXT || type === MyInputType.TEXTAREA) {
       newValue = newValue.trim();
       if (uppercase) newValue = newValue.toLocaleUpperCase("TR");else if (lowercase) newValue = newValue.toLocaleLowerCase("TR");else if (firstUppercase) newValue = newValue.split(' ').map(word => word.charAt(0).toLocaleUpperCase("TR") + word.slice(1).toLocaleLowerCase("TR")).join(' ');
@@ -249,6 +246,9 @@ function MyInput({
     typingTimeoutRef.current = setTimeout(() => {
       setIsTyping(false);
       if (onChange) {
+        if (type === MyInputType.MONEY && newValue) {
+          newValue = parseFloat(newValue.replace(/,/g, '')).toFixed(decimalCount);
+        }
         onChange({
           value: newValue,
           target: {
