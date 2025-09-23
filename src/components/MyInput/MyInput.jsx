@@ -272,6 +272,10 @@ function MyInput({
             else if (max && newValue > max) newValue = max;
         }
 
+        if (type === MyInputType.MONEY && newValue) {
+            newValue = newValue.replace(/[^0-9.]/g, '');
+        }
+
         if (type === MyInputType.TEXT || type === MyInputType.TEXTAREA) {
             newValue = newValue.trim();
             if (uppercase) newValue = newValue.toLocaleUpperCase("TR");
