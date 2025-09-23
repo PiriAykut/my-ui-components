@@ -88,6 +88,9 @@ function MyInput({
   const [isError, setIsError] = (0, _react.useState)(false);
   const [isTyping, setIsTyping] = (0, _react.useState)(false);
   const typingTimeoutRef = (0, _react.useRef)(null);
+
+  // MONEY input için display value (formatlanmış hali)
+  const [displayValue, setDisplayValue] = (0, _react.useState)(null);
   const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -105,52 +108,34 @@ function MyInput({
     return `${size.toFixed(2)} ${units[unitIndex]}`;
   };
   const moneyFormat = _value => {
-    let money = '';
-    let inputValue = _value;
-    if (inputValue == null || inputValue == undefined || inputValue == '') return money;
+    if (_value == null || _value == undefined || _value == '') return '';
     try {
-      inputValue = inputValue.toString();
-      // Tüm virgülleri kaldır ve son girilen karakteri kontrol et
-      money = inputValue.replace(/,/g, '');
-      const lastChar = inputValue.slice(-1);
-      if (lastChar === ',') {
-        money = money + '.';
-      }
+      let inputValue = _value.toString();
 
-      // Sadece sayılar ve tek bir nokta kalacak şekilde temizle
-      money = money.replace(/[^0-9.]/g, '');
+      // Sadece sayılar ve nokta
+      inputValue = inputValue.replace(/[^0-9.]/g, '');
 
       // Birden fazla nokta varsa ilkini koru
-      const parts = money.split('.');
+      const parts = inputValue.split('.');
       if (parts.length > 2) {
-        money = parts[0] + '.' + parts[1];
+        inputValue = parts[0] + '.' + parts.slice(1).join('');
       }
 
-      // Noktadan sonra en fazla 2 basamak
+      // Noktadan sonra maksimum decimal count
       if (parts.length === 2 && parts[1].length > decimalCount) {
-        money = parts[0] + '.' + parts[1].substring(0, decimalCount);
+        inputValue = parts[0] + '.' + parts[1].substring(0, decimalCount);
       }
 
-      // Binlik ayracı için formatlama
-      if (money) {
-        const numParts = money.split('.');
-        if (numParts[0]) {
-          // Sayıyı önce tam sayıya çevir, sonra binlik ayracı ekle
-          numParts[0] = parseInt(numParts[0], 10).toLocaleString('en-US');
-        }
-        money = numParts.join('.');
+      // Binlik ayıracı ekle (sadece tam sayı kısmına)
+      const finalParts = inputValue.split('.');
+      if (finalParts[0]) {
+        finalParts[0] = finalParts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       }
-      const numParts = money.split('.');
-      if (numParts[0]) {
-        numParts[0] = numParts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      }
-      money = numParts.join('.');
+      return finalParts.join('.');
     } catch (error) {
-      money = '';
-      console.log(inputValue);
-      console.error(error);
+      console.error('Money format error:', error);
+      return '';
     }
-    return money;
   };
   const onMyBlur = e => {
     setIsError(false);
@@ -170,48 +155,116 @@ function MyInput({
           break;
       }
     }
-    e.target.value = myValue;
-    e.value = myValue;
+
+    // MONEY input için formatlanmış değeri kullan
+    if (type === MyInputType.MONEY) {
+      // Çıkışta decimal kısmını düzenle (sadece görsel)
+      let formattedValue = myValue;
+      if (formattedValue && formattedValue !== '') {
+        const numValue = parseFloat(formattedValue);
+        if (!isNaN(numValue)) {
+          formattedValue = numValue.toFixed(decimalCount);
+          // Sadece display value'yu güncelle, myValue'yu değiştirme
+          setDisplayValue(formattedValue);
+        }
+      }
+      const finalFormattedValue = moneyFormat(formattedValue);
+      e.target.value = finalFormattedValue;
+      e.value = finalFormattedValue;
+    } else {
+      e.target.value = myValue;
+      e.value = myValue;
+    }
     if (onBlur != null) onBlur(e);
   };
   const onMyFocus = e => {
-    e.target.value = myValue;
-    e.value = myValue;
+    // MONEY input için formatlanmış değeri kullan
+    if (type === MyInputType.MONEY) {
+      // Focus'ta displayValue'yu temizle, orijinal değere dön
+      setDisplayValue(null);
+      e.target.value = moneyFormat(myValue);
+      e.value = moneyFormat(myValue);
+    } else {
+      e.target.value = myValue;
+      e.value = myValue;
+    }
     if (onFocus != null) onFocus(e);
   };
   const onMyKeyDown = e => {
-    e.target.value = myValue;
-    e.value = myValue;
+    // MONEY input için formatlanmış değeri kullan
+    if (type === MyInputType.MONEY) {
+      e.target.value = moneyFormat(myValue);
+      e.value = moneyFormat(myValue);
+    } else {
+      e.target.value = myValue;
+      e.value = myValue;
+    }
     if (onKeyDown != null) onKeyDown(e);
   };
   const onMyKeyUp = e => {
-    e.target.value = myValue;
-    e.value = myValue;
+    // MONEY input için formatlanmış değeri kullan
+    if (type === MyInputType.MONEY) {
+      e.target.value = moneyFormat(myValue);
+      e.value = moneyFormat(myValue);
+    } else {
+      e.target.value = myValue;
+      e.value = myValue;
+    }
     if (onKeyUp != null) onKeyUp(e);
   };
   const onMyKeyPress = e => {
-    e.target.value = myValue;
-    e.value = myValue;
+    // MONEY input için formatlanmış değeri kullan
+    if (type === MyInputType.MONEY) {
+      e.target.value = moneyFormat(myValue);
+      e.value = moneyFormat(myValue);
+    } else {
+      e.target.value = myValue;
+      e.value = myValue;
+    }
     if (onKeyPress != null) onKeyPress(e);
   };
   const onMyMouseDown = e => {
-    e.target.value = myValue;
-    e.value = myValue;
+    // MONEY input için formatlanmış değeri kullan
+    if (type === MyInputType.MONEY) {
+      e.target.value = moneyFormat(myValue);
+      e.value = moneyFormat(myValue);
+    } else {
+      e.target.value = myValue;
+      e.value = myValue;
+    }
     if (onMouseDown != null) onMouseDown(e);
   };
   const onMyMouseUp = e => {
-    e.target.value = myValue;
-    e.value = myValue;
+    // MONEY input için formatlanmış değeri kullan
+    if (type === MyInputType.MONEY) {
+      e.target.value = moneyFormat(myValue);
+      e.value = moneyFormat(myValue);
+    } else {
+      e.target.value = myValue;
+      e.value = myValue;
+    }
     if (onMouseUp != null) onMouseUp(e);
   };
   const onMyMouseEnter = e => {
-    e.target.value = myValue;
-    e.value = myValue;
+    // MONEY input için formatlanmış değeri kullan
+    if (type === MyInputType.MONEY) {
+      e.target.value = moneyFormat(myValue);
+      e.value = moneyFormat(myValue);
+    } else {
+      e.target.value = myValue;
+      e.value = myValue;
+    }
     if (onMouseEnter != null) onMouseEnter(e);
   };
   const onMyMouseLeave = e => {
-    e.target.value = myValue;
-    e.value = myValue;
+    // MONEY input için formatlanmış değeri kullan
+    if (type === MyInputType.MONEY) {
+      e.target.value = moneyFormat(myValue);
+      e.value = moneyFormat(myValue);
+    } else {
+      e.target.value = myValue;
+      e.value = myValue;
+    }
     if (onMouseLeave != null) onMouseLeave(e);
   };
   const onRemoveImageClick = e => {
@@ -246,9 +299,6 @@ function MyInput({
     typingTimeoutRef.current = setTimeout(() => {
       setIsTyping(false);
       if (onChange) {
-        if (type === MyInputType.MONEY && newValue) {
-          newValue = parseFloat(newValue.replace(/,/g, '')).toFixed(decimalCount);
-        }
         onChange({
           value: newValue,
           target: {
@@ -261,6 +311,72 @@ function MyInput({
     // State'i güncelle
     setMyValue(newValue);
   }, [myValue, onChange]);
+
+  // MONEY input için özel change handler
+  const handleMoneyChange = (0, _react.useCallback)(e => {
+    const input = e.target;
+    const cursorPos = input.selectionStart;
+    const oldValue = input.value;
+    let newValue = e.target.value;
+
+    // Yazarken displayValue'yu temizle
+    setDisplayValue(null);
+
+    // Virgülleri kaldır
+    newValue = newValue.replace(/,/g, '');
+
+    // Sadece sayılar ve tek nokta
+    newValue = newValue.replace(/[^0-9.]/g, '');
+
+    // Birden fazla nokta varsa sadece ilkini koru
+    const parts = newValue.split('.');
+    if (parts.length > 2) {
+      newValue = parts[0] + '.' + parts.slice(1).join('');
+    }
+
+    // Noktadan sonra maksimum decimal count
+    if (parts.length === 2 && parts[1].length > decimalCount) {
+      newValue = parts[0] + '.' + parts[1].substring(0, decimalCount);
+    }
+
+    // State'i güncelle
+    setMyValue(newValue);
+
+    // Cursor pozisyonunu koru
+    setTimeout(() => {
+      if (input && input.setSelectionRange) {
+        // Yeni formatlanmış değerdeki virgül sayısını hesapla
+        const newFormattedValue = moneyFormat(newValue);
+        const oldCommaCount = (oldValue.match(/,/g) || []).length;
+        const newCommaCount = (newFormattedValue.match(/,/g) || []).length;
+        const commaChange = newCommaCount - oldCommaCount;
+        let newCursorPos = cursorPos + commaChange;
+        newCursorPos = Math.max(0, Math.min(newCursorPos, newFormattedValue.length));
+        input.setSelectionRange(newCursorPos, newCursorPos);
+      }
+    }, 0);
+
+    // Typing durumunu güncelle
+    setIsTyping(true);
+
+    // Önceki timeout'u temizle
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+
+    // Yeni timeout ayarla
+    typingTimeoutRef.current = setTimeout(() => {
+      setIsTyping(false);
+      if (onChange) {
+        onChange({
+          value: newValue,
+          target: {
+            value: newValue
+          }
+        });
+      }
+    }, 300);
+  }, [onChange, decimalCount]);
   const onMyChange = async e => {
     if (type === MyInputType.FILE || type === MyInputType.IMAGE) {
       let files = [];
@@ -504,8 +620,8 @@ function MyInput({
           ref: ref,
           id: id,
           type: "text",
-          value: moneyFormat(myValue),
-          onChange: handleChange,
+          value: moneyFormat(displayValue || myValue),
+          onChange: handleMoneyChange,
           placeholder: placeholder,
           autoComplete: "off",
           style: style,
