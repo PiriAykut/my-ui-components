@@ -21,6 +21,7 @@ export const MyInputType = Object.freeze({
     PHONE: 'phone'
 });
 
+
 export const MyInputIsNumeric = (value) => {
     if (value === null || value === undefined || value === '') return false;
     return !isNaN(value) && !isNaN(parseFloat(value));
@@ -274,11 +275,8 @@ function MyInput({
     }
 
     const onMyMouseEnter = (e) => {
-        // MONEY input için formatlanmış değeri kullan
-        if (type === MyInputType.MONEY) {
-            e.target.value = moneyFormat(myValue);
-            e.value = moneyFormat(myValue);
-        } else {
+        // MONEY input için displayValue'yu koru, sadece diğer tipler için değer ata
+        if (type !== MyInputType.MONEY) {
             e.target.value = myValue;
             e.value = myValue;
         }
@@ -287,11 +285,8 @@ function MyInput({
     }
 
     const onMyMouseLeave = (e) => {
-        // MONEY input için formatlanmış değeri kullan
-        if (type === MyInputType.MONEY) {
-            e.target.value = moneyFormat(myValue);
-            e.value = moneyFormat(myValue);
-        } else {
+        // MONEY input için displayValue'yu koru, sadece diğer tipler için değer ata
+        if (type !== MyInputType.MONEY) {
             e.target.value = myValue;
             e.value = myValue;
         }

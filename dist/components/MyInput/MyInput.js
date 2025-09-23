@@ -246,22 +246,16 @@ function MyInput({
     if (onMouseUp != null) onMouseUp(e);
   };
   const onMyMouseEnter = e => {
-    // MONEY input için formatlanmış değeri kullan
-    if (type === MyInputType.MONEY) {
-      e.target.value = moneyFormat(myValue);
-      e.value = moneyFormat(myValue);
-    } else {
+    // MONEY input için displayValue'yu koru, sadece diğer tipler için değer ata
+    if (type !== MyInputType.MONEY) {
       e.target.value = myValue;
       e.value = myValue;
     }
     if (onMouseEnter != null) onMouseEnter(e);
   };
   const onMyMouseLeave = e => {
-    // MONEY input için formatlanmış değeri kullan
-    if (type === MyInputType.MONEY) {
-      e.target.value = moneyFormat(myValue);
-      e.value = moneyFormat(myValue);
-    } else {
+    // MONEY input için displayValue'yu koru, sadece diğer tipler için değer ata
+    if (type !== MyInputType.MONEY) {
       e.target.value = myValue;
       e.value = myValue;
     }
