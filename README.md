@@ -33,7 +33,7 @@ npm install react-confirm-alert@^3.0.6
 npm install react-image-crop@^11.0.7
 
 # For MyWaiting component:
-npm install react-loader-spinner@^6.1.6
+npm install react-loader-spinner@^7.0.3
 
 # For MyFileUpload component:
 npm install react-image-file-resizer@^3.0.4 react-html5-camera-photo@^1.5.4
@@ -67,7 +67,7 @@ These are only needed if you use specific components:
   "react-quill": "^2.0.0",                         // MyEditor
   "react-confirm-alert": "^3.0.6",                 // MyAlert
   "react-image-crop": "^11.0.7",                   // MyImageCropper
-  "react-loader-spinner": "^6.1.6",                // MyWaiting
+  "react-loader-spinner": "^7.0.3",                // MyWaiting
   "react-image-file-resizer": "^3.0.4",            // MyFileUpload
   "react-html5-camera-photo": "^1.5.4",            // MyFileUpload
   "react-zoom-pan-pinch": "^3.7.0"                 // MyZoomImage
