@@ -1,9 +1,47 @@
 import React, { useState } from "react";
-import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
 import MyImageZoom from "../MyZoomImage/MyZoomImage";
 
+// Opsiyonel bağımlılığı kontrol et
+let ReactCrop;
+let hasReactCrop = false;
+
+try {
+  ReactCrop = require("react-image-crop").default;
+  require("react-image-crop/dist/ReactCrop.css");
+  hasReactCrop = true;
+} catch (error) {
+  console.warn("MyImageCropper: react-image-crop bağımlılığı bulunamadı. MyImageCropper bileşenini kullanmak için 'react-image-crop' paketini yükleyin.");
+}
+
 const MyImageCropper = ({ image, style = null, onChange = null }) => {
+    // Bağımlılık yoksa uyarı göster
+    if (!hasReactCrop) {
+        return (
+            <div style={{
+                padding: "20px",
+                border: "2px dashed #ff6b6b",
+                borderRadius: "8px",
+                backgroundColor: "#fff5f5",
+                color: "#d63031",
+                textAlign: "center",
+                ...style
+            }}>
+                <h3>MyImageCropper Bileşeni Kullanılamıyor</h3>
+                <p>Bu bileşeni kullanmak için aşağıdaki paketi yüklemeniz gerekiyor:</p>
+                <pre style={{
+                    backgroundColor: "#f8f9fa",
+                    padding: "10px",
+                    borderRadius: "4px",
+                    fontSize: "12px",
+                    textAlign: "left",
+                    overflow: "auto"
+                }}>
+{`npm install react-image-crop`}
+                </pre>
+            </div>
+        );
+    }
+
     const [crop, setCrop] = useState({
         x: 0,
         y: 0,

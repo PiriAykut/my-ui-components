@@ -5,22 +5,34 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
-var _reactZoomPanPinch = require("react-zoom-pan-pinch");
 require("./MyZoomImage.css");
 var _pi = require("react-icons/pi");
 var _jsxRuntime = require("react/jsx-runtime");
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+// Opsiyonel bağımlılığı kontrol et
+let TransformWrapper, TransformComponent, useControls;
+let hasZoomPanPinch = false;
+try {
+  const zoomPanPinch = require("react-zoom-pan-pinch");
+  TransformWrapper = zoomPanPinch.TransformWrapper;
+  TransformComponent = zoomPanPinch.TransformComponent;
+  useControls = zoomPanPinch.useControls;
+  hasZoomPanPinch = true;
+} catch (error) {
+  console.warn("MyZoomImage: react-zoom-pan-pinch bağımlılığı bulunamadı. MyZoomImage bileşenini kullanmak için 'react-zoom-pan-pinch' paketini yükleyin.");
+}
 const Controls = ({
   wrapperRef,
   openArrow
 }) => {
+  if (!hasZoomPanPinch) return null;
   const {
     zoomIn,
     zoomOut,
     resetTransform,
     centerView
-  } = (0, _reactZoomPanPinch.useControls)();
+  } = useControls();
   const handlePan = (x, y) => {
     if (wrapperRef.current) {
       // debugger
@@ -103,6 +115,43 @@ const MyImageZoom = ({
 }) => {
   const wrapperRef = (0, _react.useRef)(null); // Ref oluştur
   const [openArrow, setOpenArrow] = (0, _react.useState)(false);
+
+  // Bağımlılık yoksa uyarı göster
+  if (!hasZoomPanPinch) {
+    return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      style: {
+        padding: "20px",
+        border: "2px dashed #ff6b6b",
+        borderRadius: "8px",
+        backgroundColor: "#fff5f5",
+        color: "#d63031",
+        textAlign: "center"
+      },
+      children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("h3", {
+        children: "MyZoomImage Bile\u015Feni Kullan\u0131lam\u0131yor"
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("p", {
+        children: "Bu bile\u015Feni kullanmak i\xE7in a\u015Fa\u011F\u0131daki paketi y\xFCklemeniz gerekiyor:"
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("pre", {
+        style: {
+          backgroundColor: "#f8f9fa",
+          padding: "10px",
+          borderRadius: "4px",
+          fontSize: "12px",
+          textAlign: "left",
+          overflow: "auto"
+        },
+        children: `npm install react-zoom-pan-pinch`
+      }), children || /*#__PURE__*/(0, _jsxRuntime.jsx)("img", {
+        src: image,
+        alt: "Image",
+        style: {
+          maxWidth: "100%",
+          marginTop: "10px",
+          borderRadius: "4px"
+        }
+      })]
+    });
+  }
   const handlerTransform = e => {
     setOpenArrow(e.state.scale != 1);
     if (onZoomChange != null) {
@@ -111,14 +160,14 @@ const MyImageZoom = ({
   };
   return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
     className: "zoom-container flex justify-center items-center",
-    children: /*#__PURE__*/(0, _jsxRuntime.jsxs)(_reactZoomPanPinch.TransformWrapper, {
+    children: /*#__PURE__*/(0, _jsxRuntime.jsxs)(TransformWrapper, {
       ref: wrapperRef,
       className: "w-full flex items-center justify-center",
       onTransformed: handlerTransform,
       children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(Controls, {
         wrapperRef: wrapperRef,
         openArrow: openArrow
-      }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_reactZoomPanPinch.TransformComponent, {
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)(TransformComponent, {
         className: "w-full flex items-center justify-center",
         children: children || /*#__PURE__*/(0, _jsxRuntime.jsx)("img", {
           src: image,

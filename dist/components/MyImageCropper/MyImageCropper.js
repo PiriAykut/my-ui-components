@@ -5,18 +5,55 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
-var _reactImageCrop = _interopRequireDefault(require("react-image-crop"));
-require("react-image-crop/dist/ReactCrop.css");
 var _MyZoomImage = _interopRequireDefault(require("../MyZoomImage/MyZoomImage"));
 var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+// Opsiyonel bağımlılığı kontrol et
+let ReactCrop;
+let hasReactCrop = false;
+try {
+  ReactCrop = require("react-image-crop").default;
+  require("react-image-crop/dist/ReactCrop.css");
+  hasReactCrop = true;
+} catch (error) {
+  console.warn("MyImageCropper: react-image-crop bağımlılığı bulunamadı. MyImageCropper bileşenini kullanmak için 'react-image-crop' paketini yükleyin.");
+}
 const MyImageCropper = ({
   image,
   style = null,
   onChange = null
 }) => {
+  // Bağımlılık yoksa uyarı göster
+  if (!hasReactCrop) {
+    return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      style: {
+        padding: "20px",
+        border: "2px dashed #ff6b6b",
+        borderRadius: "8px",
+        backgroundColor: "#fff5f5",
+        color: "#d63031",
+        textAlign: "center",
+        ...style
+      },
+      children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("h3", {
+        children: "MyImageCropper Bile\u015Feni Kullan\u0131lam\u0131yor"
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("p", {
+        children: "Bu bile\u015Feni kullanmak i\xE7in a\u015Fa\u011F\u0131daki paketi y\xFCklemeniz gerekiyor:"
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("pre", {
+        style: {
+          backgroundColor: "#f8f9fa",
+          padding: "10px",
+          borderRadius: "4px",
+          fontSize: "12px",
+          textAlign: "left",
+          overflow: "auto"
+        },
+        children: `npm install react-image-crop`
+      })]
+    });
+  }
   const [crop, setCrop] = (0, _react.useState)({
     x: 0,
     y: 0,
@@ -88,7 +125,7 @@ const MyImageCropper = ({
   };
   return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
     style: style,
-    children: image && /*#__PURE__*/(0, _jsxRuntime.jsx)(_reactImageCrop.default, {
+    children: image && /*#__PURE__*/(0, _jsxRuntime.jsx)(ReactCrop, {
       crop: crop,
       onComplete: onCropComplete,
       onChange: newCrop => setCrop(newCrop),

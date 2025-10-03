@@ -7,7 +7,7 @@ A modern, customizable React UI components library designed to simplify web deve
 - 🎨 Modern and responsive design
 - 📱 Multiple input types (Text, Select, Date, Number, Phone, Email)
 - 🧩 Customizable components with extensive props
-- 🎯 Built with React 18 for optimal performance
+- 🎯 Built with React 18/19 compatibility for optimal performance
 - 🔧 Easy to integrate and use
 - 📚 Comprehensive documentation
 - 🎭 Tab navigation with rich features (labels, titles, descriptions, badges, icons)
@@ -20,28 +20,61 @@ A modern, customizable React UI components library designed to simplify web deve
 npm install px-react-ui-components
 
 # Install required peer dependencies
-npm install react@^18.3.1 react-dom@^18.3.1 katex@^0.16.21 quill@^1.3.7 quill-image-resize-module-react@^3.0.0 quill-table-ui@^1.0.7 react-confirm-alert@^3.0.6 react-icons@^5.5.0 react-image-crop@^11.0.7 react-loader-spinner@^6.1.6 react-zoom-pan-pinch@^3.7.0
+npm install react@^18.3.1 react-dom@^18.3.1 react-icons@^5.5.0
+
+# Optional dependencies (install only if you need specific components)
+# For MyEditor component:
+npm install react-quill@^2.0.0 quill@^1.3.7 quill-image-resize-module-react@^3.0.0 quill-table-ui@^1.0.7 katex@^0.16.21
+
+# For MyAlert component:
+npm install react-confirm-alert@^3.0.6
+
+# For MyImageCropper component:
+npm install react-image-crop@^11.0.7
+
+# For MyWaiting component:
+npm install react-loader-spinner@^6.1.6
+
+# For MyFileUpload component:
+npm install react-image-file-resizer@^3.0.4 react-html5-camera-photo@^1.5.4
+
+# For MyZoomImage component:
+npm install react-zoom-pan-pinch@^3.7.0
 ```
 
-## Peer Dependencies
+## Dependencies
 
-This library requires the following peer dependencies to be installed in your project:
+### Required Dependencies
+These are always required:
 
 ```json
 {
-  "react": "^18.3.1",
-  "react-dom": "^18.3.1",
-  "katex": "^0.16.21",
-  "quill": "^1.3.7",
-  "quill-image-resize-module-react": "^3.0.0",
-  "quill-table-ui": "^1.0.7",
-  "react-confirm-alert": "^3.0.6",
-  "react-icons": "^5.5.0",
-  "react-image-crop": "^11.0.7",
-  "react-loader-spinner": "^6.1.6",
-  "react-zoom-pan-pinch": "^3.7.0"
+  "react": "^18.3.1 || ^19.0.0",
+  "react-dom": "^18.3.1 || ^19.0.0",
+  "react-icons": "^5.5.0"
 }
 ```
+
+### Optional Dependencies
+These are only needed if you use specific components:
+
+```json
+{
+  "katex": "^0.16.21",                              // MyEditor
+  "quill": "^1.3.7",                               // MyEditor
+  "quill-image-resize-module-react": "^3.0.0",     // MyEditor
+  "quill-table-ui": "^1.0.7",                      // MyEditor
+  "react-quill": "^2.0.0",                         // MyEditor
+  "react-confirm-alert": "^3.0.6",                 // MyAlert
+  "react-image-crop": "^11.0.7",                   // MyImageCropper
+  "react-loader-spinner": "^6.1.6",                // MyWaiting
+  "react-image-file-resizer": "^3.0.4",            // MyFileUpload
+  "react-html5-camera-photo": "^1.5.4",            // MyFileUpload
+  "react-zoom-pan-pinch": "^3.7.0"                 // MyZoomImage
+}
+```
+
+**Note:** If you try to use a component without its required dependencies, you'll see a helpful warning message with installation instructions.
 
 ## Available Components
 

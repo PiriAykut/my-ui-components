@@ -1,6 +1,6 @@
 {
   "name": "px-react-ui-components",
-  "version": "1.0.29",
+  "version": "1.1.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "type": "commonjs",
@@ -41,17 +41,60 @@
     "@babel/preset-react": "^7.26.3"
   },
   "peerDependencies": {
+    "react": "^18.3.1 || ^19.0.0",
+    "react-dom": "^18.3.1 || ^19.0.0",
+    "react-icons": "^5.5.0"
+  },
+  "peerDependenciesMeta": {
+    "katex": {
+      "optional": true
+    },
+    "quill": {
+      "optional": true
+    },
+    "quill-image-resize-module-react": {
+      "optional": true
+    },
+    "quill-table-ui": {
+      "optional": true
+    },
+    "react-confirm-alert": {
+      "optional": true
+    },
+    "react-image-crop": {
+      "optional": true
+    },
+    "react-loader-spinner": {
+      "optional": true
+    },
+    "react-quill": {
+      "optional": true
+    },
+    "react-zoom-pan-pinch": {
+      "optional": true
+    },
+    "react-image-file-resizer": {
+      "optional": true
+    },
+    "react-html5-camera-photo": {
+      "optional": true
+    },
+    "react-router-dom": {
+      "optional": true
+    }
+  },
+  "optionalDependencies": {
     "katex": "^0.16.21",
     "quill": "^1.3.7",
     "quill-image-resize-module-react": "^3.0.0",
     "quill-table-ui": "^1.0.7",
-    "react": "^18.3.1",
     "react-confirm-alert": "^3.0.6",
-    "react-dom": "^18.3.1",
-    "react-icons": "^5.5.0",
     "react-image-crop": "^11.0.7",
     "react-loader-spinner": "^6.1.6",
     "react-quill": "^2.0.0",
-    "react-zoom-pan-pinch": "^3.7.0"
+    "react-zoom-pan-pinch": "^3.7.0",
+    "react-image-file-resizer": "^3.0.4",
+    "react-html5-camera-photo": "^1.5.4",
+    "react-router-dom": "^6.28.0"
   }
 }
