@@ -24,7 +24,7 @@
     /* margin: 20px 0; */
     height: max-content;
     background-color: #ebeef3;
-    padding: 15px;
+    padding: 0 10px;
     border-radius: 10px;
     min-width: 200px;
     max-width: 100%;
@@ -36,6 +36,7 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 0;
 }
 .modal-overlay .modal .modal-header h4 {
     margin-top: 0px;
@@ -70,9 +71,9 @@
 .MyModalTagBody {
     display: block;
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     background: #fff;
-    border-radius: 15px;
+    border-radius: 12px;
 }
 
 .MyModalTagFooter {
