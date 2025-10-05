@@ -16,7 +16,7 @@ function MyTabs({
   activePaneIndex = -1,
   activePaneName = null
 }) {
-  const [activei, setActivei] = (0, _react.useState)(activePaneIndex > -1 ? activePaneIndex : 0);
+  const [activei, setActivei] = (0, _react.useState)(0);
   const arrChild = _react.default.Children.toArray(children);
   (0, _react.useEffect)(() => {
     if (onChange) {
@@ -27,6 +27,9 @@ function MyTabs({
       });
     }
   }, [activei]);
+  (0, _react.useEffect)(() => {
+    setActivei(activePaneIndex > -1 ? activePaneIndex : 0);
+  }, [activePaneIndex]);
   (0, _react.useEffect)(() => {
     if (activePaneName) {
       const index = arrChild.findIndex(item => item.props.name === activePaneName);
