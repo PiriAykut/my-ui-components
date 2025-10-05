@@ -5,11 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.MyAlertType = exports.MyAlert = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _reactConfirmAlert = require("react-confirm-alert");
-require("react-confirm-alert/src/react-confirm-alert.css");
 require("./MyAlert.css");
 var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+// Opsiyonel bağımlılığı kontrol et
+let confirmAlert;
+let hasConfirmAlert = false;
+try {
+  const reactConfirmAlert = require("react-confirm-alert");
+  confirmAlert = reactConfirmAlert.confirmAlert;
+  require("react-confirm-alert/src/react-confirm-alert.css");
+  hasConfirmAlert = true;
+} catch (error) {
+  console.warn("MyAlert: react-confirm-alert bağımlılığı bulunamadı. MyAlert bileşenini kullanmak için 'react-confirm-alert' paketini yükleyin.");
+}
+
 // import Swal from "sweetalert2";
 
 const MyAlertType = exports.MyAlertType = {
@@ -29,6 +39,15 @@ const MyAlert = (message, type = MyAlertType.INFO, {
   },
   callback = null
 } = {}) => {
+  // Bağımlılık yoksa uyarı göster
+  if (!hasConfirmAlert) {
+    console.error("MyAlert: react-confirm-alert bağımlılığı bulunamadı. Bu bileşeni kullanmak için 'npm install react-confirm-alert' komutunu çalıştırın.");
+    if (callback) callback({
+      isConfirmed: false,
+      isDenied: true
+    });
+    return;
+  }
   let _showCancelButton = false;
   switch (type) {
     case MyAlertType.WARNING:
@@ -72,7 +91,7 @@ const MyAlert = (message, type = MyAlertType.INFO, {
       }
     });
   }
-  (0, _reactConfirmAlert.confirmAlert)({
+  confirmAlert({
     title: title,
     message: /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
       dangerouslySetInnerHTML: {

@@ -7,9 +7,6 @@ exports.AcceptType = void 0;
 exports.default = MyFileUpload;
 var _react = _interopRequireWildcard(require("react"));
 var _pi = require("react-icons/pi");
-var _reactImageFileResizer = _interopRequireDefault(require("react-image-file-resizer"));
-var _reactHtml5CameraPhoto = _interopRequireWildcard(require("react-html5-camera-photo"));
-require("react-html5-camera-photo/build/css/index.css");
 var _MyWaiting = _interopRequireDefault(require("../MyWaiting/MyWaiting"));
 var _MyAlert = require("../MyAlert/MyAlert");
 var _MyFileUploadModule = _interopRequireDefault(require("./MyFileUpload.module.css"));
@@ -17,7 +14,28 @@ var _MyModal = _interopRequireDefault(require("../MyModal/MyModal"));
 var _md = require("react-icons/md");
 var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+// Opsiyonel bağımlılıkları kontrol et
+let Resizer, Camera, FACING_MODES, IMAGE_TYPES;
+let hasImageResizer = false;
+let hasCamera = false;
+try {
+  Resizer = require("react-image-file-resizer");
+  hasImageResizer = true;
+} catch (error) {
+  console.warn("MyFileUpload: react-image-file-resizer bağımlılığı bulunamadı.");
+}
+try {
+  const cameraModule = require("react-html5-camera-photo");
+  Camera = cameraModule.default;
+  FACING_MODES = cameraModule.FACING_MODES;
+  IMAGE_TYPES = cameraModule.IMAGE_TYPES;
+  require("react-html5-camera-photo/build/css/index.css");
+  hasCamera = true;
+} catch (error) {
+  console.warn("MyFileUpload: react-html5-camera-photo bağımlılığı bulunamadı.");
+}
 const AcceptType = exports.AcceptType = {
   ALL: "all",
   FILE: "file",
@@ -155,7 +173,7 @@ function MyFileUpload({
           ext: file_ext,
           type_image: type_image
         };
-        _reactImageFileResizer.default.imageFileResizer(file, 2600, 2600, "JPEG", 100, 0, uri => {
+        Resizer.imageFileResizer(file, 2600, 2600, "JPEG", 100, 0, uri => {
           fileReaderCalc++;
           let fileitem = {
             base64: uri,
@@ -280,7 +298,7 @@ function MyFileUpload({
       closeOnEsc: false,
       closeOnBackdropClick: false,
       children: /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-        children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_reactHtml5CameraPhoto.default, {
+        children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Camera, {
           videoConstraints: {
             deviceId: selectedDeviceId ? {
               exact: selectedDeviceId
@@ -297,12 +315,12 @@ function MyFileUpload({
           onCameraStop: () => {
             handleCameraStop();
           },
-          idealFacingMode: _reactHtml5CameraPhoto.FACING_MODES.ENVIRONMENT,
+          idealFacingMode: FACING_MODES.ENVIRONMENT,
           idealResolution: {
             width: 1024,
             height: 1024
           },
-          imageType: _reactHtml5CameraPhoto.IMAGE_TYPES.JPG,
+          imageType: IMAGE_TYPES.JPG,
           isMaxResolution: true,
           isImageMirror: false,
           isSilentMode: false,

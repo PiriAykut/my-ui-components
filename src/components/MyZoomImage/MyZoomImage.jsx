@@ -1,9 +1,4 @@
 import React, { useRef, useState } from "react";
-import {
-    TransformWrapper,
-    TransformComponent,
-    useControls,
-} from "react-zoom-pan-pinch";
 import "./MyZoomImage.css";
 import {
     PiMinusBold,
@@ -16,7 +11,22 @@ import {
     PiArrowsIn,
 } from "react-icons/pi";
 
+// Opsiyonel bağımlılığı kontrol et
+let TransformWrapper, TransformComponent, useControls;
+let hasZoomPanPinch = false;
+
+try {
+    const zoomPanPinch = require("react-zoom-pan-pinch");
+    TransformWrapper = zoomPanPinch.TransformWrapper;
+    TransformComponent = zoomPanPinch.TransformComponent;
+    useControls = zoomPanPinch.useControls;
+    hasZoomPanPinch = true;
+} catch (error) {
+    console.warn("MyZoomImage: react-zoom-pan-pinch bağımlılığı bulunamadı. MyZoomImage bileşenini kullanmak için 'react-zoom-pan-pinch' paketini yükleyin.");
+}
+
 const Controls = ({ wrapperRef, openArrow }) => {
+    if (!hasZoomPanPinch) return null;
 
     const { zoomIn, zoomOut, resetTransform, centerView } = useControls();
 
@@ -105,6 +115,40 @@ const Controls = ({ wrapperRef, openArrow }) => {
 const MyImageZoom = ({ image, children = null, onZoomChange = null }) => {
     const wrapperRef = useRef(null); // Ref oluştur
     const [openArrow, setOpenArrow] = useState(false);
+
+    // Bağımlılık yoksa uyarı göster
+    if (!hasZoomPanPinch) {
+        return (
+            <div style={{
+                padding: "20px",
+                border: "2px dashed #ff6b6b",
+                borderRadius: "8px",
+                backgroundColor: "#fff5f5",
+                color: "#d63031",
+                textAlign: "center"
+            }}>
+                <h3>MyZoomImage Bileşeni Kullanılamıyor</h3>
+                <p>Bu bileşeni kullanmak için aşağıdaki paketi yüklemeniz gerekiyor:</p>
+                <pre style={{
+                    backgroundColor: "#f8f9fa",
+                    padding: "10px",
+                    borderRadius: "4px",
+                    fontSize: "12px",
+                    textAlign: "left",
+                    overflow: "auto"
+                }}>
+{`npm install react-zoom-pan-pinch`}
+                </pre>
+                {children || (
+                    <img
+                        src={image}
+                        alt="Image"
+                        style={{ maxWidth: "100%", marginTop: "10px", borderRadius: "4px" }}
+                    />
+                )}
+            </div>
+        );
+    }
 
     const handlerTransform = (e) => {
         setOpenArrow(e.state.scale != 1);

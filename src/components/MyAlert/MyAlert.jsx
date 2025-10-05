@@ -1,8 +1,18 @@
 import React from "react";
-
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
 import "./MyAlert.css";
+
+// Opsiyonel bağımlılığı kontrol et
+let confirmAlert;
+let hasConfirmAlert = false;
+
+try {
+  const reactConfirmAlert = require("react-confirm-alert");
+  confirmAlert = reactConfirmAlert.confirmAlert;
+  require("react-confirm-alert/src/react-confirm-alert.css");
+  hasConfirmAlert = true;
+} catch (error) {
+  console.warn("MyAlert: react-confirm-alert bağımlılığı bulunamadı. MyAlert bileşenini kullanmak için 'react-confirm-alert' paketini yükleyin.");
+}
 
 // import Swal from "sweetalert2";
 
@@ -17,6 +27,12 @@ export const MyAlertType = {
 Object.freeze(MyAlertType); // Enum sabitlerini değiştirmeyi engeller
 
 export const MyAlert = (message, type = MyAlertType.INFO, { title = '', buttontext = { confirm: 'Tamam', cancel: 'İptal' }, callback = null } = {}) => {
+  // Bağımlılık yoksa uyarı göster
+  if (!hasConfirmAlert) {
+    console.error("MyAlert: react-confirm-alert bağımlılığı bulunamadı. Bu bileşeni kullanmak için 'npm install react-confirm-alert' komutunu çalıştırın.");
+    if (callback) callback({ isConfirmed: false, isDenied: true });
+    return;
+  }
   let _showCancelButton = false;
   switch (type) {
     case MyAlertType.WARNING:

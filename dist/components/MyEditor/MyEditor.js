@@ -5,19 +5,31 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
-var _reactQuill = _interopRequireDefault(require("react-quill"));
-require("react-quill/dist/quill.snow.css");
-var _quillImageResize = _interopRequireDefault(require("quill-image-resize"));
-var _quill = _interopRequireDefault(require("quill"));
-var _quillTable = _interopRequireDefault(require("quill-table"));
-var _katex = _interopRequireDefault(require("katex"));
-require("katex/dist/katex.min.css");
 require("./MyEditor.scss");
 var _jsxRuntime = require("react/jsx-runtime");
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
-// KaTeX'i global hale getir
-window.katex = _katex.default;
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+// Opsiyonel bağımlılıkları kontrol et
+let ReactQuill, Quill, ImageResize, QuillTable, katex;
+let hasQuillDependencies = false;
+try {
+  ReactQuill = require("react-quill");
+  require("react-quill/dist/quill.snow.css");
+  Quill = require("quill");
+  ImageResize = require("quill-image-resize");
+  QuillTable = require("quill-table");
+  katex = require("katex");
+  require("katex/dist/katex.min.css");
+  hasQuillDependencies = true;
+} catch (error) {
+  console.warn("MyEditor: Quill bağımlılıkları bulunamadı. MyEditor bileşenini kullanmak için aşağıdaki paketleri yükleyin:", {
+    "react-quill": "^2.0.0",
+    "quill": "^1.3.7",
+    "quill-image-resize-module-react": "^3.0.0",
+    "quill-table-ui": "^1.0.7",
+    "katex": "^0.16.21"
+  });
+}
 
 // Özel font listesini tanımla
 const fonts = [{
@@ -112,44 +124,58 @@ const fonts = [{
   value: "segoe-ui"
 }];
 
-// Quill font formatını genişlet
-const Font = _quill.default.import("formats/font");
-Font.whitelist = fonts.map(f => f.value);
-_quill.default.register(Font, true);
+// Quill bağımlılıkları varsa konfigürasyonu yap
+if (hasQuillDependencies) {
+  // KaTeX'i global hale getir
+  if (katex) {
+    window.katex = katex;
+  }
 
-// Quill modüllerini kaydet
-_quill.default.register("modules/imageResize", _quillImageResize.default);
-_quill.default.register(_quillTable.default.TableCell);
-_quill.default.register(_quillTable.default.TableRow);
-_quill.default.register(_quillTable.default.Table);
-_quill.default.register(_quillTable.default.Contain);
-_quill.default.register("modules/table", _quillTable.default.TableModule);
+  // Quill font formatını genişlet
+  const Font = Quill.import("formats/font");
+  Font.whitelist = fonts.map(f => f.value);
+  Quill.register(Font, true);
 
-// Formula Embed için düzeltme
-const Embed = _quill.default.import("blots/embed");
-class FormulaEmbed extends Embed {
-  static create(value) {
-    let node = super.create();
-    if (value) {
-      node.setAttribute("data-value", value);
-      try {
-        window.katex.render(value, node, {
-          throwOnError: false
-        });
-      } catch (err) {
-        console.error("KaTeX render error:", err);
+  // Quill modüllerini kaydet
+  if (ImageResize) {
+    Quill.register("modules/imageResize", ImageResize);
+  }
+  if (QuillTable) {
+    Quill.register(QuillTable.TableCell);
+    Quill.register(QuillTable.TableRow);
+    Quill.register(QuillTable.Table);
+    Quill.register(QuillTable.Contain);
+    Quill.register("modules/table", QuillTable.TableModule);
+  }
+
+  // Formula Embed için düzeltme
+  if (katex) {
+    const Embed = Quill.import("blots/embed");
+    class FormulaEmbed extends Embed {
+      static create(value) {
+        let node = super.create();
+        if (value) {
+          node.setAttribute("data-value", value);
+          try {
+            window.katex.render(value, node, {
+              throwOnError: false
+            });
+          } catch (err) {
+            console.error("KaTeX render error:", err);
+          }
+        }
+        return node;
+      }
+      static value(node) {
+        return node.getAttribute("data-value");
       }
     }
-    return node;
-  }
-  static value(node) {
-    return node.getAttribute("data-value");
+    FormulaEmbed.blotName = "formula";
+    FormulaEmbed.tagName = "SPAN";
+    FormulaEmbed.className = "ql-formula";
+    Quill.register("formats/formula", FormulaEmbed);
   }
 }
-FormulaEmbed.blotName = "formula";
-FormulaEmbed.tagName = "SPAN";
-FormulaEmbed.className = "ql-formula";
-_quill.default.register("formats/formula", FormulaEmbed);
 function MyEditor({
   value,
   onChange,
@@ -162,13 +188,43 @@ function MyEditor({
   const editorRef = (0, _react.useRef)(null);
   const timeoutRef = (0, _react.useRef)(null);
   const isFirstRender = (0, _react.useRef)(true);
+
+  // Bağımlılıklar yoksa uyarı göster
+  if (!hasQuillDependencies) {
+    return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      style: {
+        padding: "20px",
+        border: "2px dashed #ff6b6b",
+        borderRadius: "8px",
+        backgroundColor: "#fff5f5",
+        color: "#d63031",
+        textAlign: "center",
+        ...style
+      },
+      children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("h3", {
+        children: "MyEditor Bile\u015Feni Kullan\u0131lam\u0131yor"
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("p", {
+        children: "Bu bile\u015Feni kullanmak i\xE7in a\u015Fa\u011F\u0131daki paketleri y\xFCklemeniz gerekiyor:"
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("pre", {
+        style: {
+          backgroundColor: "#f8f9fa",
+          padding: "10px",
+          borderRadius: "4px",
+          fontSize: "12px",
+          textAlign: "left",
+          overflow: "auto"
+        },
+        children: `npm install react-quill quill quill-image-resize-module-react quill-table-ui katex`
+      })]
+    });
+  }
   const handleFullscreen = () => {
     setIsFullscreen(!isFullscreen);
   };
 
   // Custom buton tanımı
   (0, _react.useEffect)(() => {
-    const icons = _quill.default.import('ui/icons');
+    const icons = Quill.import('ui/icons');
     icons['fullscreen'] = `<svg viewbox="0 0 18 18">
       <path d="M4,4H0v2h6V0H4V4z M14,4V0h-2v6h6V4H14z M6,14H0v2h4v4h2V14z M14,18h2v-4h4v-2h-6V18z"/>
     </svg>`;
@@ -292,7 +348,7 @@ function MyEditor({
             d: "M4,4H0v2h6V0H4V4z M14,4V0h-2v6h6V4H14z M6,14H0v2h4v4h2V14z M14,18h2v-4h4v-2h-6V18z"
           })
         })
-      }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_reactQuill.default, {
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)(ReactQuill, {
         ref: editorRef,
         theme: "snow",
         value: editorValue,

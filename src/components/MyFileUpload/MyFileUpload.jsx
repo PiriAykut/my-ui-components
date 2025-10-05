@@ -1,13 +1,33 @@
 import React, { useEffect, useState, useRef } from "react";
 import { PiCamera, PiFileArrowUpLight } from "react-icons/pi";
-import Resizer from "react-image-file-resizer";
-import Camera, { FACING_MODES, IMAGE_TYPES } from "react-html5-camera-photo";
-import "react-html5-camera-photo/build/css/index.css";
 import MyWaiting from "../MyWaiting/MyWaiting";
 import { MyAlert, MyAlertType } from "../MyAlert/MyAlert";
 import styles from "./MyFileUpload.module.css"
 import MyModal from "../MyModal/MyModal";
 import { MdOutlineAttachFile } from "react-icons/md";
+
+// Opsiyonel bağımlılıkları kontrol et
+let Resizer, Camera, FACING_MODES, IMAGE_TYPES;
+let hasImageResizer = false;
+let hasCamera = false;
+
+try {
+  Resizer = require("react-image-file-resizer");
+  hasImageResizer = true;
+} catch (error) {
+  console.warn("MyFileUpload: react-image-file-resizer bağımlılığı bulunamadı.");
+}
+
+try {
+  const cameraModule = require("react-html5-camera-photo");
+  Camera = cameraModule.default;
+  FACING_MODES = cameraModule.FACING_MODES;
+  IMAGE_TYPES = cameraModule.IMAGE_TYPES;
+  require("react-html5-camera-photo/build/css/index.css");
+  hasCamera = true;
+} catch (error) {
+  console.warn("MyFileUpload: react-html5-camera-photo bağımlılığı bulunamadı.");
+}
 
 export const AcceptType = {
     ALL: "all",

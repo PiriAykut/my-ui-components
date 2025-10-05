@@ -1,15 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import ImageResize from "quill-image-resize";
-import Quill from "quill";
-import QuillTable from "quill-table";
-import katex from "katex";
-import "katex/dist/katex.min.css";
 import "./MyEditor.scss";
 
-// KaTeX'i global hale getir
-window.katex = katex;
+// Opsiyonel bağımlılıkları kontrol et
+let ReactQuill, Quill, ImageResize, QuillTable, katex;
+let hasQuillDependencies = false;
+
+try {
+  ReactQuill = require("react-quill");
+  require("react-quill/dist/quill.snow.css");
+  Quill = require("quill");
+  ImageResize = require("quill-image-resize");
+  QuillTable = require("quill-table");
+  katex = require("katex");
+  require("katex/dist/katex.min.css");
+  hasQuillDependencies = true;
+} catch (error) {
+  console.warn("MyEditor: Quill bağımlılıkları bulunamadı. MyEditor bileşenini kullanmak için aşağıdaki paketleri yükleyin:", {
+    "react-quill": "^2.0.0",
+    "quill": "^1.3.7",
+    "quill-image-resize-module-react": "^3.0.0",
+    "quill-table-ui": "^1.0.7",
+    "katex": "^0.16.21"
+  });
+}
 
 // Özel font listesini tanımla
 const fonts = [
@@ -45,45 +58,60 @@ const fonts = [
   { label: "Segoe UI", value: "segoe-ui" }
 ];
 
-// Quill font formatını genişlet
-const Font = Quill.import("formats/font");
-Font.whitelist = fonts.map(f => f.value);
-Quill.register(Font, true);
+// Quill bağımlılıkları varsa konfigürasyonu yap
+if (hasQuillDependencies) {
+  // KaTeX'i global hale getir
+  if (katex) {
+    window.katex = katex;
+  }
 
-// Quill modüllerini kaydet
-Quill.register("modules/imageResize", ImageResize);
-Quill.register(QuillTable.TableCell);
-Quill.register(QuillTable.TableRow);
-Quill.register(QuillTable.Table);
-Quill.register(QuillTable.Contain);
-Quill.register("modules/table", QuillTable.TableModule);
+  // Quill font formatını genişlet
+  const Font = Quill.import("formats/font");
+  Font.whitelist = fonts.map(f => f.value);
+  Quill.register(Font, true);
 
-// Formula Embed için düzeltme
-const Embed = Quill.import("blots/embed");
+  // Quill modüllerini kaydet
+  if (ImageResize) {
+    Quill.register("modules/imageResize", ImageResize);
+  }
 
-class FormulaEmbed extends Embed {
-  static create(value) {
-    let node = super.create();
-    if (value) {
-      node.setAttribute("data-value", value);
-      try {
-        window.katex.render(value, node, { throwOnError: false });
-      } catch (err) {
-        console.error("KaTeX render error:", err);
+  if (QuillTable) {
+    Quill.register(QuillTable.TableCell);
+    Quill.register(QuillTable.TableRow);
+    Quill.register(QuillTable.Table);
+    Quill.register(QuillTable.Contain);
+    Quill.register("modules/table", QuillTable.TableModule);
+  }
+
+  // Formula Embed için düzeltme
+  if (katex) {
+    const Embed = Quill.import("blots/embed");
+
+    class FormulaEmbed extends Embed {
+      static create(value) {
+        let node = super.create();
+        if (value) {
+          node.setAttribute("data-value", value);
+          try {
+            window.katex.render(value, node, { throwOnError: false });
+          } catch (err) {
+            console.error("KaTeX render error:", err);
+          }
+        }
+        return node;
+      }
+
+      static value(node) {
+        return node.getAttribute("data-value");
       }
     }
-    return node;
-  }
 
-  static value(node) {
-    return node.getAttribute("data-value");
+    FormulaEmbed.blotName = "formula";
+    FormulaEmbed.tagName = "SPAN";
+    FormulaEmbed.className = "ql-formula";
+    Quill.register("formats/formula", FormulaEmbed);
   }
 }
-
-FormulaEmbed.blotName = "formula";
-FormulaEmbed.tagName = "SPAN";
-FormulaEmbed.className = "ql-formula";
-Quill.register("formats/formula", FormulaEmbed);
 
 function MyEditor({ value, onChange, style = { height: "300px" } }) {
   const [editorValue, setEditorValue] = useState("");
@@ -91,6 +119,34 @@ function MyEditor({ value, onChange, style = { height: "300px" } }) {
   const editorRef = useRef(null);
   const timeoutRef = useRef(null);
   const isFirstRender = useRef(true);
+
+  // Bağımlılıklar yoksa uyarı göster
+  if (!hasQuillDependencies) {
+    return (
+      <div style={{
+        padding: "20px",
+        border: "2px dashed #ff6b6b",
+        borderRadius: "8px",
+        backgroundColor: "#fff5f5",
+        color: "#d63031",
+        textAlign: "center",
+        ...style
+      }}>
+        <h3>MyEditor Bileşeni Kullanılamıyor</h3>
+        <p>Bu bileşeni kullanmak için aşağıdaki paketleri yüklemeniz gerekiyor:</p>
+        <pre style={{
+          backgroundColor: "#f8f9fa",
+          padding: "10px",
+          borderRadius: "4px",
+          fontSize: "12px",
+          textAlign: "left",
+          overflow: "auto"
+        }}>
+{`npm install react-quill quill quill-image-resize-module-react quill-table-ui katex`}
+        </pre>
+      </div>
+    );
+  }
 
   const handleFullscreen = () => {
     setIsFullscreen(!isFullscreen);
