@@ -20,21 +20,6 @@
             border-radius: 10px;
             padding: 10px;
 
-            .myEditorTopBar {
-                right: 60px;
-                top: 15px;
-
-                .myEditorTableButton {
-                    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-                    box-shadow: 0 2px 8px rgba(72, 187, 120, 0.3);
-
-                    &:hover {
-                        background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
-                        box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
-                    }
-                }
-            }
-
             .myEditorContainerFullscreenButton{
                 right: 15px;
                 top: 15px;
@@ -51,46 +36,6 @@
         position: relative;
         height: 100%;
         width: 100%;
-
-        .myEditorTopBar {
-            position: absolute;
-            right: 50px;
-            top: 5px;
-            z-index: 10000;
-            display: flex;
-            gap: 5px;
-
-            .myEditorTableButton {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                border: none;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 35px;
-                height: 35px;
-                border-radius: 8px;
-                color: white;
-                transition: all 0.3s ease;
-                box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-
-                &:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-                    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-                }
-
-                &:active {
-                    transform: translateY(0);
-                    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
-                }
-
-                svg {
-                    width: 18px;
-                    height: 18px;
-                }
-            }
-        }
 
         .myEditorContainerFullscreenButton{
             position: absolute;
@@ -329,61 +274,4 @@
 .ql-editor table th {
     background-color: #f2f2f2;
     text-align: left;
-}
-
-// Resim hizalama stilleri
-.ql-editor {
-    img {
-        display: inline-block;
-        max-width: 100%;
-
-        &.align-left {
-            float: left;
-            margin: 0 15px 10px 0;
-            clear: none;
-        }
-
-        &.align-right {
-            float: right;
-            margin: 0 0 10px 15px;
-            clear: none;
-        }
-
-        &.align-center {
-            display: block;
-            margin: 10px auto;
-            float: none;
-            clear: both;
-        }
-
-        &.align-none {
-            display: inline-block;
-            margin: 0;
-            float: none;
-            clear: none;
-        }
-    }
-
-    // Paragrafların resmin yanında düzgün akmasını sağla
-    p {
-        margin: 0 0 1em 0;
-
-        &:has(img.align-left),
-        &:has(img.align-right) {
-            overflow: visible;
-
-            // Paragraf içindeki metin resmin yanında akmalı
-            &::after {
-                content: "";
-                display: table;
-                clear: none;
-            }
-        }
-    }
-
-    // Resimden sonraki paragraflar da yanında akmalı
-    img.align-left ~ p,
-    img.align-right ~ p {
-        overflow: visible;
-    }
 }
