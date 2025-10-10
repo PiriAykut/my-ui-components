@@ -48,13 +48,13 @@
 .body {
     display: block;
     width: 100%;
-    padding: 15px;
+    padding: 5px;
 }
 
 .footer {
     display: block;
     width: 100%;
-    padding: 15px;
+    padding: 5px;
     border-top: 1px solid #d0d6de;
 }
 
@@ -79,13 +79,6 @@
         font-size: 14px;
     }
 
-    .body {
-        padding: 10px;
-    }
-
-    .footer {
-        padding: 10px;
-    }
 }
 
 @media screen and (max-width: 480px) {
@@ -100,11 +93,4 @@
         font-size: 12px;
     }
 
-    .body {
-        padding: 8px;
-    }
-
-    .footer {
-        padding: 8px;
-    }
 }

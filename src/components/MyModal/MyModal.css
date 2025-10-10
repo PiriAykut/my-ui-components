@@ -18,17 +18,16 @@
 }
 
 .modal-overlay .modal {
-    /* Modal için maksimum yükseklik ve scroll */
-
-    /* Modalın üst ve alt kısmında boşluk bırakmak için */
-    /* margin: 20px 0; */
     height: max-content;
     background-color: #ebeef3;
-    padding: 0 12px;
+    padding: 12px 15px !important;
     border-radius: 10px;
     min-width: 200px;
     max-width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .modal-overlay .modal .modal-header {
@@ -36,7 +35,7 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
+    padding: 8px 0 !important;
 }
 .modal-overlay .modal .modal-header h4 {
     margin-top: 0px;
@@ -63,7 +62,7 @@
 .modal-overlay .modal .modal-content {
     display: block;
     width: 100%;
-    padding: 0px 0 15px 0;
+    padding: 0px !important;
     /* max-height: calc(100vh - 80px); */
     /* overflow-y: auto; */
 }
@@ -80,5 +79,6 @@
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    padding: 12px 0px;
+    padding: 0px;
+    margin-top: 0px !important;
 }
