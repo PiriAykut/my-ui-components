@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./MyTabs.css";
 
 function MyTabs({ children, className = null, style = null, onChange = null, activePaneIndex = -1, activePaneName = null }) {
-  const [activei, setActivei] = useState(activePaneIndex > -1 ? activePaneIndex : 0);
+  const [activei, setActivei] = useState( 0);
 
   const arrChild = React.Children.toArray(children);
 
@@ -11,6 +11,11 @@ function MyTabs({ children, className = null, style = null, onChange = null, act
       onChange({ index: activei, name: arrChild[activei].props.name, label: arrChild[activei].props.label && arrChild[activei].props.label || arrChild[activei].props.title })
     }
   }, [activei])
+
+    useEffect(() => {
+    setActivei(activePaneIndex > -1 ? activePaneIndex : 0);
+  }, [activePaneIndex])
+
 
   useEffect(() => {
     if (activePaneName) {

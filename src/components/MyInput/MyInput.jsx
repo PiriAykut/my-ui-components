@@ -881,8 +881,9 @@ function MyInput({
                             return <option
                                 key={e[options_key_value]}
                                 value={MyInputIsNumeric(e[options_key_value]) ? parseInt(e[options_key_value]) : e[options_key_value]}
+
+                                dangerouslySetInnerHTML={{ __html: e[options_key_text] || e["label"] }}
                             >
-                                {e[options_key_text] || e["label"]}
                             </option>;
                         })}
                     </select>
