@@ -77,7 +77,7 @@ const MyModal = ({
       }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
         className: "modal-content",
         children: childBody
-      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      }), childFooter && /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
         className: "modal-footer",
         children: childFooter
       })]

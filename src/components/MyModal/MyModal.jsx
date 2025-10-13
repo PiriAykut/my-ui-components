@@ -69,7 +69,10 @@ const MyModal = ({
         </div>
 
         <div className='modal-content'>{childBody}</div>
-        <div className='modal-footer'>{childFooter}</div>
+
+        {childFooter &&
+          <div className='modal-footer'>{childFooter}</div>
+        }
       </div>
     </div>
   );

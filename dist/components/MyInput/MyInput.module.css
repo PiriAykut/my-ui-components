@@ -125,7 +125,7 @@
   width: calc(100% - 75px) !important;
   padding-left: 5px !important;
   z-index: 2 !important;
-  background-color: #f3f2f7 !important;
+  background-color: #ecf8ff !important;
 }
 
 .inputblockicon input.filterInput {
@@ -185,7 +185,7 @@
   position: absolute;
   left: 5px;
   top: 41px;
-  max-height: 300px;
+  max-height: 250px;
   width: calc(100% - 10px);
   z-index: 99;
   background-color: #fff;
