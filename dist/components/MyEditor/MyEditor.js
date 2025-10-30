@@ -822,7 +822,7 @@ function MyEditor({
         script: "sub"
       }, {
         script: "super"
-      }], ["image"], ["formula"], [{
+      }], ["link", "image"], ["formula"], [{
         table: tableOptions
       }, {
         table: "append-row"

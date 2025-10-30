@@ -764,7 +764,7 @@ function MyEditor({ value, onChange, style = { height: "300px" } }) {
         [{ align: [] }],
         [{ color: [] }, { background: [] }],
         [{ script: "sub" }, { script: "super" }],
-        ["image"],
+        ["link", "image"],
         ["formula"],
         [{ table: tableOptions }, { table: "append-row" }, { table: "append-col" }]
       ]
