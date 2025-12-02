@@ -30,8 +30,7 @@
 
 .react-confirm-alert-body {
     font-family: "Nunito", sans-serif;
-    width: 90%; /* Daha geniş cihazlarda %90 genişlik */
-    max-width: 400px; /* Maksimum genişlik sınırı */
+    width: 500px; /* Daha geniş cihazlarda %90 genişlik */
     padding: 20px;
     text-align: left;
     background: #fff;
@@ -44,8 +43,7 @@
 
 @media (max-width: 600px) {
     .react-confirm-alert-body {
-        width: 90%; /* Küçük ekranlarda daha fazla boşluk */
-        max-width: 320px; /* Maksimum genişlik daha küçük */
+        width: 370px; /* Küçük ekranlarda daha fazla boşluk */
     }
 }
 
