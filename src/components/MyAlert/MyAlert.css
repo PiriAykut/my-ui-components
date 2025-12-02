@@ -44,7 +44,7 @@
 
 @media (max-width: 600px) {
     .react-confirm-alert-body {
-        width: 95%; /* Küçük ekranlarda daha fazla boşluk */
+        width: 90%; /* Küçük ekranlarda daha fazla boşluk */
         max-width: 320px; /* Maksimum genişlik daha küçük */
     }
 }
@@ -104,12 +104,6 @@
         background: #1e293b !important;
         color: #fff;
     }
-}
-
-.react-confirm-alert-body {
-    width: 500px;
-    max-width: 500px !important;
-    max-height: unset !important;
 }
 
 .react-confirm-alert-body > div {
