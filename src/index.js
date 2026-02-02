@@ -13,6 +13,7 @@ export { default as MyTable } from './components/MyTable/MyTable';
 export { default as MyTabs } from './components/MyTabs/MyTabs';
 export { default as MyWaiting } from './components/MyWaiting/MyWaiting';
 export { default as MyZoomImage } from './components/MyZoomImage/MyZoomImage';
+export { default as MySwitch } from './components/MySwitch/MySwitch';
 
 // Export types
 export const MyInputType = {

@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.MyAlertType = exports.MyAlert = void 0;
 var _react = _interopRequireDefault(require("react"));
+var _reactDom = require("react-dom");
 require("./MyAlert.css");
 var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }

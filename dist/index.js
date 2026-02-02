@@ -70,6 +70,12 @@ Object.defineProperty(exports, "MyScrollableCard", {
     return _MyScrollableCard.default;
   }
 });
+Object.defineProperty(exports, "MySwitch", {
+  enumerable: true,
+  get: function () {
+    return _MySwitch.default;
+  }
+});
 Object.defineProperty(exports, "MyTable", {
   enumerable: true,
   get: function () {
@@ -109,6 +115,7 @@ var _MyTable = _interopRequireDefault(require("./components/MyTable/MyTable"));
 var _MyTabs = _interopRequireDefault(require("./components/MyTabs/MyTabs"));
 var _MyWaiting = _interopRequireDefault(require("./components/MyWaiting/MyWaiting"));
 var _MyZoomImage = _interopRequireDefault(require("./components/MyZoomImage/MyZoomImage"));
+var _MySwitch = _interopRequireDefault(require("./components/MySwitch/MySwitch"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 // Export types
 const MyInputType = exports.MyInputType = {
