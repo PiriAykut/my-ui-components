@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
-import './MyModal.css'; // Modal için CSS dosyası
+import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
+import "./MyModal.css"; // Modal için CSS dosyası
 
 const MyModal = ({
   show,
@@ -11,7 +12,6 @@ const MyModal = ({
   closeOnEsc = true,
   style = null,
 }) => {
-
   const arrChild = React.Children.toArray(children);
 
   let childBody = null;
@@ -33,15 +33,15 @@ const MyModal = ({
     if (!closeOnEsc) return;
 
     const handleEsc = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         onClose();
       }
     };
 
-    window.addEventListener('keydown', handleEsc);
+    window.addEventListener("keydown", handleEsc);
 
     return () => {
-      window.removeEventListener('keydown', handleEsc);
+      window.removeEventListener("keydown", handleEsc);
     };
   }, [closeOnEsc, onClose]);
 
@@ -50,32 +50,35 @@ const MyModal = ({
   }
 
   const handleBackdropClick = (e) => {
-    if (closeOnBackdropClick && e.target.className.includes('modal-overlay')) {
+    if (closeOnBackdropClick && e.target.className.includes("modal-overlay")) {
       onClose();
     }
   };
 
-
-  return (
-    <div className={'modal-overlay ' + (top ? 'top' : '')} onClick={handleBackdropClick} style={{ paddingTop: top }}>
-      <div className='modal' onClick={(e) => e.stopPropagation()} style={style}>
-        <div className='modal-header'>
+  const modalContent = (
+    <div
+      className={"modal-overlay " + (top ? "top" : "")}
+      onClick={handleBackdropClick}
+      style={{ paddingTop: top }}
+    >
+      <div className="modal" onClick={(e) => e.stopPropagation()} style={style}>
+        <div className="modal-header">
           <h4>{title}</h4>
-          {onClose &&
-            <button type='button' className='close-button' onClick={onClose}>
+          {onClose && (
+            <button type="button" className="close-button" onClick={onClose}>
               &times;
             </button>
-          }
+          )}
         </div>
 
-        <div className='modal-content'>{childBody}</div>
+        <div className="modal-content">{childBody}</div>
 
-        {childFooter &&
-          <div className='modal-footer'>{childFooter}</div>
-        }
+        {childFooter && <div className="modal-footer">{childFooter}</div>}
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 export default MyModal;
