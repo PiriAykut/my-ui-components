@@ -1,4 +1,5 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import "./MyAlert.css";
 
 // Opsiyonel bağımlılığı kontrol et

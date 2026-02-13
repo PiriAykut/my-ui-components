@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
+var _reactDom = require("react-dom");
 require("./MyModal.css");
 var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
@@ -41,25 +42,25 @@ const MyModal = ({
   (0, _react.useEffect)(() => {
     if (!closeOnEsc) return;
     const handleEsc = event => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         onClose();
       }
     };
-    window.addEventListener('keydown', handleEsc);
+    window.addEventListener("keydown", handleEsc);
     return () => {
-      window.removeEventListener('keydown', handleEsc);
+      window.removeEventListener("keydown", handleEsc);
     };
   }, [closeOnEsc, onClose]);
   if (!show) {
     return null;
   }
   const handleBackdropClick = e => {
-    if (closeOnBackdropClick && e.target.className.includes('modal-overlay')) {
+    if (closeOnBackdropClick && e.target.className.includes("modal-overlay")) {
       onClose();
     }
   };
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-    className: `modal-overlay ${top ? 'top' : ''}`,
+  const modalContent = /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+    className: "modal-overlay " + (top ? "top" : ""),
     onClick: handleBackdropClick,
     style: {
       paddingTop: top
@@ -87,5 +88,6 @@ const MyModal = ({
       })]
     })
   });
+  return /*#__PURE__*/(0, _reactDom.createPortal)(modalContent, document.body);
 };
 var _default = exports.default = MyModal;
