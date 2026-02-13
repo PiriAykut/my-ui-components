@@ -5,6 +5,11 @@ const MyModal = ({
   show,
   title,
   children,
+
+  className = null,
+  headerClassName = null,
+  contentClassName = null,
+  footerClassName = null,
   top = null,
   onClose = null,
   closeOnBackdropClick = true,
@@ -57,9 +62,9 @@ const MyModal = ({
 
 
   return (
-    <div className={'modal-overlay ' + (top ? 'top' : '')} onClick={handleBackdropClick} style={{ paddingTop: top }}>
-      <div className='modal' onClick={(e) => e.stopPropagation()} style={style}>
-        <div className='modal-header'>
+    <div className={`modal-overlay ${top ? 'top' : ''}`} onClick={handleBackdropClick} style={{ paddingTop: top }}>
+      <div className={`modal ${className || ''}`} onClick={(e) => e.stopPropagation()} style={style}>
+        <div className={`modal-header ${headerClassName || ''}`}>
           <h4>{title}</h4>
           {onClose &&
             <button type='button' className='close-button' onClick={onClose}>
@@ -68,10 +73,10 @@ const MyModal = ({
           }
         </div>
 
-        <div className='modal-content'>{childBody}</div>
+        <div className={`modal-content ${contentClassName || ''}`}>{childBody}</div>
 
         {childFooter &&
-          <div className='modal-footer'>{childFooter}</div>
+          <div className={`modal-footer ${footerClassName || ''}`}>{childFooter}</div>
         }
       </div>
     </div>

@@ -13,6 +13,10 @@ const MyModal = ({
   show,
   title,
   children,
+  className = null,
+  headerClassName = null,
+  contentClassName = null,
+  footerClassName = null,
   top = null,
   onClose = null,
   closeOnBackdropClick = true,
@@ -55,17 +59,17 @@ const MyModal = ({
     }
   };
   return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-    className: 'modal-overlay ' + (top ? 'top' : ''),
+    className: `modal-overlay ${top ? 'top' : ''}`,
     onClick: handleBackdropClick,
     style: {
       paddingTop: top
     },
     children: /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-      className: "modal",
+      className: `modal ${className || ''}`,
       onClick: e => e.stopPropagation(),
       style: style,
       children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-        className: "modal-header",
+        className: `modal-header ${headerClassName || ''}`,
         children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("h4", {
           children: title
         }), onClose && /*#__PURE__*/(0, _jsxRuntime.jsx)("button", {
@@ -75,10 +79,10 @@ const MyModal = ({
           children: "\xD7"
         })]
       }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-        className: "modal-content",
+        className: `modal-content ${contentClassName || ''}`,
         children: childBody
       }), childFooter && /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-        className: "modal-footer",
+        className: `modal-footer ${footerClassName || ''}`,
         children: childFooter
       })]
     })
