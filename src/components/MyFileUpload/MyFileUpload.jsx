@@ -29,7 +29,7 @@ try {
   console.warn("MyFileUpload: react-html5-camera-photo bağımlılığı bulunamadı.");
 }
 
-export const AcceptType = {
+export const MyFileUploadAcceptType = {
     ALL: "all",
     FILE: "file",
     IMAGE: "image",
@@ -38,20 +38,23 @@ export const AcceptType = {
     IMAGEPDF: "imagepdf",
 };
 
-Object.freeze(MyAlertType);
+Object.freeze(MyFileUploadAcceptType);
 
 export default function MyFileUpload({
+    t = null,
     multiple = false,
-    accept = AcceptType.ALL,
+    accept = MyFileUploadAcceptType.ALL,
     className = null,
     camera = true,
     maxSizeMB = 50,
     onData,
 }) {
 
+    const localT = typeof t === "function" ? t : ((key) => key);
+
     const [loading, setLoading] = useState(false);
-    const [accepttypes, setAccepttypes] = useState(AcceptType.ALL);
-    const [acceptlabel, setAcceptlabel] = useState(AcceptType.ALL);
+    const [MyFileUploadAcceptTypes, setMyFileUploadAcceptTypes] = useState(MyFileUploadAcceptType.ALL);
+    const [acceptlabel, setAcceptlabel] = useState(MyFileUploadAcceptType.ALL);
     const [cameraopen, setCameraopen] = useState(false);
     const [cameraopened, setCameraopened] = useState(false);
     const [devices, setDevices] = useState([]);
@@ -65,31 +68,31 @@ export default function MyFileUpload({
 
     useEffect(() => {
         switch (accept) {
-            case AcceptType.ALL:
-                setAccepttypes(
+            case MyFileUploadAcceptType.ALL:
+                setMyFileUploadAcceptTypes(
                     type_files + "," + type_image + "," + type_media
                 );
                 setAcceptlabel("PNG, JPG, PDF, RAR, ZIP, MP3, MP4, AVI, WAV, Word-Excel");
                 break;
-            case AcceptType.IMAGE:
-                setAccepttypes(type_image);
+            case MyFileUploadAcceptType.IMAGE:
+                setMyFileUploadAcceptTypes(type_image);
                 setAcceptlabel("PNG, JPG ");
                 break;
-            case AcceptType.MEDIA:
-                setAccepttypes(type_media);
+            case MyFileUploadAcceptType.MEDIA:
+                setMyFileUploadAcceptTypes(type_media);
                 setAcceptlabel("MP3, MP4, AVI, WAV");
                 break;
-            case AcceptType.FILE:
-                setAccepttypes(type_files + "," + type_image);
+            case MyFileUploadAcceptType.FILE:
+                setMyFileUploadAcceptTypes(type_files + "," + type_image);
                 setAcceptlabel("PDF, RAR, ZIP, PNG, JPG, Word-Excel "
                 );
                 break;
-            case AcceptType.PDF:
-                setAccepttypes(".pdf");
+            case MyFileUploadAcceptType.PDF:
+                setMyFileUploadAcceptTypes(".pdf");
                 setAcceptlabel("PDF");
                 break;
-            case AcceptType.IMAGEPDF:
-                setAccepttypes(type_image + ",.pdf");
+            case MyFileUploadAcceptType.IMAGEPDF:
+                setMyFileUploadAcceptTypes(type_image + ",.pdf");
                 setAcceptlabel("PNG, JPG, PDF");
                 break;
         }
@@ -151,7 +154,7 @@ export default function MyFileUpload({
             let file_ext = file.type.split("/");
             file_ext = file_ext[file_ext.length - 1];
 
-            if (filesize > maxSizeMB || accepttypes.indexOf(file_ext) == -1) {
+            if (filesize > maxSizeMB || MyFileUploadAcceptTypes.indexOf(file_ext) == -1) {
                 if (filesize > maxSizeMB) {
                     _error.push({
                         filename: file.name,
@@ -321,7 +324,7 @@ export default function MyFileUpload({
                                 ref={fileInputRef}
                                 onChange={handleFileInputChange}
                                 multiple={multiple}
-                                accept={accepttypes}
+                                accept={MyFileUploadAcceptTypes}
                             />
                             <div
                                 className={styles.myFileUploadButton}
@@ -355,7 +358,7 @@ export default function MyFileUpload({
                     )}
                 </div>
             </div>
-            <MyModal show={cameraopen} onClose={() => setCameraopen(false)} title={t("Fotoğraf Çek")} closeOnEsc={false} closeOnBackdropClick={false}   >
+            <MyModal show={cameraopen} onClose={() => setCameraopen(false)} title={localT("Fotoğraf Çek")} closeOnEsc={false} closeOnBackdropClick={false}   >
                 <div>
                     <Camera
                         videoConstraints={{

@@ -27,6 +27,12 @@ Object.defineProperty(exports, "MyFileUpload", {
     return _MyFileUpload.default;
   }
 });
+Object.defineProperty(exports, "MyFileUploadAcceptType", {
+  enumerable: true,
+  get: function () {
+    return _MyFileUpload.MyFileUploadAcceptType;
+  }
+});
 Object.defineProperty(exports, "MyImageCropper", {
   enumerable: true,
   get: function () {
@@ -104,7 +110,7 @@ var _MyInput = _interopRequireDefault(require("./components/MyInput/MyInput"));
 var _MyAlert = _interopRequireDefault(require("./components/MyAlert/MyAlert"));
 var _MyContainer = _interopRequireDefault(require("./components/MyContainer/MyContainer"));
 var _MyEditor = _interopRequireDefault(require("./components/MyEditor/MyEditor"));
-var _MyFileUpload = _interopRequireDefault(require("./components/MyFileUpload/MyFileUpload"));
+var _MyFileUpload = _interopRequireWildcard(require("./components/MyFileUpload/MyFileUpload"));
 var _MyImageCropper = _interopRequireDefault(require("./components/MyImageCropper/MyImageCropper"));
 var _YandexMaps = _interopRequireDefault(require("./components/MyMaps/YandexMaps"));
 var _MenuItem = _interopRequireDefault(require("./components/MyMenu/MenuItem"));
@@ -116,6 +122,7 @@ var _MyTabs = _interopRequireDefault(require("./components/MyTabs/MyTabs"));
 var _MyWaiting = _interopRequireDefault(require("./components/MyWaiting/MyWaiting"));
 var _MyZoomImage = _interopRequireDefault(require("./components/MyZoomImage/MyZoomImage"));
 var _MySwitch = _interopRequireDefault(require("./components/MySwitch/MySwitch"));
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 // Export types
 const MyInputType = exports.MyInputType = {

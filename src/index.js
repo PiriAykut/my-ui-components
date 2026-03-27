@@ -2,7 +2,7 @@ export { default as MyInput } from './components/MyInput/MyInput';
 export { default as MyAlert } from './components/MyAlert/MyAlert';
 export { default as MyContainer } from './components/MyContainer/MyContainer';
 export { default as MyEditor } from './components/MyEditor/MyEditor';
-export { default as MyFileUpload } from './components/MyFileUpload/MyFileUpload';
+export { default as MyFileUpload, MyFileUploadAcceptType } from './components/MyFileUpload/MyFileUpload';
 export { default as MyImageCropper } from './components/MyImageCropper/MyImageCropper';
 export { default as MyMaps } from './components/MyMaps/YandexMaps';
 export { default as MyMenu } from './components/MyMenu/MenuItem';

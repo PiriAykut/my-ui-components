@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.AcceptType = void 0;
+exports.MyFileUploadAcceptType = void 0;
 exports.default = MyFileUpload;
 var _react = _interopRequireWildcard(require("react"));
 var _pi = require("react-icons/pi");
@@ -35,7 +35,7 @@ try {
 } catch (error) {
   console.warn("MyFileUpload: react-html5-camera-photo bağımlılığı bulunamadı.");
 }
-const AcceptType = exports.AcceptType = {
+const MyFileUploadAcceptType = exports.MyFileUploadAcceptType = {
   ALL: "all",
   FILE: "file",
   IMAGE: "image",
@@ -43,18 +43,20 @@ const AcceptType = exports.AcceptType = {
   PDF: "pdf",
   IMAGEPDF: "imagepdf"
 };
-Object.freeze(_MyAlert.MyAlertType);
+Object.freeze(MyFileUploadAcceptType);
 function MyFileUpload({
+  t = null,
   multiple = false,
-  accept = AcceptType.ALL,
+  accept = MyFileUploadAcceptType.ALL,
   className = null,
   camera = true,
   maxSizeMB = 50,
   onData
 }) {
+  const localT = typeof t === "function" ? t : key => key;
   const [loading, setLoading] = (0, _react.useState)(false);
-  const [accepttypes, setAccepttypes] = (0, _react.useState)(AcceptType.ALL);
-  const [acceptlabel, setAcceptlabel] = (0, _react.useState)(AcceptType.ALL);
+  const [MyFileUploadAcceptTypes, setMyFileUploadAcceptTypes] = (0, _react.useState)(MyFileUploadAcceptType.ALL);
+  const [acceptlabel, setAcceptlabel] = (0, _react.useState)(MyFileUploadAcceptType.ALL);
   const [cameraopen, setCameraopen] = (0, _react.useState)(false);
   const [cameraopened, setCameraopened] = (0, _react.useState)(false);
   const [devices, setDevices] = (0, _react.useState)([]);
@@ -65,28 +67,28 @@ function MyFileUpload({
   let type_media = ".mp3,.mp4,.avi,.wav";
   (0, _react.useEffect)(() => {
     switch (accept) {
-      case AcceptType.ALL:
-        setAccepttypes(type_files + "," + type_image + "," + type_media);
+      case MyFileUploadAcceptType.ALL:
+        setMyFileUploadAcceptTypes(type_files + "," + type_image + "," + type_media);
         setAcceptlabel("PNG, JPG, PDF, RAR, ZIP, MP3, MP4, AVI, WAV, Word-Excel");
         break;
-      case AcceptType.IMAGE:
-        setAccepttypes(type_image);
+      case MyFileUploadAcceptType.IMAGE:
+        setMyFileUploadAcceptTypes(type_image);
         setAcceptlabel("PNG, JPG ");
         break;
-      case AcceptType.MEDIA:
-        setAccepttypes(type_media);
+      case MyFileUploadAcceptType.MEDIA:
+        setMyFileUploadAcceptTypes(type_media);
         setAcceptlabel("MP3, MP4, AVI, WAV");
         break;
-      case AcceptType.FILE:
-        setAccepttypes(type_files + "," + type_image);
+      case MyFileUploadAcceptType.FILE:
+        setMyFileUploadAcceptTypes(type_files + "," + type_image);
         setAcceptlabel("PDF, RAR, ZIP, PNG, JPG, Word-Excel ");
         break;
-      case AcceptType.PDF:
-        setAccepttypes(".pdf");
+      case MyFileUploadAcceptType.PDF:
+        setMyFileUploadAcceptTypes(".pdf");
         setAcceptlabel("PDF");
         break;
-      case AcceptType.IMAGEPDF:
-        setAccepttypes(type_image + ",.pdf");
+      case MyFileUploadAcceptType.IMAGEPDF:
+        setMyFileUploadAcceptTypes(type_image + ",.pdf");
         setAcceptlabel("PNG, JPG, PDF");
         break;
     }
@@ -119,7 +121,7 @@ function MyFileUpload({
 
       let file_ext = file.type.split("/");
       file_ext = file_ext[file_ext.length - 1];
-      if (filesize > maxSizeMB || accepttypes.indexOf(file_ext) == -1) {
+      if (filesize > maxSizeMB || MyFileUploadAcceptTypes.indexOf(file_ext) == -1) {
         if (filesize > maxSizeMB) {
           _error.push({
             filename: file.name,
@@ -260,7 +262,7 @@ function MyFileUpload({
               ref: fileInputRef,
               onChange: handleFileInputChange,
               multiple: multiple,
-              accept: accepttypes
+              accept: MyFileUploadAcceptTypes
             }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
               className: _MyFileUploadModule.default.myFileUploadButton,
               onClick: () => fileInputRef.current.click(),
@@ -293,7 +295,7 @@ function MyFileUpload({
     }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_MyModal.default, {
       show: cameraopen,
       onClose: () => setCameraopen(false),
-      title: t("Fotoğraf Çek"),
+      title: localT("Fotoğraf Çek"),
       closeOnEsc: false,
       closeOnBackdropClick: false,
       children: /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
