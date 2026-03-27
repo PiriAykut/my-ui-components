@@ -51,6 +51,8 @@ const MyFileUploadAcceptType = exports.MyFileUploadAcceptType = {
 Object.freeze(MyFileUploadAcceptType);
 function MyFileUpload({
   t = null,
+  name = null,
+  required = false,
   multiple = false,
   accept = MyFileUploadAcceptType.ALL,
   camera = true,
@@ -120,7 +122,20 @@ function MyFileUpload({
       });
       (0, _MyAlert.MyAlert)("<br/><br/><div style='display: block;font-size:13px;width: 100%;text-align: left;'>" + message + "</div>", _MyAlert.MyAlertType.WARNING);
     }
-    if (onData && (Array.isArray(resdata) && resdata.length > 0 || !Array.isArray(resdata) && resdata)) onData(resdata);
+    if (onData && (Array.isArray(resdata) && resdata.length > 0 || !Array.isArray(resdata) && resdata)) {
+      if (name) {
+        onData({
+          target: {
+            name: name,
+            files: Array.isArray(resdata) ? resdata : [resdata],
+            value: Array.isArray(resdata) ? resdata : [resdata]
+          },
+          value: Array.isArray(resdata) ? resdata : [resdata]
+        });
+      } else {
+        onData(resdata);
+      }
+    }
     setLoading(false);
   };
   const getBase64 = (files, callback = null) => {
@@ -259,7 +274,7 @@ function MyFileUpload({
         flexDirection: 'row',
         gap: '1px'
       },
-      children: [label && /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      children: [label && /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
         style: {
           display: "block",
           fontSize: 11,
@@ -271,7 +286,12 @@ function MyFileUpload({
           letterSpacing: "0.05em"
         },
         className: labelClassName ? labelClassName : '',
-        children: label
+        children: [label, " ", required && /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+          style: {
+            color: 'red'
+          },
+          children: "*"
+        })]
       }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
         className: _MyFileUploadModule.default.myFileUploadContainer + (className != null ? " " + className : ''),
         children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
@@ -341,7 +361,7 @@ function MyFileUpload({
             } : undefined
           },
           onTakePhoto: dataUri => {
-            console.log(dataUri);
+            // console.log(dataUri);
             handleTakePhoto(dataUri);
           },
           onCameraError: handleCameraError,

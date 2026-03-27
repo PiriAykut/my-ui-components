@@ -47,6 +47,8 @@ Object.freeze(MyFileUploadAcceptType);
 
 export default function MyFileUpload({
     t = null,
+    name = null,
+    required = false,
     multiple = false,
     accept = MyFileUploadAcceptType.ALL,
     camera = true,
@@ -149,8 +151,20 @@ export default function MyFileUpload({
             (Array.isArray(resdata) && resdata.length > 0) ||
             (!Array.isArray(resdata) && resdata)
         )
-        )
-            onData(resdata);
+        ) {
+            if (name) {
+                onData({
+                    target: {
+                        name: name,
+                        files: Array.isArray(resdata) ? resdata : [resdata],
+                        value: Array.isArray(resdata) ? resdata : [resdata],
+                    },
+                    value: Array.isArray(resdata) ? resdata : [resdata],
+                });
+            } else {
+                onData(resdata);
+            }
+        }
 
         setLoading(false);
     };
@@ -337,7 +351,7 @@ export default function MyFileUpload({
                         }}
                         className={labelClassName ? labelClassName : ''}
                     >
-                        {label}
+                        {label} {required && <span style={{ color: 'red' }}>*</span>}
                     </div>
                 )}
                 <div className={styles.myFileUploadContainer + (className != null ? " " + className : '')}>
@@ -405,7 +419,7 @@ export default function MyFileUpload({
                                 : undefined,
                         }}
                         onTakePhoto={(dataUri) => {
-                            console.log(dataUri);
+                            // console.log(dataUri);
                             handleTakePhoto(dataUri);
                         }}
                         onCameraError={handleCameraError}
