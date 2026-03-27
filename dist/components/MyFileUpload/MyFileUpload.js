@@ -49,6 +49,11 @@ function MyFileUpload({
   multiple = false,
   accept = MyFileUploadAcceptType.ALL,
   className = null,
+  classNameContainer = null,
+  classNameItem = null,
+  classNameIcon = null,
+  classNameFile = null,
+  classNameCamera = null,
   camera = true,
   maxSizeMB = 50,
   onData
@@ -241,13 +246,13 @@ function MyFileUpload({
       show: loading,
       message: ""
     }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-      className: className,
+      className: classNameContainer,
       children: /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-        className: _MyFileUploadModule.default.myFileUploadContainer,
+        className: _MyFileUploadModule.default.myFileUploadContainer + (className != null ? " " + className : ''),
         children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-          className: _MyFileUploadModule.default.myFileUploadContainerItem,
+          className: _MyFileUploadModule.default.myFileUploadContainerItem + (classNameItem != null ? " " + classNameItem : ''),
           children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-            className: _MyFileUploadModule.default.myFileUploadContainerItemIcon,
+            className: _MyFileUploadModule.default.myFileUploadContainerItemIcon + (classNameIcon != null ? " " + classNameIcon : ''),
             children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_pi.PiFileArrowUpLight, {
               className: _MyFileUploadModule.default.Icon
             }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("h2", {
@@ -255,7 +260,7 @@ function MyFileUpload({
               children: [acceptlabel, /*#__PURE__*/(0, _jsxRuntime.jsx)("br", {}), " ", maxSizeMB, " MB"]
             })]
           }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-            className: _MyFileUploadModule.default.myFileUploadContainerItemFile,
+            className: _MyFileUploadModule.default.myFileUploadContainerItemFile + (classNameFile != null ? " " + classNameFile : ''),
             children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("input", {
               type: "file",
               hidden: true,
@@ -270,19 +275,19 @@ function MyFileUpload({
             })]
           })]
         }), camera && /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-          className: _MyFileUploadModule.default.myFileUploadContainerItem,
+          className: _MyFileUploadModule.default.myFileUploadContainerItem + (classNameCamera != null ? " " + classNameCamera : ''),
           children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-            className: _MyFileUploadModule.default.myFileUploadContainerItemIcon,
+            className: _MyFileUploadModule.default.myFileUploadContainerItemIcon + (classNameIcon != null ? " " + classNameIcon : ''),
             children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_pi.PiCamera, {
               className: _MyFileUploadModule.default.Icon
             }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
               className: _MyFileUploadModule.default.myFileUploadContainerItemIconText,
               children: /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
-                children: "You can take a photo from the camera."
+                children: localT("Kameradan fotoğraf çekebilirsin.")
               })
             })]
           }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-            className: _MyFileUploadModule.default.myFileUploadContainerItemFile,
+            className: _MyFileUploadModule.default.myFileUploadContainerItemFile + (classNameFile != null ? " " + classNameFile : ''),
             children: /*#__PURE__*/(0, _jsxRuntime.jsx)("button", {
               type: "button",
               className: _MyFileUploadModule.default.myFileUploadButton,

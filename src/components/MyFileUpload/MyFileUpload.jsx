@@ -45,6 +45,11 @@ export default function MyFileUpload({
     multiple = false,
     accept = MyFileUploadAcceptType.ALL,
     className = null,
+    classNameContainer = null,
+    classNameItem = null,
+    classNameIcon = null,
+    classNameFile = null,
+    classNameCamera = null,
     camera = true,
     maxSizeMB = 50,
     onData,
@@ -307,17 +312,17 @@ export default function MyFileUpload({
     return (
         <>
             <MyWaiting show={loading} message="" />
-            <div className={className}>
-                <div className={styles.myFileUploadContainer}>
-                    <div className={styles.myFileUploadContainerItem}>
-                        <div className={styles.myFileUploadContainerItemIcon}>
+            <div className={classNameContainer}>
+                <div className={styles.myFileUploadContainer + (className != null ? " " + className : '')}>
+                    <div className={styles.myFileUploadContainerItem + (classNameItem != null ? " " + classNameItem : '')}>
+                        <div className={styles.myFileUploadContainerItemIcon + (classNameIcon != null ? " " + classNameIcon : '')}>
                             <PiFileArrowUpLight className={styles.Icon} />
                             <h2 className={styles.myFileUploadContainerItemIconText}>
                                 {acceptlabel}
                                 <br /> {maxSizeMB} MB
                             </h2>
                         </div>
-                        <div className={styles.myFileUploadContainerItemFile}>
+                        <div className={styles.myFileUploadContainerItemFile + (classNameFile != null ? " " + classNameFile : '')}>
                             <input
                                 type="file"
                                 hidden
@@ -335,17 +340,16 @@ export default function MyFileUpload({
                         </div>
                     </div>
                     {camera && (
-                        <div className={styles.myFileUploadContainerItem}>
-                            <div className={styles.myFileUploadContainerItemIcon}>
+                        <div className={styles.myFileUploadContainerItem + (classNameCamera != null ? " " + classNameCamera : '')}>
+                            <div className={styles.myFileUploadContainerItemIcon + (classNameIcon != null ? " " + classNameIcon : '')}>
                                 <PiCamera className={styles.Icon} />
                                 <div className={styles.myFileUploadContainerItemIconText}>
                                     <span>
-                                        {/* {t("Kameradan fotoğraf çekebilirsin.")} */}
-                                        You can take a photo from the camera.
+                                        {localT("Kameradan fotoğraf çekebilirsin.")}
                                     </span>
                                 </div>
                             </div>
-                            <div className={styles.myFileUploadContainerItemFile}>
+                            <div className={styles.myFileUploadContainerItemFile + (classNameFile != null ? " " + classNameFile : '')}>
                                 <button
                                     type="button"
                                     className={styles.myFileUploadButton}

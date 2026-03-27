@@ -20,26 +20,26 @@ A modern, customizable React UI components library designed to simplify web deve
 npm install px-react-ui-components
 
 # Install required peer dependencies
-npm install react@^18.3.1 react-dom@^18.3.1 react-icons@^5.5.0
+npm install react react-dom react-icons
 
 # Optional dependencies (install only if you need specific components)
 # For MyEditor component:
 npm install react-quill@^2.0.0 quill@^1.3.7 quill-image-resize-module-react@^3.0.0 quill-table-ui@^1.0.7 katex@^0.16.21
 
 # For MyAlert component:
-npm install react-confirm-alert@^3.0.6
+npm install react-confirm-alert
 
 # For MyImageCropper component:
-npm install react-image-crop@^11.0.7
+npm install react-image-crop
 
 # For MyWaiting component:
-npm install react-loader-spinner@^7.0.3
+npm install react-loader-spinner
 
 # For MyFileUpload component:
-npm install react-image-file-resizer@^3.0.4 react-html5-camera-photo@^1.5.4
+npm install react-image-file-resizer react-html5-camera-photo
 
 # For MyZoomImage component:
-npm install react-zoom-pan-pinch@^3.7.0
+npm install react-zoom-pan-pinch
 ```
 
 ## Dependencies
