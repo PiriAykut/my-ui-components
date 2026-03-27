@@ -20,8 +20,13 @@ let Resizer, Camera, FACING_MODES, IMAGE_TYPES;
 let hasImageResizer = false;
 let hasCamera = false;
 try {
-  Resizer = require("react-image-file-resizer");
-  hasImageResizer = true;
+  const raw = require("react-image-file-resizer");
+  // Vite/ESM: default export is { default: { imageFileResizer } }; CJS often { imageFileResizer }
+  const resolved = raw && (raw.default ?? raw);
+  if (resolved && typeof resolved.imageFileResizer === "function") {
+    Resizer = resolved;
+    hasImageResizer = true;
+  }
 } catch (error) {
   console.warn("MyFileUpload: react-image-file-resizer bağımlılığı bulunamadı.");
 }
@@ -51,6 +56,8 @@ function MyFileUpload({
   camera = true,
   maxSizeMB = 50,
   onData,
+  label = null,
+  labelClassName = null,
   className = null,
   classNameContainer = null,
   classNameItem = null,
@@ -150,7 +157,7 @@ function MyFileUpload({
         continue;
       }
       let extension_type = type_image.indexOf(file_ext) > -1 ? "image" : "file";
-      if (extension_type == "file") {
+      if (extension_type == "file" || !hasImageResizer) {
         const reader = new FileReader();
         reader.onload = function () {
           let fileitem = {
@@ -246,9 +253,26 @@ function MyFileUpload({
     children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_MyWaiting.default, {
       show: loading,
       message: ""
-    }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-      className: classNameContainer,
-      children: /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+    }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '1px'
+      },
+      children: [label && /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        style: {
+          display: "block",
+          fontSize: 11,
+          fontWeight: "bold",
+          color: "black",
+          marginBottom: "0.25rem",
+          paddingLeft: "0.5rem",
+          textTransform: "uppercase",
+          letterSpacing: "0.05em"
+        },
+        className: labelClassName ? labelClassName : '',
+        children: label
+      }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
         className: _MyFileUploadModule.default.myFileUploadContainer + (className != null ? " " + className : ''),
         children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
           className: _MyFileUploadModule.default.myFileUploadContainerItem + (classNameItem != null ? " " + classNameItem : ''),
@@ -301,7 +325,7 @@ function MyFileUpload({
             })
           })]
         })]
-      })
+      })]
     }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_MyModal.default, {
       show: cameraopen,
       onClose: () => setCameraopen(false),
