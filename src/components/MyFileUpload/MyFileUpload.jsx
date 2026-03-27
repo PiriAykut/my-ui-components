@@ -12,21 +12,21 @@ let hasImageResizer = false;
 let hasCamera = false;
 
 try {
-  Resizer = require("react-image-file-resizer");
-  hasImageResizer = true;
+    Resizer = require("react-image-file-resizer");
+    hasImageResizer = true;
 } catch (error) {
-  console.warn("MyFileUpload: react-image-file-resizer bağımlılığı bulunamadı.");
+    console.warn("MyFileUpload: react-image-file-resizer bağımlılığı bulunamadı.");
 }
 
 try {
-  const cameraModule = require("react-html5-camera-photo");
-  Camera = cameraModule.default;
-  FACING_MODES = cameraModule.FACING_MODES;
-  IMAGE_TYPES = cameraModule.IMAGE_TYPES;
-  require("react-html5-camera-photo/build/css/index.css");
-  hasCamera = true;
+    const cameraModule = require("react-html5-camera-photo");
+    Camera = cameraModule.default;
+    FACING_MODES = cameraModule.FACING_MODES;
+    IMAGE_TYPES = cameraModule.IMAGE_TYPES;
+    require("react-html5-camera-photo/build/css/index.css");
+    hasCamera = true;
 } catch (error) {
-  console.warn("MyFileUpload: react-html5-camera-photo bağımlılığı bulunamadı.");
+    console.warn("MyFileUpload: react-html5-camera-photo bağımlılığı bulunamadı.");
 }
 
 export const MyFileUploadAcceptType = {
@@ -44,14 +44,16 @@ export default function MyFileUpload({
     t = null,
     multiple = false,
     accept = MyFileUploadAcceptType.ALL,
+    camera = true,
+    maxSizeMB = 50,
+    onData,
+
     className = null,
     classNameContainer = null,
     classNameItem = null,
     classNameIcon = null,
     classNameButton = null,
-    camera = true,
-    maxSizeMB = 50,
-    onData,
+    classNameModal = null
 }) {
 
     const localT = typeof t === "function" ? t : ((key) => key);
@@ -188,7 +190,7 @@ export default function MyFileUpload({
 
             if (extension_type == "file") {
                 const reader = new FileReader();
-                reader.onload = function() {
+                reader.onload = function () {
                     let fileitem = {
                         base64: reader.result,
                         extension: file_ext,
@@ -314,8 +316,8 @@ export default function MyFileUpload({
             <div className={classNameContainer}>
                 <div className={styles.myFileUploadContainer + (className != null ? " " + className : '')}>
                     <div className={styles.myFileUploadContainerItem + (classNameItem != null ? " " + classNameItem : '')}>
-                        <div className={styles.myFileUploadContainerItemIcon + (classNameIcon != null ? " " + classNameIcon : '')}>
-                            <PiFileArrowUpLight className={styles.Icon} />
+                        <div className={styles.myFileUploadContainerItemIcon}>
+                            <PiFileArrowUpLight className={styles.Icon + (classNameIcon != null ? " " + classNameIcon : '')} />
                             <h2 className={styles.myFileUploadContainerItemIconText}>
                                 {acceptlabel}
                                 <br /> {maxSizeMB} MB
@@ -340,8 +342,8 @@ export default function MyFileUpload({
                     </div>
                     {camera && (
                         <div className={styles.myFileUploadContainerItem + (classNameItem != null ? " " + classNameItem : '')}>
-                            <div className={styles.myFileUploadContainerItemIcon + (classNameIcon != null ? " " + classNameIcon : '')}>
-                                <PiCamera className={styles.Icon} />
+                            <div className={styles.myFileUploadContainerItemIcon}>
+                                <PiCamera className={styles.Icon + (classNameIcon != null ? " " + classNameIcon : '')} />
                                 <div className={styles.myFileUploadContainerItemIconText}>
                                     <span>
                                         {localT("Kameradan fotoğraf çekebilirsin.")}
@@ -361,7 +363,14 @@ export default function MyFileUpload({
                     )}
                 </div>
             </div>
-            <MyModal show={cameraopen} onClose={() => setCameraopen(false)} title={localT("Fotoğraf Çek")} closeOnEsc={false} closeOnBackdropClick={false}   >
+            <MyModal
+                show={cameraopen}
+                onClose={() => setCameraopen(false)}
+                title={localT("Fotoğraf Çek")}
+                closeOnEsc={false}
+                closeOnBackdropClick={false}
+                className={classNameModal != null ? " " + classNameModal : ''}
+            >
                 <div>
                     <Camera
                         videoConstraints={{

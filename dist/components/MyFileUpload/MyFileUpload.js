@@ -48,14 +48,15 @@ function MyFileUpload({
   t = null,
   multiple = false,
   accept = MyFileUploadAcceptType.ALL,
+  camera = true,
+  maxSizeMB = 50,
+  onData,
   className = null,
   classNameContainer = null,
   classNameItem = null,
   classNameIcon = null,
   classNameButton = null,
-  camera = true,
-  maxSizeMB = 50,
-  onData
+  classNameModal = null
 }) {
   const localT = typeof t === "function" ? t : key => key;
   const [loading, setLoading] = (0, _react.useState)(false);
@@ -251,9 +252,9 @@ function MyFileUpload({
         children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
           className: _MyFileUploadModule.default.myFileUploadContainerItem + (classNameItem != null ? " " + classNameItem : ''),
           children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-            className: _MyFileUploadModule.default.myFileUploadContainerItemIcon + (classNameIcon != null ? " " + classNameIcon : ''),
+            className: _MyFileUploadModule.default.myFileUploadContainerItemIcon,
             children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_pi.PiFileArrowUpLight, {
-              className: _MyFileUploadModule.default.Icon
+              className: _MyFileUploadModule.default.Icon + (classNameIcon != null ? " " + classNameIcon : '')
             }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("h2", {
               className: _MyFileUploadModule.default.myFileUploadContainerItemIconText,
               children: [acceptlabel, /*#__PURE__*/(0, _jsxRuntime.jsx)("br", {}), " ", maxSizeMB, " MB"]
@@ -276,9 +277,9 @@ function MyFileUpload({
         }), camera && /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
           className: _MyFileUploadModule.default.myFileUploadContainerItem + (classNameItem != null ? " " + classNameItem : ''),
           children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-            className: _MyFileUploadModule.default.myFileUploadContainerItemIcon + (classNameIcon != null ? " " + classNameIcon : ''),
+            className: _MyFileUploadModule.default.myFileUploadContainerItemIcon,
             children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_pi.PiCamera, {
-              className: _MyFileUploadModule.default.Icon
+              className: _MyFileUploadModule.default.Icon + (classNameIcon != null ? " " + classNameIcon : '')
             }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
               className: _MyFileUploadModule.default.myFileUploadContainerItemIconText,
               children: /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
@@ -302,6 +303,7 @@ function MyFileUpload({
       title: localT("Fotoğraf Çek"),
       closeOnEsc: false,
       closeOnBackdropClick: false,
+      className: classNameModal != null ? " " + classNameModal : '',
       children: /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
         children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Camera, {
           videoConstraints: {
