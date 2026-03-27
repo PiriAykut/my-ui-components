@@ -336,7 +336,7 @@ export default function MyFileUpload({
     return (
         <>
             <MyWaiting show={loading} message="" />
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '1px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
                 {label && (
                     <div
                         style={{
@@ -351,7 +351,10 @@ export default function MyFileUpload({
                         }}
                         className={labelClassName ? labelClassName : ''}
                     >
-                        {label} {required && <span style={{ color: 'red' }}>*</span>}
+                    <span style={{ display: 'flex', flexDirection: 'row', gap: '5px' }}>
+                        <span>{label}</span>
+                        {required && <span style={{ color: 'red' }}>*</span>}
+                    </span>
                     </div>
                 )}
                 <div className={styles.myFileUploadContainer + (className != null ? " " + className : '')}>

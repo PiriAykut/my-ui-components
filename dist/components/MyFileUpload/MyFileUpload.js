@@ -271,10 +271,10 @@ function MyFileUpload({
     }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
       style: {
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         gap: '1px'
       },
-      children: [label && /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      children: [label && /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
         style: {
           display: "block",
           fontSize: 11,
@@ -286,12 +286,21 @@ function MyFileUpload({
           letterSpacing: "0.05em"
         },
         className: labelClassName ? labelClassName : '',
-        children: [label, " ", required && /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+        children: /*#__PURE__*/(0, _jsxRuntime.jsxs)("span", {
           style: {
-            color: 'red'
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '5px'
           },
-          children: "*"
-        })]
+          children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+            children: label
+          }), required && /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+            style: {
+              color: 'red'
+            },
+            children: "*"
+          })]
+        })
       }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
         className: _MyFileUploadModule.default.myFileUploadContainer + (className != null ? " " + className : ''),
         children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
