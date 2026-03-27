@@ -285,7 +285,6 @@ function MyFileUpload({
           textTransform: "uppercase",
           letterSpacing: "0.05em"
         },
-        className: labelClassName ? labelClassName : '',
         children: /*#__PURE__*/(0, _jsxRuntime.jsxs)("span", {
           style: {
             display: 'flex',
@@ -293,6 +292,7 @@ function MyFileUpload({
             gap: '5px'
           },
           children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+            className: labelClassName ? labelClassName : '',
             children: label
           }), required && /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
             style: {

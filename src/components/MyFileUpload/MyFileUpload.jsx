@@ -349,10 +349,9 @@ export default function MyFileUpload({
                             textTransform: "uppercase",
                             letterSpacing: "0.05em"
                         }}
-                        className={labelClassName ? labelClassName : ''}
                     >
                     <span style={{ display: 'flex', flexDirection: 'row', gap: '5px' }}>
-                        <span>{label}</span>
+                        <span className={labelClassName ? labelClassName : ''}>{label}</span>
                         {required && <span style={{ color: 'red' }}>*</span>}
                     </span>
                     </div>
