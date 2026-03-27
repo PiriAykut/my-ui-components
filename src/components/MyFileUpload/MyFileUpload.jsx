@@ -321,7 +321,7 @@ export default function MyFileUpload({
                                 <br /> {maxSizeMB} MB
                             </h2>
                         </div>
-                        <div className={styles.myFileUploadContainerItemFile + (classNameButton != null ? " " + classNameButton : '')}>
+                        <div className={styles.myFileUploadContainerItemFile}>
                             <input
                                 type="file"
                                 hidden
@@ -331,7 +331,7 @@ export default function MyFileUpload({
                                 accept={MyFileUploadAcceptTypes}
                             />
                             <div
-                                className={styles.myFileUploadButton}
+                                className={styles.myFileUploadButton + (classNameButton != null ? " " + classNameButton : '')}
                                 onClick={() => fileInputRef.current.click()}
                             >
                                 <MdOutlineAttachFile />
@@ -348,10 +348,10 @@ export default function MyFileUpload({
                                     </span>
                                 </div>
                             </div>
-                            <div className={styles.myFileUploadContainerItemFile + (classNameButton != null ? " " + classNameButton : '')}>
+                            <div className={styles.myFileUploadContainerItemFile}>
                                 <button
                                     type="button"
-                                    className={styles.myFileUploadButton}
+                                    className={styles.myFileUploadButton + (classNameButton != null ? " " + classNameButton : '')}
                                     onClick={() => setCameraopen(true)}
                                 >
                                     <PiCamera />
