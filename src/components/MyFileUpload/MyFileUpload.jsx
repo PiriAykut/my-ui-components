@@ -337,7 +337,7 @@ export default function MyFileUpload({
                                 className={styles.myFileUploadButton + (classNameButton != null ? " " + classNameButton : '')}
                                 onClick={() => fileInputRef.current.click()}
                             >
-                                <MdOutlineAttachFile className={+ (classNameButtonIcon != null ? " " + classNameButtonIcon : '')} />
+                                <MdOutlineAttachFile className={(classNameButtonIcon != null ? classNameButtonIcon : '')} />
                             </div>
                         </div>
                     </div>
@@ -357,7 +357,7 @@ export default function MyFileUpload({
                                     className={styles.myFileUploadButton + (classNameButton != null ? " " + classNameButton : '')}
                                     onClick={() => setCameraopen(true)}
                                 >
-                                    <PiCamera className={+ (classNameButtonIcon != null ? " " + classNameButtonIcon : '')} />
+                                    <PiCamera className={(classNameButtonIcon != null ? classNameButtonIcon : '')} />
                                 </button>
                             </div>
                         </div>

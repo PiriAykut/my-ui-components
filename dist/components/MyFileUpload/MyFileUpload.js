@@ -273,7 +273,7 @@ function MyFileUpload({
               className: _MyFileUploadModule.default.myFileUploadButton + (classNameButton != null ? " " + classNameButton : ''),
               onClick: () => fileInputRef.current.click(),
               children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_md.MdOutlineAttachFile, {
-                className: +(classNameButtonIcon != null ? " " + classNameButtonIcon : '')
+                className: classNameButtonIcon != null ? classNameButtonIcon : ''
               })
             })]
           })]
@@ -296,7 +296,7 @@ function MyFileUpload({
               className: _MyFileUploadModule.default.myFileUploadButton + (classNameButton != null ? " " + classNameButton : ''),
               onClick: () => setCameraopen(true),
               children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_pi.PiCamera, {
-                className: +(classNameButtonIcon != null ? " " + classNameButtonIcon : '')
+                className: classNameButtonIcon != null ? classNameButtonIcon : ''
               })
             })
           })]
