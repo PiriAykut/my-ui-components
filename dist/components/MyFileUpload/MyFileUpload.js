@@ -52,8 +52,7 @@ function MyFileUpload({
   classNameContainer = null,
   classNameItem = null,
   classNameIcon = null,
-  classNameFile = null,
-  classNameCamera = null,
+  classNameButton = null,
   camera = true,
   maxSizeMB = 50,
   onData
@@ -260,7 +259,7 @@ function MyFileUpload({
               children: [acceptlabel, /*#__PURE__*/(0, _jsxRuntime.jsx)("br", {}), " ", maxSizeMB, " MB"]
             })]
           }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-            className: _MyFileUploadModule.default.myFileUploadContainerItemFile + (classNameFile != null ? " " + classNameFile : ''),
+            className: _MyFileUploadModule.default.myFileUploadContainerItemFile + (classNameButton != null ? " " + classNameButton : ''),
             children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("input", {
               type: "file",
               hidden: true,
@@ -275,7 +274,7 @@ function MyFileUpload({
             })]
           })]
         }), camera && /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-          className: _MyFileUploadModule.default.myFileUploadContainerItem + (classNameCamera != null ? " " + classNameCamera : ''),
+          className: _MyFileUploadModule.default.myFileUploadContainerItem + (classNameItem != null ? " " + classNameItem : ''),
           children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
             className: _MyFileUploadModule.default.myFileUploadContainerItemIcon + (classNameIcon != null ? " " + classNameIcon : ''),
             children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_pi.PiCamera, {
@@ -287,7 +286,7 @@ function MyFileUpload({
               })
             })]
           }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-            className: _MyFileUploadModule.default.myFileUploadContainerItemFile + (classNameFile != null ? " " + classNameFile : ''),
+            className: _MyFileUploadModule.default.myFileUploadContainerItemFile + (classNameButton != null ? " " + classNameButton : ''),
             children: /*#__PURE__*/(0, _jsxRuntime.jsx)("button", {
               type: "button",
               className: _MyFileUploadModule.default.myFileUploadButton,

@@ -48,8 +48,7 @@ export default function MyFileUpload({
     classNameContainer = null,
     classNameItem = null,
     classNameIcon = null,
-    classNameFile = null,
-    classNameCamera = null,
+    classNameButton = null,
     camera = true,
     maxSizeMB = 50,
     onData,
@@ -322,7 +321,7 @@ export default function MyFileUpload({
                                 <br /> {maxSizeMB} MB
                             </h2>
                         </div>
-                        <div className={styles.myFileUploadContainerItemFile + (classNameFile != null ? " " + classNameFile : '')}>
+                        <div className={styles.myFileUploadContainerItemFile + (classNameButton != null ? " " + classNameButton : '')}>
                             <input
                                 type="file"
                                 hidden
@@ -340,7 +339,7 @@ export default function MyFileUpload({
                         </div>
                     </div>
                     {camera && (
-                        <div className={styles.myFileUploadContainerItem + (classNameCamera != null ? " " + classNameCamera : '')}>
+                        <div className={styles.myFileUploadContainerItem + (classNameItem != null ? " " + classNameItem : '')}>
                             <div className={styles.myFileUploadContainerItemIcon + (classNameIcon != null ? " " + classNameIcon : '')}>
                                 <PiCamera className={styles.Icon} />
                                 <div className={styles.myFileUploadContainerItemIconText}>
@@ -349,7 +348,7 @@ export default function MyFileUpload({
                                     </span>
                                 </div>
                             </div>
-                            <div className={styles.myFileUploadContainerItemFile + (classNameFile != null ? " " + classNameFile : '')}>
+                            <div className={styles.myFileUploadContainerItemFile + (classNameButton != null ? " " + classNameButton : '')}>
                                 <button
                                     type="button"
                                     className={styles.myFileUploadButton}
