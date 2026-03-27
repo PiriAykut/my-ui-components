@@ -56,7 +56,8 @@ function MyFileUpload({
   classNameItem = null,
   classNameIcon = null,
   classNameButton = null,
-  classNameModal = null
+  classNameModal = null,
+  classNameButtonIcon = null
 }) {
   const localT = typeof t === "function" ? t : key => key;
   const [loading, setLoading] = (0, _react.useState)(false);
@@ -271,7 +272,9 @@ function MyFileUpload({
             }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
               className: _MyFileUploadModule.default.myFileUploadButton + (classNameButton != null ? " " + classNameButton : ''),
               onClick: () => fileInputRef.current.click(),
-              children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_md.MdOutlineAttachFile, {})
+              children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_md.MdOutlineAttachFile, {
+                className: +(classNameButtonIcon != null ? " " + classNameButtonIcon : '')
+              })
             })]
           })]
         }), camera && /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
@@ -292,7 +295,9 @@ function MyFileUpload({
               type: "button",
               className: _MyFileUploadModule.default.myFileUploadButton + (classNameButton != null ? " " + classNameButton : ''),
               onClick: () => setCameraopen(true),
-              children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_pi.PiCamera, {})
+              children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_pi.PiCamera, {
+                className: +(classNameButtonIcon != null ? " " + classNameButtonIcon : '')
+              })
             })
           })]
         })]
